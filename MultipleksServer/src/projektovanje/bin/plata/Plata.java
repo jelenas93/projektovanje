@@ -1,0 +1,162 @@
+package projektovanje.bin.plata;
+
+import java.util.Date;
+
+public class Plata {
+    private Double doprinosZaPenziono;
+    private Double doprinosZaZdravstveno;
+    private Double doprinosZaDjecijuZastitu;
+    private Double doprinosZaZaposljavanje;
+    private Double stopaPoreza;
+    private Double stopaZaPenziono;
+    private Double stopaZaZdravstveno;
+    private Double stopaZaDjecijuZastitu;
+    private Double stopaZaZaposljavanje;
+    private Double netoTekuciRad;
+    private Double netoMinuliRad;
+    private Double bruto;
+    private Double porezNaPlatu;
+    private Date datumOd;
+    private Date datumDo;
+
+    public Plata() {
+    }
+
+    public Plata(Double doprinosZaPenziono, Double doprinosZaZdravstveno, Double doprinosZaDjecijuZastitu, Double doprinosZaZaposljavanje, Double stopaPoreza, Double stopaZaPenziono, Double stopaZaZdravstveno, Double stopaZaDjecijuZastitu, Double stopaZaZaposljavanje, Double netoTekuciRad, Double netoMinuliRad, Double bruto, Double porezNaPlatu, Date datumOd, Date datumDo) {
+        this.doprinosZaPenziono = doprinosZaPenziono;
+        this.doprinosZaZdravstveno = doprinosZaZdravstveno;
+        this.doprinosZaDjecijuZastitu = doprinosZaDjecijuZastitu;
+        this.doprinosZaZaposljavanje = doprinosZaZaposljavanje;
+        this.stopaPoreza = stopaPoreza;
+        this.stopaZaPenziono = stopaZaPenziono;
+        this.stopaZaZdravstveno = stopaZaZdravstveno;
+        this.stopaZaDjecijuZastitu = stopaZaDjecijuZastitu;
+        this.stopaZaZaposljavanje = stopaZaZaposljavanje;
+        this.netoTekuciRad = netoTekuciRad;
+        this.netoMinuliRad = netoMinuliRad;
+        this.bruto = bruto;
+        this.porezNaPlatu = porezNaPlatu;
+        this.datumOd = datumOd;
+        this.datumDo = datumDo;
+    }
+
+    public Double getDoprinosZaPenziono() {
+        return doprinosZaPenziono;
+    }
+
+    public void setDoprinosZaPenziono(Double doprinosZaPenziono) {
+        this.doprinosZaPenziono = doprinosZaPenziono;
+    }
+
+    public Double getDoprinosZaZdravstveno() {
+        return doprinosZaZdravstveno;
+    }
+
+    public void setDoprinosZaZdravstveno(Double doprinosZaZdravstveno) {
+        this.doprinosZaZdravstveno = doprinosZaZdravstveno;
+    }
+
+    public Double getDoprinosZaDjecijuZastitu() {
+        return doprinosZaDjecijuZastitu;
+    }
+
+    public void setDoprinosZaDjecijuZastitu(Double doprinosZaDjecijuZastitu) {
+        this.doprinosZaDjecijuZastitu = doprinosZaDjecijuZastitu;
+    }
+
+    public Double getDoprinosZaZaposljavanje() {
+        return doprinosZaZaposljavanje;
+    }
+
+    public void setDoprinosZaZaposljavanje(Double doprinosZaZaposljavanje) {
+        this.doprinosZaZaposljavanje = doprinosZaZaposljavanje;
+    }
+
+    public Double getStopaPoreza() {
+        return stopaPoreza;
+    }
+
+    public void setStopaPoreza(Double stopaPoreza) {
+        this.stopaPoreza = stopaPoreza;
+    }
+
+    public Double getStopaZaPenziono() {
+        return stopaZaPenziono;
+    }
+
+    public void setStopaZaPenziono(Double stopaZaPenziono) {
+        this.stopaZaPenziono = stopaZaPenziono;
+    }
+
+    public Double getStopaZaZdravstveno() {
+        return stopaZaZdravstveno;
+    }
+
+    public void setStopaZaZdravstveno(Double stopaZaZdravstveno) {
+        this.stopaZaZdravstveno = stopaZaZdravstveno;
+    }
+
+    public Double getStopaZaDjecijuZastitu() {
+        return stopaZaDjecijuZastitu;
+    }
+
+    public void setStopaZaDjecijuZastitu(Double stopaZaDjecijuZastitu) {
+        this.stopaZaDjecijuZastitu = stopaZaDjecijuZastitu;
+    }
+
+    public Double getStopaZaZaposljavanje() {
+        return stopaZaZaposljavanje;
+    }
+
+    public void setStopaZaZaposljavanje(Double stopaZaZaposljavanje) {
+        this.stopaZaZaposljavanje = stopaZaZaposljavanje;
+    }
+
+    public Double getNetoTekuciRad() {
+        return netoTekuciRad;
+    }
+
+    public void setNetoTekuciRad(Double netoTekuciRad) {
+        this.netoTekuciRad = netoTekuciRad;
+    }
+
+    public Double getNetoMinuliRad() {
+        return netoMinuliRad;
+    }
+
+    public void setNetoMinuliRad(Double netoMinuliRad) {
+        this.netoMinuliRad = netoMinuliRad;
+    }
+
+    public Double getBruto() {
+        return bruto;
+    }
+
+    public void setBruto(Double bruto) {
+        this.bruto = bruto;
+    }
+
+    public Double getPorezNaPlatu() {
+        return porezNaPlatu;
+    }
+
+    public void setPorezNaPlatu(Double porezNaPlatu) {
+        this.porezNaPlatu = porezNaPlatu;
+    }
+
+    public Date getDatumOd() {
+        return datumOd;
+    }
+
+    public void setDatumOd(Date datumOd) {
+        this.datumOd = datumOd;
+    }
+
+    public Date getDatumDo() {
+        return datumDo;
+    }
+
+    public void setDatumDo(Date datumDo) {
+        this.datumDo = datumDo;
+    }
+}
