@@ -2,14 +2,16 @@ package projektovanje.bin.sala;
 
 public class Sala {
     private Integer idSale;
-    private Integer brojSjedista;
+    private Integer brojVrsta;
+    private Integer brojKolona;
 
     public Sala() {
     }
 
-    public Sala(Integer idSale, Integer brojSjedista) {
+    public Sala(Integer idSale, Integer brojVrsta, Integer brojKolona) {
         this.idSale = idSale;
-        this.brojSjedista = brojSjedista;
+        this.brojVrsta = brojVrsta;
+	this.brojKolona = brojKolona;
     }
 
     public Integer getIdSale() {
@@ -20,11 +22,19 @@ public class Sala {
         this.idSale = idSale;
     }
 
-    public Integer getBrojSjedista() {
-        return brojSjedista;
+    public Integer getBrojVrsta() {
+        return brojVrsta;
     }
 
-    public void setBrojSjedista(Integer brojSjedista) {
-        this.brojSjedista = brojSjedista;
+    public void setBrojVrsta(Integer brojVrsta) {
+        this.brojVrsta = brojVrsta;
+    }
+
+    public Integer getBrojKolona() {
+        return brojVrsta;
+    }
+
+    public void setBrojKolona(Integer brojKolona) {
+        this.brojVrsta = brojVrsta;
     }
 }
