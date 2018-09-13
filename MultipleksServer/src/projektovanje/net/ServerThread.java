@@ -1,6 +1,7 @@
 package projektovanje.net;
 
 import jdk.jshell.spi.ExecutionControl;
+import projektovanje.bin.nalog.Nalog;
 import projektovanje.db.ConnectionPool;
 
 import java.io.*;
@@ -14,6 +15,7 @@ public class ServerThread extends Thread{
     PrintWriter out = null;
     BufferedReader in = null;
     Connection konekcijaNaBazu= null;
+    Nalog nalogTrenutnogKorisnika;
 
     public ServerThread(Socket klijent) throws IOException, SQLException {
         konekcijaNaBazu = ConnectionPool.getInstance().checkOut();
