@@ -1,4 +1,26 @@
-login: LOGIN#USERNAME#PASSWORD odgovor OK ili NOK
-registracija: REGISTER#NAME#SURNAME#USERNAME#PASSWORD#EMAIL odgovor OK ili NOK+razlog
-dodavanje zaposlenog: ADDEMPLOYEE#NAME#SURNAME#PASSWORD#EMAIL#POSITION odgovor OK ili NOK+razlog
+login: LOGIN#USERNAME#PASSWORD, odgovor OK ili NOK
+registracija: REGISTER#NAME#SURNAME#USERNAME#PASSWORD#EMAIL, odgovor OK ili NOK+razlog
+dodavanje zaposlenog: ADDEMPLOYEE#NAME#SURNAME#PASSWORD#EMAIL#POSITION, odgovor OK ili NOK+razlog
+prikaz liste zaposlenih: LISTEMPLOYEES, odgovor: List<Zaposleni>
+azuriranje zaposlenog: UPDATEEMPLOYEE, odgovor: WHICHONE poruka: objekat zaposleni sa novim podacima, odgovor OK ili NOK+razlog
+brisanje zaposlenog:DELETEEMPLOYEE#korisnickoIme, odgovor: OK ili NOK+razlog
+dodavanje projekcije:NEWPROJECTION, odgovor: WHICHONE, poruka: objekat tipa projekcija
+azuriranje projekcije:UPDATEPROJECTION, odgovor: WHICHONE, poruka: objekat tipa projekcija sa novim podacima, odgovor OK ili NOK+razlog
+ispis svih projekcija:LISTPROJECTIONS, odgovor: List<Projekcija>
+dodavanje nove sale: ADDMOVIEHALL, odgovor: WHICHONE, poruka: objekat tipa sala
+dodavanje filma: ADDMOVIE, odgovor WHICHONE, poruka: objekat tipa Film
+azuriranje filma: UPDATEMOVIE, odgovor: WHICHONE, poruka: objekat tipa Film sa novim podacima, odgovor OK ili NOK+razlog
+pregled filma: GIVEMEMOVIE#imeFilma, odgovor: List<Film>
+dodavanje ponude: ADDOFFER, odgovor: WHICHONE, poruka: objekat tipa Ponuda
+pregled svih ponuda: LISTOFFERS, odgovor: List<Ponuda>
+dodavanje plate: ADDPAYMENT,odgovor: WHICHONE, poruka: objeka tipa plata
+azuriranje plate: UPDATEPAYMENT, odgovor WHICHONE, poruka: objekat tipa Plata sa novim podacima
+pregled svih plata: LISTPAYMENTS, odgovor List<Plata>
+dodavanje opreme: ADDEQUIPMENT, odgovor WHICHONE, poruka: objekat tipa Oprema
+azuriranje opreme: UPDATEEQUIPMENT, odgovor WHICHONE, poruka:objekat tipa Oprema sa novim podacima
+prikazi svu opremu: LISTEQUIPMENT, odgovor List<Oprema>
+pretrazi opremu: GETEQUIPMENT#NAME, odgovor List<Oprema>
+dodavanje fakture: ADDINVOICE, odgovor WHICHONE, poruka objekat tipa Faktura
+
+
 
