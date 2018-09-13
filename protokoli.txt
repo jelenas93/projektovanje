@@ -1,44 +1,44 @@
 login: LOGIN#USERNAME#PASSWORD, odgovor OK ili NOK
 registracija: REGISTER#NAME#SURNAME#USERNAME#PASSWORD#EMAIL, odgovor OK ili NOK+razlog
 
-dodavanje zaposlenog: ADDEMPLOYEE#NAME#SURNAME#PASSWORD#EMAIL#POSITION, odgovor OK ili NOK+razlog
-prikaz liste zaposlenih: LISTEMPLOYEES, odgovor: List<Zaposleni>
-azuriranje zaposlenog: UPDATEEMPLOYEE, odgovor: WHICHONE poruka: objekat zaposleni sa novim podacima, odgovor OK ili NOK+razlog
-brisanje zaposlenog:DELETEEMPLOYEE#korisnickoIme, odgovor: OK ili NOK+razlog
+dodavanje zaposlenog: ADD_EMPLOYEE#NAME#SURNAME#PASSWORD#EMAIL#POSITION, odgovor OK ili NOK+razlog
+prikaz liste zaposlenih: LIST_EMPLOYEES, odgovor: List<Zaposleni>
+azuriranje zaposlenog: UPDATE_EMPLOYEE, odgovor: WHICHONE poruka: objekat zaposleni sa novim podacima, odgovor OK ili NOK+razlog
+brisanje zaposlenog:DELETE_EMPLOYEE#korisnickoIme, odgovor: OK ili NOK+razlog
 
-dodavanje projekcije:NEWPROJECTION, odgovor: WHICHONE, poruka: objekat tipa projekcija
-azuriranje projekcije:UPDATEPROJECTION, odgovor: WHICHONE, poruka: objekat tipa projekcija sa novim podacima, odgovor OK ili NOK+razlog
-ispis svih projekcija:LISTPROJECTIONS, odgovor: List<Projekcija>
+dodavanje projekcije:NEW_PROJECTION, odgovor: WHICHONE, poruka: objekat tipa projekcija
+azuriranje projekcije:UPDATE_PROJECTION, odgovor: WHICHONE, poruka: objekat tipa projekcija sa novim podacima, odgovor OK ili NOK+razlog
+ispis svih projekcija:LIST_PROJECTIONS, odgovor: List<Projekcija>
 
-dodavanje nove sale: ADDMOVIEHALL, odgovor: WHICHONE, poruka: objekat tipa sala
+dodavanje nove sale: ADD_MOVIE_HALL, odgovor: WHICHONE, poruka: objekat tipa sala
 
-dodavanje filma: ADDMOVIE, odgovor WHICHONE, poruka: objekat tipa Film
-azuriranje filma: UPDATEMOVIE, odgovor: WHICHONE, poruka: objekat tipa Film sa novim podacima, odgovor OK ili NOK+razlog
-pregled filma: GIVEMEMOVIE#imeFilma, odgovor: List<Film>
+dodavanje filma: ADD_MOVIE, odgovor WHICHONE, poruka: objekat tipa Film
+azuriranje filma: UPDATE_MOVIE, odgovor: WHICHONE, poruka: objekat tipa Film sa novim podacima, odgovor OK ili NOK+razlog
+pregled filma: GIVE_ME_MOVIE#imeFilma, odgovor: List<Film>
 
-dodavanje ponude: ADDOFFER, odgovor: WHICHONE, poruka: objekat tipa Ponuda
-pregled svih ponuda: LISTOFFERS, odgovor: List<Ponuda>
+dodavanje ponude: ADD_OFFER, odgovor: WHICHONE, poruka: objekat tipa Ponuda
+pregled svih ponuda: LIST_OFFERS, odgovor: List<Ponuda>
 
-dodavanje plate: ADDPAYMENT,odgovor: WHICHONE, poruka: objeka tipa plata
-azuriranje plate: UPDATEPAYMENT, odgovor WHICHONE, poruka: objekat tipa Plata sa novim podacima
-pregled svih plata: LISTPAYMENTS, odgovor List<Plata>
+dodavanje plate: ADD_PAYMENT,odgovor: WHICHONE, poruka: objeka tipa plata
+azuriranje plate: UPDATE_PAYMENT, odgovor WHICHONE, poruka: objekat tipa Plata sa novim podacima
+pregled svih plata: LIST_PAYMENTS, odgovor List<Plata>
 
-dodavanje opreme: ADDEQUIPMENT, odgovor WHICHONE, poruka: objekat tipa Oprema
-azuriranje opreme: UPDATEEQUIPMENT, odgovor WHICHONE, poruka:objekat tipa Oprema sa novim podacima
+dodavanje opreme: ADD_EQUIPMENT, odgovor WHICHONE, poruka: objekat tipa Oprema
+azuriranje opreme: UPDATE_EQUIPMENT, odgovor WHICHONE, poruka:objekat tipa Oprema sa novim podacima
 
-prikazi svu opremu: LISTEQUIPMENT, odgovor List<Oprema>
-pretrazi opremu: GETEQUIPMENT#NAME, odgovor List<Oprema>
+prikazi svu opremu: LIST_EQUIPMENT, odgovor List<Oprema>
+pretrazi opremu: GET_EQUIPMENT#NAME, odgovor List<Oprema>
 
-dodavanje fakture: ADDINVOICE, odgovor WHICHONE, poruka: objekat tipa Faktura
-azuriranje fakture: UPDATEINVOICE, odgovor WHICHONE, poruka:objekat tipa Faktura sa novim podacima
-pregledaj sve fakture: LISTINVOICES, odgovor LIST<Faktura>
+dodavanje fakture: ADD_INVOICE, odgovor WHICHONE, poruka: objekat tipa Faktura
+azuriranje fakture: UPDATE_INVOICE, odgovor WHICHONE, poruka:objekat tipa Faktura sa novim podacima
+pregledaj sve fakture: LIST_INVOICES, odgovor LIST<Faktura>
 
-dodavanje transakcije: ADDTRANSACTION, odgovor WHICHONE, odgovor objekat tipa Transakcija
-pregled svih transakcija: LISTTRANSACTIONS, odgovor List<Transakcija>
+dodavanje transakcije: ADD_TRANSACTION, odgovor WHICHONE, odgovor objekat tipa Transakcija
+pregled svih transakcija: LIST_TRANSACTIONS, odgovor List<Transakcija>
 pregled svih transakcija odredjene vrste: LISTTRANSACTIONS#CACHE(ili CARD), odgovor List<Transakcija>
 
-pregled svih racuna: LISTALLBILLS, odgovor List<Racun>
-upis racuna u bazu: ADDBILL, odgovor WHICHONE, poruka objekat klase Racun
+pregled svih racuna: LIST_ALL_BILLS, odgovor List<Racun>
+upis racuna u bazu: ADDBILL, odgovor WHICH_ONE, poruka objekat klase Racun
 
 azuriranje artikla: UPDATE_PRODUCT, odgovor WHICHONE, poruka: objekat klase Proizvod sa novim podacima
 dodavanje artikla: ADD_PRODUCT, odgovor WHICHONE, poruka: objekat klase Proizvod
