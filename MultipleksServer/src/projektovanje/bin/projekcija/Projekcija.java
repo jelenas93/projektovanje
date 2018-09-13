@@ -3,9 +3,10 @@ package projektovanje.bin.projekcija;
 import projektovanje.bin.film.Film;
 import projektovanje.bin.zaposleni.Zaposleni;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Projekcija {
+public class Projekcija implements Serializable {
     private Integer idProjekcije;
     private Film film;
     private Date vrijeme;

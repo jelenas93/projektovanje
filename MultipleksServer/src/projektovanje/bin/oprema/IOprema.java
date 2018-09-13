@@ -1,4 +1,6 @@
 package projektovanje.bin.oprema;
 
-public interface IOprema {
+import java.io.Serializable;
+
+public interface IOprema extends Serializable {
 }

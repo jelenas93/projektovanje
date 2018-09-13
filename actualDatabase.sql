@@ -40,6 +40,7 @@ alter table Zaposleni add column idPlate int;
 alter table Zaposleni add foreign key(idPlate) references Plata(idPlate);
 
 alter table Zaposleni add column korisnickoIme varchar(20);
+alter table Zaposleni add foreign key(korisnickoIme) references Nalog(korisnickoIme);
 
 create table Administrator
 (
@@ -182,7 +183,7 @@ create table Projekcija
 (
 idProjekcije int,
 idFilma int,
-vrijemeFilma int,
+vrijemeFilma datetime,
 idZaposlenog int,
 primary key (idProjekcije),
 foreign key (idFilma) references Film(idFilma)

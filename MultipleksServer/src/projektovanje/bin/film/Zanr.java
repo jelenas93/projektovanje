@@ -1,6 +1,8 @@
 package projektovanje.bin.film;
 
-public class Zanr {
+import java.io.Serializable;
+
+public class Zanr implements Serializable {
     private Integer idZanra;
     private String nazivZanra;
 

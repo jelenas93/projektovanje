@@ -1,8 +1,9 @@
 package projektovanje.bin.plata;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Plata {
+public class Plata implements Serializable {
     private Double doprinosZaPenziono;
     private Double doprinosZaZdravstveno;
     private Double doprinosZaDjecijuZastitu;
