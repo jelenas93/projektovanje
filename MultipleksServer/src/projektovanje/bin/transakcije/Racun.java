@@ -3,9 +3,10 @@ package projektovanje.bin.transakcije;
 import projektovanje.bin.zaposleni.Zaposleni;
 import projektovanje.bin.racun.Stavka;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Racun {
+public class Racun implements Serializable {
     private Integer idRacuna;
     private Stavka stavka;
     private Date datumIzdavanja;

@@ -1,6 +1,8 @@
 package projektovanje.bin.film;
 
-public class Film {
+import java.io.Serializable;
+
+public class Film implements Serializable {
     private Integer idFilma;
     private Integer idZaposlenog;
     private Integer trajanje;

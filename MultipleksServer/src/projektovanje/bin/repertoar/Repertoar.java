@@ -4,9 +4,10 @@ import projektovanje.bin.film.Film;
 import projektovanje.bin.projekcija.Projekcija;
 import projektovanje.bin.zaposleni.Zaposleni;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Repertoar {
+public class Repertoar implements Serializable {
     private Integer idRepertoara;
     private Projekcija projekcija;
     private Film film;

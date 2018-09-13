@@ -1,6 +1,8 @@
 package projektovanje.bin.sala;
 
-public class Sjediste {
+import java.io.Serializable;
+
+public class Sjediste  implements Serializable {
     private Integer idSjedista;
     private Sala sala;
     private Integer vrsta;

@@ -2,7 +2,9 @@ package projektovanje.bin.racun;
 
 import projektovanje.bin.oprema.*;
 
-public class Stavka {
+import java.io.Serializable;
+
+public class Stavka implements Serializable {
     private Integer idStavke;
     private Integer kolicina;
     private Double ukupaCijena;

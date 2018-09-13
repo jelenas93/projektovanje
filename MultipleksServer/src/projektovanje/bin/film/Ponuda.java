@@ -2,9 +2,10 @@ package projektovanje.bin.film;
 
 import projektovanje.bin.zaposleni.Zaposleni;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Ponuda {
+public class Ponuda implements Serializable {
     private Integer idPonude;
     private Film film;
     private Date datumPonude;

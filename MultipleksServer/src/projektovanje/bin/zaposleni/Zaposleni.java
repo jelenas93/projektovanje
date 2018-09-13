@@ -3,8 +3,10 @@ package projektovanje.bin.zaposleni;
 import projektovanje.bin.plata.Plata;
 import projektovanje.bin.nalog.Nalog;
 
+import java.io.Serializable;
 
-public abstract class Zaposleni {
+
+public abstract class Zaposleni implements Serializable {
     private String ime;
     private String prezime;
     private String JMBG;

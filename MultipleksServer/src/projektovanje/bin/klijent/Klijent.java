@@ -2,7 +2,9 @@ package projektovanje.bin.klijent;
 
 import projektovanje.bin.nalog.Nalog;
 
-public class Klijent {
+import java.io.Serializable;
+
+public class Klijent implements Serializable{
 	private Integer idKlijenta;
     private Nalog korisnickiNalog;
     private String ime;

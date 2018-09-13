@@ -1,6 +1,8 @@
 package projektovanje.bin.sala;
 
-public class Sala {
+import java.io.Serializable;
+
+public class Sala  implements Serializable {
     private Integer idSale;
     private Integer brojVrsta;
     private Integer brojKolona;

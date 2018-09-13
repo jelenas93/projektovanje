@@ -1,6 +1,8 @@
 package projektovanje.bin.nalog;
 
-public class Nalog {
+import java.io.Serializable;
+
+public class Nalog implements Serializable {
     private String korisnickiNalog;
     private String lozinkaHash;
 

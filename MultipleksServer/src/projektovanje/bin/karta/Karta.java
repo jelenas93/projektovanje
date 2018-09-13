@@ -2,9 +2,10 @@ package projektovanje.bin.karta;
 
 import projektovanje.bin.klijent.Klijent;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Karta {
+public class Karta implements Serializable {
     private Integer idKarte;
     private Date datumIzdavanja;
     private Double cijena;

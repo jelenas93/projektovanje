@@ -7,7 +7,9 @@ import projektovanje.bin.sala.Sala;
 import projektovanje.bin.sala.Sjediste;
 import projektovanje.bin.zaposleni.Zaposleni;
 
-public class Izdavanje {
+import java.io.Serializable;
+
+public class Izdavanje implements Serializable {
     private Karta karta;
     private Sjediste sjediste;
     private Sala sala;
