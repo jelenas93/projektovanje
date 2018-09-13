@@ -4,7 +4,7 @@ import projektovanje.bin.zaposleni.Administrator;
 
 import java.io.Serializable;
 
-public class DTOAdministrator implements Serializable {
+public class DTOAdministrator implements Serializable, IDTO {
     Administrator administrator;
 
     public DTOAdministrator() {

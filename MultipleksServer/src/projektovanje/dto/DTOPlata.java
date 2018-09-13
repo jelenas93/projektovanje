@@ -4,7 +4,7 @@ import projektovanje.bin.plata.Plata;
 
 import java.io.Serializable;
 
-public class DTOPlata implements Serializable {
+public class DTOPlata implements Serializable, IDTO {
     Plata plata;
 
     public Plata getPlata() {

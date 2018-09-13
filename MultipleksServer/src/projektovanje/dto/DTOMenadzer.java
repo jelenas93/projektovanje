@@ -4,7 +4,7 @@ import projektovanje.bin.zaposleni.Menadzer;
 
 import java.io.Serializable;
 
-public class DTOMenadzer implements Serializable {
+public class DTOMenadzer implements Serializable, IDTO {
     Menadzer menadzer;
 
     public DTOMenadzer() {

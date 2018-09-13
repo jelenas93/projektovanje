@@ -4,7 +4,7 @@ import projektovanje.bin.oprema.Oprema;
 
 import java.io.Serializable;
 
-public class DTOOprema implements Serializable {
+public class DTOOprema implements Serializable, IDTO {
     Oprema oprema;
 
     public Oprema getOprema() {

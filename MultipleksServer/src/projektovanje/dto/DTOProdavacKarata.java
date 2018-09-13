@@ -4,7 +4,7 @@ import projektovanje.bin.zaposleni.ProdavacKarata;
 
 import java.io.Serializable;
 
-public class DTOProdavacKarata implements Serializable {
+public class DTOProdavacKarata implements Serializable, IDTO {
     ProdavacKarata prodavacKarata;
 
     public DTOProdavacKarata() {

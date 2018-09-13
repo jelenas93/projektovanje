@@ -4,7 +4,7 @@ import projektovanje.bin.transakcije.Racun;
 
 import java.io.Serializable;
 
-public class DTORacun implements Serializable {
+public class DTORacun implements Serializable, IDTO {
     Racun racun;
 
     public DTORacun() {

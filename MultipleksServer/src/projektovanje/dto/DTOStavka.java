@@ -4,7 +4,7 @@ import projektovanje.bin.racun.Stavka;
 
 import java.io.Serializable;
 
-public class DTOStavka implements Serializable {
+public class DTOStavka implements Serializable, IDTO {
     Stavka stavka;
 
     public Stavka getStavka() {

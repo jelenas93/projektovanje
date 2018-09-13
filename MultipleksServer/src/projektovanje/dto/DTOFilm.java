@@ -4,7 +4,7 @@ import projektovanje.bin.film.Film;
 
 import java.io.Serializable;
 
-public class DTOFilm implements Serializable {
+public class DTOFilm implements Serializable, IDTO {
     Film film;
 
     public DTOFilm(){}

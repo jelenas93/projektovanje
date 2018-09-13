@@ -4,7 +4,7 @@ import projektovanje.bin.zaposleni.Kinooperater;
 
 import java.io.Serializable;
 
-public class DTOKinooperater implements Serializable {
+public class DTOKinooperater implements Serializable, IDTO {
     Kinooperater kinooperater;
 
     public DTOKinooperater() {

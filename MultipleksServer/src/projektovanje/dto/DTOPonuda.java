@@ -4,7 +4,7 @@ import projektovanje.bin.film.Ponuda;
 
 import java.io.Serializable;
 
-public class DTOPonuda implements Serializable {
+public class DTOPonuda implements Serializable, IDTO {
     Ponuda ponuda;
 
     public DTOPonuda(){}

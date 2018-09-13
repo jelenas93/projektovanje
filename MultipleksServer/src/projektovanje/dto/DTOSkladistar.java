@@ -4,7 +4,7 @@ import projektovanje.bin.zaposleni.Skladistar;
 
 import java.io.Serializable;
 
-public class DTOSkladistar implements Serializable {
+public class DTOSkladistar implements Serializable, IDTO {
     Skladistar skladistar;
 
     public DTOSkladistar() {
