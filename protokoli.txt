@@ -1,0 +1,4 @@
+login: LOGIN#USERNAME#PASSWORD odgovor OK ili NOK
+registracija: REGISTER#NAME#SURNAME#USERNAME#PASSWORD#EMAIL odgovor OK ili NOK+razlog
+dodavanje zaposlenog: ADDEMPLOYEE#NAME#SURNAME#PASSWORD#EMAIL#POSITION odgovor OK ili NOK+razlog
+

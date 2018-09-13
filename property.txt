@@ -1,0 +1,8 @@
+serverPort#9000
+serverAddress#127.0.0.1
+preconections#5
+maxIdleConnections#10
+maxConnections#20
+dbUsername#root
+dbPassword#admin
+dbURL#jdbc:mysql://localhost:3306/uniis
