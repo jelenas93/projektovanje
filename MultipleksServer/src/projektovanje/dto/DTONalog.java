@@ -4,7 +4,7 @@ import projektovanje.bin.nalog.Nalog;
 
 import java.io.Serializable;
 
-public class DTONalog implements Serializable {
+public class DTONalog implements Serializable, IDTO {
     Nalog nalog;
 
     public Nalog getNalog() {

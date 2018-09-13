@@ -4,7 +4,7 @@ import projektovanje.bin.klijent.Klijent;
 
 import java.io.Serializable;
 
-public class DTOKlijent implements Serializable {
+public class DTOKlijent implements Serializable, IDTO {
     Klijent klijent;
 
     public Klijent getKlijent() {

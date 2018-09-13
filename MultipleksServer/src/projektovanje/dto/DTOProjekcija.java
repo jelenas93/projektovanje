@@ -4,7 +4,7 @@ import projektovanje.bin.projekcija.Projekcija;
 
 import java.io.Serializable;
 
-public class DTOProjekcija implements Serializable {
+public class DTOProjekcija implements Serializable, IDTO {
     Projekcija projekcija;
 
     public Projekcija getProjekcija() {

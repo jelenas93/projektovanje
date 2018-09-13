@@ -4,7 +4,7 @@ import projektovanje.bin.zaposleni.ProdavacHraneIPica;
 
 import java.io.Serializable;
 
-public class DTOProdavacHraneIPica implements Serializable {
+public class DTOProdavacHraneIPica implements Serializable, IDTO {
     ProdavacHraneIPica prodavacHraneIPica;
 
     public DTOProdavacHraneIPica() {

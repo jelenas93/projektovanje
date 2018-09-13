@@ -4,7 +4,7 @@ import projektovanje.bin.oprema.Artikal;
 
 import java.io.Serializable;
 
-public class DTOArtikal implements Serializable {
+public class DTOArtikal implements Serializable, IDTO {
     Artikal artikal;
 
     public Artikal getArtikal() {

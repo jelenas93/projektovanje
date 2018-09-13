@@ -4,7 +4,7 @@ import projektovanje.bin.izdavanje.Izdavanje;
 
 import java.io.Serializable;
 
-public class DTOIzdavanje implements Serializable {
+public class DTOIzdavanje implements Serializable, IDTO {
     Izdavanje izdavanje;
 
     public DTOIzdavanje() {

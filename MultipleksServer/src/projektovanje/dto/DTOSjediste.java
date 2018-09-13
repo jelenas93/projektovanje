@@ -4,7 +4,7 @@ import projektovanje.bin.sala.Sjediste;
 
 import java.io.Serializable;
 
-public class DTOSjediste implements Serializable {
+public class DTOSjediste implements Serializable, IDTO {
     Sjediste sjediste;
 
     public DTOSjediste() {

@@ -4,7 +4,7 @@ import projektovanje.bin.film.Zanr;
 
 import java.io.Serializable;
 
-public class DTOZanr implements Serializable {
+public class DTOZanr implements Serializable, IDTO {
     Zanr zanr;
 
     public DTOZanr() {

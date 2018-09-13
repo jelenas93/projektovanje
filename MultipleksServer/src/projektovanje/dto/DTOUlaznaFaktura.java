@@ -4,7 +4,7 @@ import projektovanje.bin.transakcije.UlaznaFaktura;
 
 import java.io.Serializable;
 
-public class DTOUlaznaFaktura implements Serializable {
+public class DTOUlaznaFaktura implements Serializable, IDTO {
     UlaznaFaktura ulaznaFaktura;
 
     public DTOUlaznaFaktura() {

@@ -4,7 +4,7 @@ import projektovanje.bin.zaposleni.Zaposleni;
 
 import java.io.Serializable;
 
-public class DTOZaposleni implements Serializable {
+public class DTOZaposleni implements Serializable, IDTO {
     Zaposleni zaposleni;
 
     public DTOZaposleni() {

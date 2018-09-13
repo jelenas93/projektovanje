@@ -4,7 +4,7 @@ import projektovanje.bin.zaposleni.Racunovodja;
 
 import java.io.Serializable;
 
-public class DTORacuovodja implements Serializable {
+public class DTORacuovodja implements Serializable, IDTO {
     Racunovodja racunovodja;
 
     public DTORacuovodja() {

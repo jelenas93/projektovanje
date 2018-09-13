@@ -4,7 +4,7 @@ import projektovanje.bin.repertoar.Repertoar;
 
 import java.io.Serializable;
 
-public class DTORepertoar implements Serializable {
+public class DTORepertoar implements Serializable, IDTO {
     Repertoar repertoar;
 
     public Repertoar getRepertoar() {
