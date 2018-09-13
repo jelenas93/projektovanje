@@ -1,26 +1,57 @@
 login: LOGIN#USERNAME#PASSWORD, odgovor OK ili NOK
 registracija: REGISTER#NAME#SURNAME#USERNAME#PASSWORD#EMAIL, odgovor OK ili NOK+razlog
+
 dodavanje zaposlenog: ADDEMPLOYEE#NAME#SURNAME#PASSWORD#EMAIL#POSITION, odgovor OK ili NOK+razlog
 prikaz liste zaposlenih: LISTEMPLOYEES, odgovor: List<Zaposleni>
 azuriranje zaposlenog: UPDATEEMPLOYEE, odgovor: WHICHONE poruka: objekat zaposleni sa novim podacima, odgovor OK ili NOK+razlog
 brisanje zaposlenog:DELETEEMPLOYEE#korisnickoIme, odgovor: OK ili NOK+razlog
+
 dodavanje projekcije:NEWPROJECTION, odgovor: WHICHONE, poruka: objekat tipa projekcija
 azuriranje projekcije:UPDATEPROJECTION, odgovor: WHICHONE, poruka: objekat tipa projekcija sa novim podacima, odgovor OK ili NOK+razlog
 ispis svih projekcija:LISTPROJECTIONS, odgovor: List<Projekcija>
+
 dodavanje nove sale: ADDMOVIEHALL, odgovor: WHICHONE, poruka: objekat tipa sala
+
 dodavanje filma: ADDMOVIE, odgovor WHICHONE, poruka: objekat tipa Film
 azuriranje filma: UPDATEMOVIE, odgovor: WHICHONE, poruka: objekat tipa Film sa novim podacima, odgovor OK ili NOK+razlog
 pregled filma: GIVEMEMOVIE#imeFilma, odgovor: List<Film>
+
 dodavanje ponude: ADDOFFER, odgovor: WHICHONE, poruka: objekat tipa Ponuda
 pregled svih ponuda: LISTOFFERS, odgovor: List<Ponuda>
+
 dodavanje plate: ADDPAYMENT,odgovor: WHICHONE, poruka: objeka tipa plata
 azuriranje plate: UPDATEPAYMENT, odgovor WHICHONE, poruka: objekat tipa Plata sa novim podacima
 pregled svih plata: LISTPAYMENTS, odgovor List<Plata>
+
 dodavanje opreme: ADDEQUIPMENT, odgovor WHICHONE, poruka: objekat tipa Oprema
 azuriranje opreme: UPDATEEQUIPMENT, odgovor WHICHONE, poruka:objekat tipa Oprema sa novim podacima
+
 prikazi svu opremu: LISTEQUIPMENT, odgovor List<Oprema>
 pretrazi opremu: GETEQUIPMENT#NAME, odgovor List<Oprema>
-dodavanje fakture: ADDINVOICE, odgovor WHICHONE, poruka objekat tipa Faktura
+
+dodavanje fakture: ADDINVOICE, odgovor WHICHONE, poruka: objekat tipa Faktura
+azuriranje fakture: UPDATEINVOICE, odgovor WHICHONE, poruka:objekat tipa Faktura sa novim podacima
+pregledaj sve fakture: LISTINVOICES, odgovor LIST<Faktura>
+
+dodavanje transakcije: ADDTRANSACTION, odgovor WHICHONE, odgovor objekat tipa Transakcija
+pregled svih transakcija: LISTTRANSACTIONS, odgovor List<Transakcija>
+pregled svih transakcija odredjene vrste: LISTTRANSACTIONS#CACHE(ili CARD), odgovor List<Transakcija>
+
+pregled svih racuna: LISTALLBILLS, odgovor List<Racun>
+upis racuna u bazu: ADDBILL, odgovor WHICHONE, poruka objekat klase Racun
+
+azuriranje artikla: UPDATE_PRODUCT, odgovor WHICHONE, poruka: objekat klase Proizvod sa novim podacima
+dodavanje artikla: ADD_PRODUCT, odgovor WHICHONE, poruka: objekat klase Proizvod
+pregled svih artikala: LIST_PRODUCTS, odgovor List<Proizvod>
+
+pregled repertoara: LIST_REPERTOIRE, odgovor List<Repertoar>
+dodaj film na repertoar: ADD_MOVIE_TO_REPERTOIRE,odgovor: GIVE_ME_DATA,poruka: objekat klase Film, objekat klase Repertoar (2 poruke za redom)
+dodaj novi repertoar: ADD_REPERTOIRE, odgovor WHICHONE, poruka: objekat klase Repertoar
+
+prodaja karte: SELL_TICKET, objekat klase Karta (2 poruke zaredom)
+rezervacija karte: RESERVE_TICKET, objekat klase Karta (2 poruke zaredom)
+otkazi rezervaciju: CANCEL_RESERVATION, objekat klase Karta (2 poruke zaredom)
+
 
 
 
