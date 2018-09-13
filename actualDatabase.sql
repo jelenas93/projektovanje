@@ -5,7 +5,6 @@ use multipleks;
 create table Zaposleni
 (
 idZaposlenog int primary key,
-idPlate int ,
 ime varchar(50),
 prezime varchar(50),
 JMBG char(13),
@@ -34,7 +33,7 @@ datumDo date
 create table Nalog
 (
 korisnickoIme varchar(20) primary key,
-hashLozinke varchar(500) primary key
+hashLozinke varchar(500)
 );
 
 alter table Zaposleni add column idPlate int;
@@ -45,43 +44,43 @@ alter table Zaposleni add column korisnickoIme varchar(20);
 create table Administrator
 (
 idZaposlenog int primary key,
-foreign key(idZaposlenog) references Zapoleni(idZaposlenog)
+foreign key(idZaposlenog) references Zaposleni(idZaposlenog)
 );
 
 create table Racunovodja
 (
 idZaposlenog int primary key,
-foreign key(idZaposlenog) references Zapoleni(idZaposlenog)
+foreign key(idZaposlenog) references Zaposleni(idZaposlenog)
 );
 
 create table Kinooperater
 (
 idZaposlenog int primary key,
-foreign key(idZaposlenog) references Zapoleni(idZaposlenog)
+foreign key(idZaposlenog) references Zaposleni(idZaposlenog)
 );
 
 create table ProdavacHraneIPica
 (
 idZaposlenog int primary key,
-foreign key(idZaposlenog) references Zapoleni(idZaposlenog)
+foreign key(idZaposlenog) references Zaposleni(idZaposlenog)
 );
 
 create table Skladistar
 (
 idZaposlenog int primary key,
-foreign key(idZaposlenog) references Zapoleni(idZaposlenog)
+foreign key(idZaposlenog) references Zaposleni(idZaposlenog)
 );
 
 create table Menadzer
 (
 idZaposlenog int primary key,
-foreign key(idZaposlenog) references Zapoleni(idZaposlenog)
+foreign key(idZaposlenog) references Zaposleni(idZaposlenog)
 );
 
 create table ProdavacKarata
 (
 idZaposlenog int primary key,
-foreign key(idZaposlenog) references Zapoleni(idZaposlenog)
+foreign key(idZaposlenog) references Zaposleni(idZaposlenog)
 );
 
 create table Transakcije
@@ -98,7 +97,7 @@ create table UlaznaFaktura
 (
 idFakture int primary key,
 idZaposlenog int,
-foreign key(idZaposelnog) references Zaposleni(idZaposlenog),
+foreign key(idZaposlenog) references Zaposleni(idZaposlenog),
 brojRacuna char(16),
 vrstaTransakcije varchar(50),
 jedinicaMjere varchar(20),
@@ -160,7 +159,7 @@ create table Ponuda
 idPonude int,
 datumponude date not null,
 idZaposlenog int,
-primary key(idZanra)
+primary key(idPonude)
 );
 
 create table FilmPonuda
@@ -179,6 +178,16 @@ primary key(idZanra),
 foreign key(idFilma) references Film(idFilma)
 );
 
+create table Projekcija
+(
+idProjekcije int,
+idFilma int,
+vrijemeFilma int,
+idZaposlenog int,
+primary key (idProjekcije),
+foreign key (idFilma) references Film(idFilma)
+);
+
 create table Repertoar
 (
 idRepertoara int,
@@ -190,7 +199,7 @@ datumDo date,
 foreign key(idProjekcije) references Projekcija(idProjekcije),
 foreign key(idFilma) references Film(idFilma),
 foreign key(idZaposlenog) references Zaposleni(idZaposlenog),
-primary key(idRepertora,idProjekcije, idFilma)
+primary key(idRepertoara, idProjekcije, idFilma)
 );
 
 create table Klijent
@@ -210,16 +219,7 @@ cijena decimal(6,2),
 rezervisana boolean,
 korisnickoIme varchar(20),
 primary key (idKarte),
-foreign key (korisnickoIme) references Klijent(korisnickoIme)# provjeriti sa cijelim nisam siguran sta treba referencirati
-);
-
-create table Projekcija
-(
-idProjekcije int,
-idFilma int,
-vrijemeFilma int,
-idZaposlenog int,
-primary key (idProjekcije)
+foreign key (korisnickoIme) references Nalog(korisnickoIme)# provjeriti sa cijelim nisam siguran sta treba referencirati
 );
 
 create table Sala
@@ -289,6 +289,8 @@ idZaposlenog int,
 kolicina float
 );
 
+
+
 alter table Racun add foreign key (idZaposlenog) references Zaposleni(idZaposlenog);
 
-alter table UlaznaFaktura_Artikal add foreign key (idArtikla) references Arikal(idArtikla);
+alter table UlaznaFaktura_Artikal add foreign key (idArtikla) references Artikal(idArtikla);
