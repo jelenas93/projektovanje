@@ -3,6 +3,7 @@ package projektovanje.bin.klijent;
 import projektovanje.bin.nalog.Nalog;
 
 public class Klijent {
+	private Integer idKlijenta;
     private Nalog korisnickiNalog;
     private String ime;
     private String prezime;
@@ -11,12 +12,21 @@ public class Klijent {
     public Klijent() {
     }
 
-    public Klijent(Nalog korisnickiNalog, String ime, String prezime, String email) {
-        this.korisnickiNalog = korisnickiNalog;
+    public Klijent(Integer idKlijenta, Nalog korisnickiNalog, String ime, String prezime, String email) {
+        this.idKlijenta = idKlijenta;
+		this.korisnickiNalog = korisnickiNalog;
         this.ime = ime;
         this.prezime = prezime;
         this.email = email;
     }
+	
+	public Integer getIdKlijenta(){
+		return this.idKlijenta;
+	}
+	
+	public void setIdKlijenta(Integer idKlijenta){
+		this.idKlijenta = idKlijenta;
+	}
 
     public Nalog getKorisnickiNalog() {
         return korisnickiNalog;
