@@ -3,6 +3,7 @@ package projektovanje.bin.oprema;
 import projektovanje.bin.zaposleni.Zaposleni;
 
 public class Artikal implements IOprema{
+    private Double jedinicnaCijena;
     private Integer idArtikla;
     private String naziv;
     private Integer kolicinaNaStanju;
@@ -13,13 +14,22 @@ public class Artikal implements IOprema{
     public Artikal() {
     }
 
-    public Artikal(Integer idArtikla, String naziv, Integer kolicinaNaStanju, String tip, String barKod, Zaposleni zaposleni) {
+    public Artikal(Double jedinicnaCijena, Integer idArtikla, String naziv, Integer kolicinaNaStanju, String tip, String barKod, Zaposleni zaposleni) {
+        this.jedinicnaCijena = jedinicnaCijena;
         this.idArtikla = idArtikla;
         this.naziv = naziv;
         this.kolicinaNaStanju = kolicinaNaStanju;
         this.tip = tip;
         this.barKod = barKod;
         this.zaposleni = zaposleni;
+    }
+
+    public Double getJedinicnaCijena() {
+        return jedinicnaCijena;
+    }
+
+    public void setJedinicnaCijena(Double jedinicnaCijena) {
+        this.jedinicnaCijena = jedinicnaCijena;
     }
 
     public Integer getIdArtikla() {
