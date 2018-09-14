@@ -51,6 +51,7 @@ public class DBDAOZaposleni implements IDBDAO {
     public Boolean azurirajBazu(IDTO list, Connection konekcijaNaBazu) {
         return null;
 =======
+
     public Boolean azurirajBazu(IDTO noviZaposleni, Connection konekcijaNaBazu) throws SQLException {
         DTOZaposleni lokalniDTOZaposleni = (DTOZaposleni) noviZaposleni;
         Zaposleni lokalniZaposleni = lokalniDTOZaposleni.getZaposleni();
