@@ -19,7 +19,7 @@ public class DBDAOKarta implements IDBDAO {
     }
 
     @Override
-    public Boolean azurirajBazu(List<? extends IDTO> dtoKarta, Connection konekcijaNaBazu) {
+    public Boolean azurirajBazu(IDTO list, Connection konekcijaNaBazu) {
         return null;
     }
 

@@ -22,7 +22,16 @@ public class Plata implements Serializable {
     private Date datumOd;
     private Date datumDo;
 
+    public static final Plata nulaPlata = new Plata(1,0.0,0.0,
+                                0.0,0.0,0.0,
+                                    0.0,0.0,0.0,
+                                0.0,0.0,0.0,0.0,
+                                    0.0,new Date(),new Date());
     public Plata() {
+    }
+
+    public Plata(Integer id){
+        this.IDPlate = id;
     }
 
     public Plata(Integer id, Double doprinosZaPenziono, Double doprinosZaZdravstveno, Double doprinosZaDjecijuZastitu, Double doprinosZaZaposljavanje, Double stopaPoreza, Double stopaZaPenziono, Double stopaZaZdravstveno, Double stopaZaDjecijuZastitu, Double stopaZaZaposljavanje, Double netoTekuciRad, Double netoMinuliRad, Double bruto, Double porezNaPlatu, Date datumOd, Date datumDo) {
