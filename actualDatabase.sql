@@ -4,7 +4,7 @@ use multipleks;
 
 create table Zaposleni
 (
-idZaposlenog int primary key,
+idZaposlenog int auto_increment primary key,
 idPlate int ,
 ime varchar(50),
 prezime varchar(50),
@@ -14,7 +14,7 @@ aktivan boolean
 
 create table Plata
 (
-idPlate int primary key,
+idPlate int auto_increment primary key,
 doprinosZaPenziono decimal(10,2),
 doprinosZaZdravstveno decimal(10,2),
 doprinosZaDjecijuZastitu decimal(10,2),
@@ -40,7 +40,7 @@ hashLozinke varchar(500)
 alter table Zaposleni add foreign key(idPlate) references Plata(idPlate);
 
 alter table Zaposleni add column korisnickoIme varchar(20);
-
+alter table Zaposleni add foreign key(korisnickoIme) references Nalog(korisnickoIme);
 
 
 create table Administrator
@@ -87,7 +87,7 @@ foreign key(idZaposlenog) references Zaposleni(idZaposlenog)
 
 create table Transakcije
 (
-idTransakcije int primary key,
+idTransakcije int auto_increment primary key,
 idZaposlenog int,
 vrstaTransakcije varchar(50),# kes kredit ili kartica
 primaoc varchar(50),
@@ -97,7 +97,7 @@ foreign key(idZaposlenog) references Zaposleni(idZaposlenog)
 
 create table UlaznaFaktura
 (
-idFakture int primary key,
+idFakture int auto_increment primary key,
 idZaposlenog int,
 foreign key(idZaposlenog) references Zaposleni(idZaposlenog),
 brojRacuna char(16),
@@ -111,7 +111,7 @@ datum date
 
 create table Oprema
 (
-idOpreme int primary key,
+idOpreme int auto_increment primary key,
 brojInventara int,
 naziv varchar(50),
 ispravnost bool,
@@ -138,7 +138,7 @@ foreign key (idFakture) references UlaznaFaktura(idFakture)
 
 create table Film
 (
-idFilma int,
+idFilma int auto_increment,
 idZaposlenog int,
 naziv varchar(45),
 trajanje int not null,
@@ -151,14 +151,14 @@ foreign key(idZaposlenog) references Zaposleni(idZaposlenog)
 
 create table Zanr
 (
-idZanra int,
+idZanra int auto_increment,
 nazivZanra varchar(20),
 primary key(idZanra)
 );
 
 create table Ponuda
 (
-idPonude int,
+idPonude int auto_increment,
 datumponude date not null,
 idZaposlenog int,
 primary key(idZanra)
@@ -182,7 +182,7 @@ foreign key(idFilma) references Film(idFilma)
 
 create table Repertoar
 (
-idRepertoara int,
+idRepertoara int auto_increment,
 idProjekcije int,
 idFilma int,
 idZaposlenog int,
@@ -196,16 +196,17 @@ primary key(idRepertora,idProjekcije, idFilma)
 
 create table Klijent
 (
-idKlijenta int primary key,
+idKlijenta int auto_increment primary key,
 korisnickoIme varchar(20),
 ime varchar(20),
 prezime varchar(20),
-email varchar(30)
+email varchar(30),
+foreign key(korisnickoIme) references Nalog(korisnickoIme)
 );
 
 create table Karta
 (
-idKarte int,
+idKarte int auto_increment,
 datumIzdavanja datetime,
 cijena decimal(6,2),
 rezervisana boolean,
@@ -216,7 +217,7 @@ foreign key (korisnickoIme) references Klijent(korisnickoIme)# provjeriti sa cij
 
 create table Projekcija
 (
-idProjekcije int,
+idProjekcije int auto_increment,
 idFilma int,
 vrijemeFilma int,
 idZaposlenog int,
@@ -225,7 +226,7 @@ primary key (idProjekcije)
 
 create table Sala
 (
-idSale int,
+idSale int auto_increment,
 brojVrsta int,
 brojKolona int, 
 primary key (idSale)
@@ -233,7 +234,7 @@ primary key (idSale)
 
 create table Sjediste
 (
-idSjedista int,
+idSjedista int auto_increment,
 idSale int,
 vrsta int,
 kolona int,
@@ -260,7 +261,7 @@ alter table Izdavanje add foreign key (idZaposlenog) references Zaposleni(idZapo
 
 create table Artikal
 (
-idArtikla int primary key,
+idArtikla int auto_increment primary key,
 naziv varchar(30),
 kolicinaNaStanju int,
 jedinicnaCijena decimal(6,3),
@@ -273,7 +274,7 @@ alter table Artikal add foreign key (idZaposlenog) references Zaposleni(idZaposl
 
 create table Stavka
 (
-idStavke int primary key,
+idStavke int auto_increment primary key,
 kolicina int,
 ukupnaCijena decimal(6,3),
 idArtikla int,
@@ -282,7 +283,7 @@ foreign key (idArtikla) references Artikal(idArtikla)
 
 create table Racun
 (
-idRacuna int primary key,
+idRacuna int auto_increment primary key,
 idStavke int,
 datumIzdavanja datetime,
 ukupnaCijena decimal(12,2),
