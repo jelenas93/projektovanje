@@ -3,37 +3,33 @@ package projektovanje.dbDAO;
 import projektovanje.dto.DTOFilm;
 import projektovanje.dto.IDTO;
 
+import java.sql.Connection;
 import java.util.List;
 
 public class DBDAOFilm implements IDBDAO {
 
     @Override
-    public Boolean upisiUBazu(List<? extends IDTO> dtoFilm) {
+    public Boolean upisiUBazu(IDTO dtoInstanca, Connection konekcijaNaBazu) {
         return null;
     }
 
     @Override
-    public List<DTOFilm> citajIzBaze() {
+    public List<DTOFilm> citajIzBaze(Connection konekcijaNaBazu) {
         return null;
     }
 
     @Override
-    public Boolean ispisiTabelu(List<? extends IDTO> dtoFilm) {
+    public Boolean azurirajBazu(List<? extends IDTO> dtoFilm, Connection konekcijaNaBazu) {
         return null;
     }
 
     @Override
-    public Boolean azurirajBazu(List<? extends IDTO> dtoFilm) {
+    public List<DTOFilm> pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
         return null;
     }
 
     @Override
-    public List<DTOFilm> pretraziBazu() {
-        return null;
-    }
-
-    @Override
-    public List<DTOFilm> ispisi() {
+    public List<DTOFilm> ispisi(Connection konekcijaNaBazu) {
         return null;
     }
 }

@@ -1,13 +1,13 @@
 package projektovanje.netDAO;
 
 import projektovanje.dto.DTOKinooperater;
-import projektovanje.dto.IDTO;
 
+import java.sql.Connection;
 import java.util.List;
 
 public class NetDAOKinooperater implements INetDAO {
     @Override
-    public List<DTOKinooperater> ispisi() {
+    public List<DTOKinooperater> ispisi(Connection konekcijaNaBazu) {
         return null;
     }
 }

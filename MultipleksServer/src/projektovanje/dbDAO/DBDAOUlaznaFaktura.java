@@ -1,38 +1,34 @@
 package projektovanje.dbDAO;
 
-import projektovanje.dto.DTOUlaznaFaktura;
 import projektovanje.dto.IDTO;
 
+import java.sql.Connection;
 import java.util.List;
 
 public class DBDAOUlaznaFaktura implements IDBDAO {
+
     @Override
-    public Boolean upisiUBazu(List<? extends IDTO> dtoUlaznaFaktura) {
+    public Boolean upisiUBazu(IDTO dtoInstanca, Connection konekcijaNaBazu) {
         return null;
     }
 
     @Override
-    public List<DTOUlaznaFaktura> citajIzBaze() {
+    public List<? extends IDTO> citajIzBaze(Connection konekcijaNaBazu) {
         return null;
     }
 
     @Override
-    public Boolean ispisiTabelu(List<? extends IDTO> dtoUlaznaFaktura) {
+    public Boolean azurirajBazu(List<? extends IDTO> list, Connection konekcijaNaBazu) {
         return null;
     }
 
     @Override
-    public Boolean azurirajBazu(List<? extends IDTO> dtoUlaznaFaktura) {
+    public List<? extends IDTO> pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
         return null;
     }
 
     @Override
-    public List<DTOUlaznaFaktura> pretraziBazu() {
-        return null;
-    }
-
-    @Override
-    public List<DTOUlaznaFaktura> ispisi() {
+    public List<? extends IDTO> ispisi(Connection konekcijaNaBazu) {
         return null;
     }
 }

@@ -82,3 +82,6 @@ insert into repertoarProjekcija values (1,2);
 #izlistavanje svih projekcija sa repertoara 
 select f.naziv,p.idProjekcije,p.idFilma,p.VrijemeFilma from RepertoarProjekcija as rp inner join Projekcija as p inner join Film as f where rp.idProjekcije = p.idProjekcije and p.idFilma=f.idFilma;
 
+select * from zaposleni;
+
+insert into nalog values ("Coa","Coa");

@@ -3,37 +3,33 @@ package projektovanje.dbDAO;
 import projektovanje.dto.DTOMenadzer;
 import projektovanje.dto.IDTO;
 
+import java.sql.Connection;
 import java.util.List;
 
 public class DBDAOMenadzer implements IDBDAO {
 
     @Override
-    public Boolean upisiUBazu(List<? extends IDTO> dtoMenadzer) {
+    public Boolean upisiUBazu(IDTO dtoInstanca, Connection konekcijaNaBazu) {
         return null;
     }
 
     @Override
-    public List<DTOMenadzer> citajIzBaze() {
+    public List<DTOMenadzer> citajIzBaze(Connection konekcijaNaBazu) {
         return null;
     }
 
     @Override
-    public Boolean ispisiTabelu(List<? extends IDTO> dtoMenadzer) {
+    public Boolean azurirajBazu(List<? extends IDTO> dtoMenadzer, Connection konekcijaNaBazu) {
         return null;
     }
 
     @Override
-    public Boolean azurirajBazu(List<? extends IDTO> dtoMenadzer) {
+    public List<DTOMenadzer> pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
         return null;
     }
 
     @Override
-    public List<DTOMenadzer> pretraziBazu() {
-        return null;
-    }
-
-    @Override
-    public List<DTOMenadzer> ispisi() {
+    public List<DTOMenadzer> ispisi(Connection konekcijaNaBazu) {
         return null;
     }
 }

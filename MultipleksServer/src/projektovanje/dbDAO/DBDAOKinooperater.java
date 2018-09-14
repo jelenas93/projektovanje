@@ -3,36 +3,32 @@ package projektovanje.dbDAO;
 import projektovanje.dto.DTOKinooperater;
 import projektovanje.dto.IDTO;
 
+import java.sql.Connection;
 import java.util.List;
 
 public class DBDAOKinooperater implements IDBDAO {
     @Override
-    public Boolean upisiUBazu(List<? extends IDTO> dtoKinooperater) {
+    public Boolean upisiUBazu(IDTO dtoInstanca, Connection konekcijaNaBazu) {
         return null;
     }
 
     @Override
-    public List<DTOKinooperater> citajIzBaze() {
+    public List<DTOKinooperater> citajIzBaze(Connection konekcijaNaBazu) {
         return null;
     }
 
     @Override
-    public Boolean ispisiTabelu(List<? extends IDTO> dtoKinooperater) {
+    public Boolean azurirajBazu(List<? extends IDTO> dtoKinooperater, Connection konekcijaNaBazu) {
         return null;
     }
 
     @Override
-    public Boolean azurirajBazu(List<? extends IDTO> dtoKinooperater) {
+    public List<DTOKinooperater> pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
         return null;
     }
 
     @Override
-    public List<DTOKinooperater> pretraziBazu() {
-        return null;
-    }
-
-    @Override
-    public List<DTOKinooperater> ispisi() {
+    public List<DTOKinooperater> ispisi(Connection konekcijaNaBazu) {
         return null;
     }
 }

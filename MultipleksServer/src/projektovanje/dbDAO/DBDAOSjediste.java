@@ -1,38 +1,34 @@
 package projektovanje.dbDAO;
 
-import projektovanje.dto.DTOSjediste;
 import projektovanje.dto.IDTO;
 
+import java.sql.Connection;
 import java.util.List;
 
 public class DBDAOSjediste implements IDBDAO {
+
     @Override
-    public Boolean upisiUBazu(List<? extends IDTO> dtoSjediste) {
+    public Boolean upisiUBazu(IDTO dtoInstanca, Connection konekcijaNaBazu) {
         return null;
     }
 
     @Override
-    public List<DTOSjediste> citajIzBaze() {
+    public List<? extends IDTO> citajIzBaze(Connection konekcijaNaBazu) {
         return null;
     }
 
     @Override
-    public Boolean ispisiTabelu(List<? extends IDTO> list) {
+    public Boolean azurirajBazu(List<? extends IDTO> list, Connection konekcijaNaBazu) {
         return null;
     }
 
     @Override
-    public Boolean azurirajBazu(List<? extends IDTO> list) {
+    public List<? extends IDTO> pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
         return null;
     }
 
     @Override
-    public List<DTOSjediste> pretraziBazu() {
-        return null;
-    }
-
-    @Override
-    public List<DTOSjediste> ispisi() {
+    public List<? extends IDTO> ispisi(Connection konekcijaNaBazu) {
         return null;
     }
 }

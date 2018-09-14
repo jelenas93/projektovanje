@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Plata implements Serializable {
+
+    private Integer IDPlate;
     private Double doprinosZaPenziono;
     private Double doprinosZaZdravstveno;
     private Double doprinosZaDjecijuZastitu;
@@ -23,7 +25,8 @@ public class Plata implements Serializable {
     public Plata() {
     }
 
-    public Plata(Double doprinosZaPenziono, Double doprinosZaZdravstveno, Double doprinosZaDjecijuZastitu, Double doprinosZaZaposljavanje, Double stopaPoreza, Double stopaZaPenziono, Double stopaZaZdravstveno, Double stopaZaDjecijuZastitu, Double stopaZaZaposljavanje, Double netoTekuciRad, Double netoMinuliRad, Double bruto, Double porezNaPlatu, Date datumOd, Date datumDo) {
+    public Plata(Integer id, Double doprinosZaPenziono, Double doprinosZaZdravstveno, Double doprinosZaDjecijuZastitu, Double doprinosZaZaposljavanje, Double stopaPoreza, Double stopaZaPenziono, Double stopaZaZdravstveno, Double stopaZaDjecijuZastitu, Double stopaZaZaposljavanje, Double netoTekuciRad, Double netoMinuliRad, Double bruto, Double porezNaPlatu, Date datumOd, Date datumDo) {
+        this.IDPlate = id;
         this.doprinosZaPenziono = doprinosZaPenziono;
         this.doprinosZaZdravstveno = doprinosZaZdravstveno;
         this.doprinosZaDjecijuZastitu = doprinosZaDjecijuZastitu;
@@ -159,5 +162,13 @@ public class Plata implements Serializable {
 
     public void setDatumDo(Date datumDo) {
         this.datumDo = datumDo;
+    }
+
+    public Integer getIDPlate() {
+        return IDPlate;
+    }
+
+    public void setIDPlate(Integer IDPlate) {
+        this.IDPlate = IDPlate;
     }
 }

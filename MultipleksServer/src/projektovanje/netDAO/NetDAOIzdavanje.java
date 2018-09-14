@@ -1,13 +1,13 @@
 package projektovanje.netDAO;
 
 import projektovanje.dto.DTOIzdavanje;
-import projektovanje.dto.IDTO;
 
+import java.sql.Connection;
 import java.util.List;
 
 public class NetDAOIzdavanje implements INetDAO {
     @Override
-    public List<DTOIzdavanje> ispisi() {
+    public List<DTOIzdavanje> ispisi(Connection konekcijaNaBazu) {
         return null;
     }
 }

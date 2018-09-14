@@ -6,7 +6,7 @@ import projektovanje.bin.nalog.Nalog;
 import java.io.Serializable;
 
 
-public abstract class Zaposleni implements Serializable {
+public class Zaposleni implements Serializable {
     private String ime;
     private String prezime;
     private String JMBG;
