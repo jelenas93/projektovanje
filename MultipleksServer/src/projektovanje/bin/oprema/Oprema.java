@@ -63,4 +63,9 @@ public class Oprema implements IOprema{
     public void setZaposleni(Zaposleni zaposleni) {
         this.zaposleni = zaposleni;
     }
+
+    @Override
+    public String vratiTipOpreme() {
+        return this.naziv + "#OPREMA";
+    }
 }

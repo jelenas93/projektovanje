@@ -73,4 +73,9 @@ public class Artikal implements IOprema{
     public void setZaposleni(Zaposleni zaposleni) {
         this.zaposleni = zaposleni;
     }
+
+    @Override
+    public String vratiTipOpreme() {
+        return this.naziv + "#ARTIKAL";
+    }
 }
