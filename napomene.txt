@@ -1,4 +1,5 @@
 	- java.lang.IllegalArgumentException runtime exception koji treba uhvatiti kada se koristi metoda 
 	valueOf(String string) kod citanja protokola(enum).
 	- Svaki thread ima kao atribut zaposlenog zbog kog je kreiran da se isti ne bi morao identifikovati
-	svaki put kad posalje zahtjev prema serveru.
+	svaki put kad posalje zahtjev prema serveru. (DONE)
+	-Treba pripaziti na exception koji se baci pri isteku konekcije, u catch resetovati konekciju

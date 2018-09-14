@@ -43,7 +43,11 @@ public class DBDAOIzdavanje implements IDBDAO {
     }
 
     @Override
+<<<<<<< HEAD
     public Boolean azurirajBazu(IDTO dtoIzdavanje, Connection konekcijaNaBazu) {
+=======
+    public Boolean azurirajBazu(IDTO list, Connection konekcijaNaBazu) {
+>>>>>>> 119457b79ea8ebc88d4b6e2705a6ba9d3cd5687a
         return null;
     }
 

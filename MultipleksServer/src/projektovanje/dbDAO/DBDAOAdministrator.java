@@ -38,7 +38,15 @@ public class DBDAOAdministrator implements IDBDAO {
     }
 
     @Override
+<<<<<<< HEAD
     public Boolean azurirajBazu(IDTO list, Connection konekcijaNaBazu) throws SQLException {
+=======
+<<<<<<< HEAD
+    public Boolean azurirajBazu(IDTO list, Connection konekcijaNaBazu) {
+=======
+    public Boolean azurirajBazu(IDTO dtoAdministrator, Connection konekcijaNaBazu){
+>>>>>>> a042473c47eaa2ea37df5bc0659bb776f1068b17
+>>>>>>> 119457b79ea8ebc88d4b6e2705a6ba9d3cd5687a
         return null;
     }
 

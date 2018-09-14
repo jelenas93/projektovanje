@@ -51,6 +51,7 @@ public class DBDAOFilm implements IDBDAO {
     }
 
     @Override
+<<<<<<< HEAD
     public Boolean azurirajBazu(IDTO dtoFilm, Connection konekcijaNaBazu) throws java.sql.SQLException{
         Boolean uspjesno = false;
         DTOFilm lokalniDtoFilm = (DTOFilm)dtoFilm;
@@ -74,6 +75,10 @@ public class DBDAOFilm implements IDBDAO {
 
         uspjesno = true;
         return uspjesno;
+=======
+    public Boolean azurirajBazu(IDTO list, Connection konekcijaNaBazu) {
+        return null;
+>>>>>>> 119457b79ea8ebc88d4b6e2705a6ba9d3cd5687a
     }
 
     @Override

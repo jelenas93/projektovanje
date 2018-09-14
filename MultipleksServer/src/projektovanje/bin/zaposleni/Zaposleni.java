@@ -16,7 +16,7 @@ public class Zaposleni implements Serializable {
 
     public Zaposleni(){}
 
-    public Zaposleni(String ime, String prezime, String JMBG, Plata plata, Integer idZaposlenog, Nalog nalog){
+    public Zaposleni(Integer idZaposlenog,Plata plata,String ime, String prezime, String JMBG ,  Nalog nalog){
         this.ime = ime;
         this.prezime = prezime;
         this.JMBG = JMBG;
@@ -71,5 +71,17 @@ public class Zaposleni implements Serializable {
 
     public void setPrezime(String prezime) {
         this.prezime = prezime;
+    }
+
+    @Override
+    public String toString() {
+        return "Zaposleni{" +
+                "ime='" + ime + '\'' +
+                ", prezime='" + prezime + '\'' +
+                ", JMBG='" + JMBG + '\'' +
+                ", plata=" + plata +
+                ", idZaposlenog=" + idZaposlenog +
+                ", nalog=" + nalog +
+                '}';
     }
 }
