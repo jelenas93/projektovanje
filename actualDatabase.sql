@@ -5,7 +5,7 @@ use multipleks;
 create table Zaposleni
 (
 idZaposlenog int auto_increment primary key,
-idPlate int ,
+idPlate int,
 ime varchar(50),
 prezime varchar(50),
 JMBG char(13),
@@ -27,7 +27,7 @@ stopaZaZaposljavanje decimal(10,2),
 netoTekuciRad decimal(10,2),
 netoMinuliRad decimal(10,2),
 porezNaPlatu decimal(10,2),
-datumOd date,
+datumOd date not null,
 datumDo date
 );
 
@@ -152,7 +152,7 @@ foreign key(idZaposlenog) references Zaposleni(idZaposlenog)
 create table Zanr
 (
 idZanra int auto_increment,
-nazivZanra varchar(20),
+nazivZanra varchar(20) unique,
 primary key(idZanra)
 );
 
@@ -161,14 +161,14 @@ create table Ponuda
 idPonude int auto_increment,
 datumponude date not null,
 idZaposlenog int,
-primary key(idZanra)
+primary key(idPonude)
 );
 
 create table FilmPonuda
 (
 idFilma int,
 idPonude int,
-primary key(idPonude),
+primary key(idFilma,idPonude),
 foreign key(idFilma) references Film(idFilma)
 );
 
@@ -176,23 +176,10 @@ create table FilmZanr
 (
 idFilma int,
 idZanra int,
-primary key(idZanra),
+primary key(idFilma,idZanra),
 foreign key(idFilma) references Film(idFilma)
 );
 
-create table Repertoar
-(
-idRepertoara int auto_increment,
-idProjekcije int,
-idFilma int,
-idZaposlenog int,
-datumOd date,
-datumDo date,
-foreign key(idProjekcije) references Projekcija(idProjekcije),
-foreign key(idFilma) references Film(idFilma),
-foreign key(idZaposlenog) references Zaposleni(idZaposlenog),
-primary key(idRepertora,idProjekcije, idFilma)
-);
 
 create table Klijent
 (
@@ -219,9 +206,11 @@ create table Projekcija
 (
 idProjekcije int auto_increment,
 idFilma int,
-vrijemeFilma int,
+vrijemeFilma datetime,
 idZaposlenog int,
-primary key (idProjekcije)
+primary key (idProjekcije),
+foreign key (idFilma) references Film(idFilma),
+foreign key (idZaposlenog) references zaposleni(idZaposlenog)
 );
 
 create table Sala
@@ -291,6 +280,20 @@ idZaposlenog int,
 kolicina float
 );
 
+create table Repertoar
+(
+idRepertoara int auto_increment,
+idProjekcije int,
+idFilma int,
+idZaposlenog int,
+datumOd date,
+datumDo date,
+foreign key(idProjekcije) references Projekcija(idProjekcije),
+foreign key(idFilma) references Film(idFilma),
+foreign key(idZaposlenog) references Zaposleni(idZaposlenog),
+primary key(idRepertoara,idProjekcije, idFilma)
+);
+
 alter table Racun add foreign key (idZaposlenog) references Zaposleni(idZaposlenog);
 
-alter table UlaznaFaktura_Artikal add foreign key (idArtikla) references Arikal(idArtikla);
+alter table UlaznaFaktura_Artikal add foreign key (idArtikla) references Artikal(idArtikla);
