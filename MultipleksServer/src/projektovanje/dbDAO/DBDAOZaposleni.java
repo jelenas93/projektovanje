@@ -28,7 +28,6 @@ public class DBDAOZaposleni implements IDBDAO {
         ps.setString(6,"test1");
 =======
         ps.setString(6,lokalniZaposleni.getNalog().getKorisnickiNalog());
->>>>>>> 119457b79ea8ebc88d4b6e2705a6ba9d3cd5687a
         ps.executeUpdate();
         return uspjesno;
     }

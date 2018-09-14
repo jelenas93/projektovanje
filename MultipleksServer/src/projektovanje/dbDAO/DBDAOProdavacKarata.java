@@ -20,9 +20,7 @@ public class DBDAOProdavacKarata implements IDBDAO {
 
     @Override
 <<<<<<< HEAD
-    public Boolean azurirajBazu(IDTO dtoProdavacKarata, Connection konekcijaNaBazu) {
 =======
-    public Boolean azurirajBazu(IDTO list, Connection konekcijaNaBazu) {
 >>>>>>> 119457b79ea8ebc88d4b6e2705a6ba9d3cd5687a
     public Boolean azurirajBazu(IDTO list, Connection konekcijaNaBazu) throws SQLException {
         return null;
