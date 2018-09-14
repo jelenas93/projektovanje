@@ -283,15 +283,20 @@ kolicina float
 create table Repertoar
 (
 idRepertoara int auto_increment,
-idProjekcije int,
-idFilma int,
 idZaposlenog int,
 datumOd date,
 datumDo date,
-foreign key(idProjekcije) references Projekcija(idProjekcije),
-foreign key(idFilma) references Film(idFilma),
 foreign key(idZaposlenog) references Zaposleni(idZaposlenog),
-primary key(idRepertoara,idProjekcije, idFilma)
+primary key(idRepertoara)
+);
+
+create table RepertoarProjekcija
+(
+idRepertoara int,
+idProjekcije int,
+foreign key(idRepertoara) references Repertoar(idRepertoara),
+foreign key(idProjekcije) references Projekcija(idProjekcije),
+primary key(idRepertoara,idProjekcije)
 );
 
 alter table Racun add foreign key (idZaposlenog) references Zaposleni(idZaposlenog);
