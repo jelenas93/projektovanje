@@ -18,7 +18,7 @@ public class Film implements Serializable {
     public Film() {
     }
 
-    public Film(Integer idFilma, Zaposleni zaposleni, Integer trajanje, String naziv, String opis, String linkTrailera, String tipFilma) {
+    public Film(Integer idFilma, Zaposleni zaposleni, String naziv, Integer trajanje,  String opis, String linkTrailera, String tipFilma ) {
         this.idFilma = idFilma;
         this.zaposleni = zaposleni;
         this.trajanje = trajanje;

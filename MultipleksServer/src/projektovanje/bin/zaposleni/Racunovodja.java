@@ -6,6 +6,14 @@ import projektovanje.bin.plata.Plata;
 public class Racunovodja extends Zaposleni {
     private Integer idRacunovodje;
 
+    public Integer getIdRacunovodje() {
+        return idRacunovodje;
+    }
+
+    public void setIdRacunovodje(Integer idRacunovodje) {
+        this.idRacunovodje = idRacunovodje;
+    }
+
     public Racunovodja(String ime, String prezime, String JMBG, Plata plata, Integer idZaposlenog, Nalog nalog) {
         super(ime, prezime, JMBG, plata, idZaposlenog, nalog);
     }

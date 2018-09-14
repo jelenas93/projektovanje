@@ -18,7 +18,7 @@ public class DBDAOOprema implements IDBDAO{
     }
 
     @Override
-    public Boolean azurirajBazu(List<? extends IDTO> dtoOprema, Connection konekcijaNaBazu) {
+    public Boolean azurirajBazu(IDTO dtoOprema, Connection konekcijaNaBazu) {
         return null;
     }
 

@@ -1,6 +1,5 @@
 package projektovanje.dbDAO;
 
-import jdk.jshell.spi.ExecutionControl;
 import projektovanje.bin.zaposleni.Administrator;
 import projektovanje.dto.DTOAdministrator;
 import projektovanje.dto.IDTO;
@@ -8,6 +7,7 @@ import projektovanje.dto.IDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class DBDAOAdministrator implements IDBDAO {
         Boolean uspjesno = false;
         PreparedStatement upisAdministratora = konekcijaNaBazu.prepareStatement("insert into Administrator values (?)");
         DTOAdministrator lokalniAdministrator = (DTOAdministrator) dtoAdministrator;
-        upisAdministratora.setInt(1, lokalniAdministrator.getAdministrator().getIdZaposlenog());
+        upisAdministratora.setInt(1, lokalniAdministrator.getAdministrator().getIdAdministratora());
         upisAdministratora.executeUpdate();
         uspjesno = true;
         return uspjesno;
@@ -38,7 +38,7 @@ public class DBDAOAdministrator implements IDBDAO {
     }
 
     @Override
-    public Boolean azurirajBazu(IDTO dtoAdministrator, Connection konekcijaNaBazu){
+    public Boolean azurirajBazu(IDTO list, Connection konekcijaNaBazu) throws SQLException {
         return null;
     }
 
@@ -48,7 +48,7 @@ public class DBDAOAdministrator implements IDBDAO {
     }
 
     @Override
-    public List<DTOAdministrator> ispisi(Connection konekcija) {
-        return null;
+    public List<DTOAdministrator> ispisi(Connection konekcija) throws java.sql.SQLException {
+        return citajIzBaze(konekcija);
     }
 }

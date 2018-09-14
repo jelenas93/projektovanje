@@ -6,6 +6,14 @@ import projektovanje.bin.plata.Plata;
 public class Skladistar extends Zaposleni {
     private Integer idSkladistara;
 
+    public Integer getIdSkladistara() {
+        return idSkladistara;
+    }
+
+    public void setIdSkladistara(Integer idSkladistara) {
+        this.idSkladistara = idSkladistara;
+    }
+
     public Skladistar(String ime, String prezime, String JMBG, Plata plata, Integer idZaposlenog, Nalog nalog) {
         super(ime, prezime, JMBG, plata, idZaposlenog, nalog);
     }

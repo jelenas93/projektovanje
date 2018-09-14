@@ -18,7 +18,7 @@ public class DBDAOSkladistar implements IDBDAO {
     }
 
     @Override
-    public Boolean azurirajBazu(List<? extends IDTO> list, Connection konekcijaNaBazu) {
+    public Boolean azurirajBazu(IDTO list, Connection konekcijaNaBazu) {
         return null;
     }
 

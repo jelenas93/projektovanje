@@ -19,7 +19,7 @@ public class DBDAOMenadzer implements IDBDAO {
     }
 
     @Override
-    public Boolean azurirajBazu(List<? extends IDTO> dtoMenadzer, Connection konekcijaNaBazu) {
+    public Boolean azurirajBazu(IDTO dtoMenadzer, Connection konekcijaNaBazu) {
         return null;
     }
 

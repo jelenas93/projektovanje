@@ -18,7 +18,7 @@ public class DBDAOProdavacHraneIPica implements IDBDAO {
     }
 
     @Override
-    public Boolean azurirajBazu(List<? extends IDTO> dtoProdavacHraneIPica, Connection konekcijaNaBazu) {
+    public Boolean azurirajBazu(IDTO dtoProdavacHraneIPica, Connection konekcijaNaBazu) {
         return null;
     }
 

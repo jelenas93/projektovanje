@@ -6,6 +6,14 @@ import projektovanje.bin.plata.Plata;
 public class Kinooperater extends Zaposleni {
     private Integer idKinooperatera;
 
+    public Integer getIdKinooperatera() {
+        return idKinooperatera;
+    }
+
+    public void setIdKinooperatera(Integer idKinooperatera) {
+        this.idKinooperatera = idKinooperatera;
+    }
+
     public Kinooperater(Integer idKinooperatera) {
         this.idKinooperatera = idKinooperatera;
     }

@@ -6,6 +6,14 @@ import projektovanje.bin.plata.Plata;
 public class ProdavacHraneIPica extends Zaposleni {
     private Integer idProdavacaHraneIPica;
 
+    public Integer getIdProdavacaHraneIPica() {
+        return idProdavacaHraneIPica;
+    }
+
+    public void setIdProdavacaHraneIPica(Integer idProdavacaHraneIPica) {
+        this.idProdavacaHraneIPica = idProdavacaHraneIPica;
+    }
+
     public ProdavacHraneIPica(String ime, String prezime, String JMBG, Plata plata, Integer idZaposlenog, Nalog nalog) {
         super(ime, prezime, JMBG, plata, idZaposlenog, nalog);
     }

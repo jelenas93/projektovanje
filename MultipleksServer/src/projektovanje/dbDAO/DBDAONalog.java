@@ -18,7 +18,7 @@ public class DBDAONalog implements IDBDAO {
     }
 
     @Override
-    public Boolean azurirajBazu(List<? extends IDTO> dtoNalog, Connection konekcijaNaBazu) {
+    public Boolean azurirajBazu(IDTO dtoNalog, Connection konekcijaNaBazu) {
         return null;
     }
 

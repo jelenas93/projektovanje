@@ -22,7 +22,7 @@ public class DBDAOZaposleni implements IDBDAO {
         ps.setString(3,lokalniZaposleni.getPrezime());
         ps.setString(4,lokalniZaposleni.getJMBG());
         ps.setBoolean(5,true);
-        ps.setString(6,"Coa");
+        ps.setString(6,"test1");
         ps.executeUpdate();
         return uspjesno;
     }
@@ -33,7 +33,7 @@ public class DBDAOZaposleni implements IDBDAO {
     }
 
     @Override
-    public Boolean azurirajBazu(List<? extends IDTO> list, Connection konekcijaNaBazu) {
+    public Boolean azurirajBazu(IDTO list, Connection konekcijaNaBazu) {
         return null;
     }
 
