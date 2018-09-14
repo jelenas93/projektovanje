@@ -1,0 +1,1 @@
+java.lang.IllegalArgumentException runtime exception koji treba uhvatiti kada se koristi metoda valueOf(String string) kod citanja protokola(enum)
