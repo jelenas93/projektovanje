@@ -18,7 +18,9 @@ public class DBDAOSala implements IDBDAO {
     }
 
     @Override
+
     public Boolean azurirajBazu(IDTO dtoSala, Connection konekcijaNaBazu) {
+
         return null;
     }
 

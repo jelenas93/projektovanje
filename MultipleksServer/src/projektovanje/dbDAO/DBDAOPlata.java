@@ -4,6 +4,7 @@ import projektovanje.dto.DTOPlata;
 import projektovanje.dto.IDTO;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 public class DBDAOPlata implements IDBDAO {
@@ -18,11 +19,7 @@ public class DBDAOPlata implements IDBDAO {
     }
 
     @Override
-<<<<<<< HEAD
-    public Boolean azurirajBazu(IDTO dtoPlata, Connection konekcijaNaBazu) {
-=======
-    public Boolean azurirajBazu(IDTO list, Connection konekcijaNaBazu) {
->>>>>>> 119457b79ea8ebc88d4b6e2705a6ba9d3cd5687a
+    public Boolean azurirajBazu(IDTO list, Connection konekcijaNaBazu) throws SQLException {
         return null;
     }
 

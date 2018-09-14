@@ -7,6 +7,7 @@ import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,13 +44,10 @@ public class DBDAOIzdavanje implements IDBDAO {
     }
 
     @Override
-<<<<<<< HEAD
-    public Boolean azurirajBazu(IDTO dtoIzdavanje, Connection konekcijaNaBazu) {
-=======
-    public Boolean azurirajBazu(IDTO list, Connection konekcijaNaBazu) {
->>>>>>> 119457b79ea8ebc88d4b6e2705a6ba9d3cd5687a
+    public Boolean azurirajBazu(IDTO list, Connection konekcijaNaBazu) throws SQLException {
         return null;
     }
+
 
     @Override
     public List<DTOIzdavanje> pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
