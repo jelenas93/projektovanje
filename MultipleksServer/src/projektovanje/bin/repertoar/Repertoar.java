@@ -6,11 +6,11 @@ import projektovanje.bin.zaposleni.Zaposleni;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class Repertoar implements Serializable {
     private Integer idRepertoara;
-    private Projekcija projekcija;
-    private Film film;
+    private List<Projekcija> projekcija;
     private Zaposleni zaposleni;
     private Date datumOd;
     private Date datumDo;
@@ -18,10 +18,9 @@ public class Repertoar implements Serializable {
     public Repertoar() {
     }
 
-    public Repertoar(Integer idRepertoara, Projekcija projekcija, Film film, Zaposleni zaposleni, Date datumOd, Date datumDo) {
+    public Repertoar(Integer idRepertoara, List<Projekcija> projekcija, Film film, Zaposleni zaposleni, Date datumOd, Date datumDo) {
         this.idRepertoara = idRepertoara;
         this.projekcija = projekcija;
-        this.film = film;
         this.zaposleni = zaposleni;
         this.datumOd = datumOd;
         this.datumDo = datumDo;
@@ -35,20 +34,12 @@ public class Repertoar implements Serializable {
         this.idRepertoara = idRepertoara;
     }
 
-    public Projekcija getProjekcija() {
+    public List<Projekcija> getProjekcija() {
         return projekcija;
     }
 
-    public void setProjekcija(Projekcija projekcija) {
+    public void setProjekcija(List<Projekcija> projekcija) {
         this.projekcija = projekcija;
-    }
-
-    public Film getFilm() {
-        return film;
-    }
-
-    public void setFilm(Film film) {
-        this.film = film;
     }
 
     public Zaposleni getZaposleni() {
