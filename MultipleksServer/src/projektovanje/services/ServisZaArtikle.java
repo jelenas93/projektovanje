@@ -13,6 +13,6 @@ public class ServisZaArtikle {
     }
 
     public static void pregledSvihArtikala(){
-
+      
     }
 }
