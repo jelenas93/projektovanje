@@ -5,10 +5,11 @@ import projektovanje.bin.racun.Stavka;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class Racun implements Serializable {
     private Integer idRacuna;
-    private Stavka stavka;
+    private List<Stavka> stavka;
     private Date datumIzdavanja;
     private Double ukupndaCijena;
     private Zaposleni zaposleni;
@@ -17,7 +18,7 @@ public class Racun implements Serializable {
     public Racun() {
     }
 
-    public Racun(Integer idRacuna, Stavka stavka, Date datumIzdavanja, Double ukupndaCijena, Zaposleni zaposleni, Double kolicina) {
+    public Racun(Integer idRacuna, List<Stavka> stavka, Date datumIzdavanja, Double ukupndaCijena, Zaposleni zaposleni, Double kolicina) {
         this.idRacuna = idRacuna;
         this.stavka = stavka;
         this.datumIzdavanja = datumIzdavanja;
@@ -34,11 +35,11 @@ public class Racun implements Serializable {
         this.idRacuna = idRacuna;
     }
 
-    public Stavka getStavka() {
+    public List<Stavka> getStavka() {
         return stavka;
     }
 
-    public void setStavka(Stavka stavka) {
+    public void setStavka(List<Stavka> stavka) {
         this.stavka = stavka;
     }
 

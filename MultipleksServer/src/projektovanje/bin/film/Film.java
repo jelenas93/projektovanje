@@ -1,10 +1,14 @@
 package projektovanje.bin.film;
 
+import projektovanje.bin.zaposleni.Zaposleni;
+
 import java.io.Serializable;
+import java.util.List;
 
 public class Film implements Serializable {
     private Integer idFilma;
-    private Integer idZaposlenog;
+    private Zaposleni zaposleni;
+    private List<Zanr> zanrovi;
     private Integer trajanje;
     private String naziv;
     private String opis;
@@ -14,14 +18,30 @@ public class Film implements Serializable {
     public Film() {
     }
 
-    public Film(Integer idFilma, Integer idZaposlenog, Integer trajanje, String naziv, String opis, String linkTrailera, String tipFilma) {
+    public Film(Integer idFilma, Zaposleni zaposleni, Integer trajanje, String naziv, String opis, String linkTrailera, String tipFilma) {
         this.idFilma = idFilma;
-        this.idZaposlenog = idZaposlenog;
+        this.zaposleni = zaposleni;
         this.trajanje = trajanje;
         this.naziv = naziv;
         this.opis = opis;
         this.linkTrailera = linkTrailera;
         this.tipFilma = tipFilma;
+    }
+
+    public Zaposleni getZaposleni() {
+        return zaposleni;
+    }
+
+    public void setZaposleni(Zaposleni zaposleni) {
+        this.zaposleni = zaposleni;
+    }
+
+    public List<Zanr> getZanrovi() {
+        return zanrovi;
+    }
+
+    public void setZanrovi(List<Zanr> zanrovi) {
+        this.zanrovi = zanrovi;
     }
 
     public Integer getIdFilma() {
@@ -30,14 +50,6 @@ public class Film implements Serializable {
 
     public void setIdFilma(Integer idFilma) {
         this.idFilma = idFilma;
-    }
-
-    public Integer getIdZaposlenog() {
-        return idZaposlenog;
-    }
-
-    public void setIdZaposlenog(Integer idZaposlenog) {
-        this.idZaposlenog = idZaposlenog;
     }
 
     public Integer getTrajanje() {

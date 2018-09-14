@@ -1,6 +1,7 @@
 package projektovanje.bin.karta;
 
 import projektovanje.bin.klijent.Klijent;
+import projektovanje.bin.projekcija.Projekcija;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -11,6 +12,7 @@ public class Karta implements Serializable {
     private Double cijena;
     private Boolean rezervisana;
     private Klijent klijent;
+    private Projekcija projekcija;
 
     {
         klijent = null;
@@ -19,18 +21,28 @@ public class Karta implements Serializable {
     public Karta(){
     }
 
-    public Karta(Integer idKarte, Date datumIzdavanja, Double cijena) {
+    public Karta(Integer idKarte, Date datumIzdavanja, Double cijena, Projekcija projekcija) {
         this.idKarte = idKarte;
         this.datumIzdavanja = datumIzdavanja;
         this.cijena = cijena;
+        this.projekcija = projekcija;
     }
 
-    public Karta(Integer idKarte, Date datumIzdavanja, Double cijena, Boolean rezervisana, Klijent klijent) {
+    public Karta(Integer idKarte, Date datumIzdavanja, Double cijena, Boolean rezervisana, Klijent klijent, Projekcija projekcija) {
         this.idKarte = idKarte;
         this.datumIzdavanja = datumIzdavanja;
         this.cijena = cijena;
         this.rezervisana = rezervisana;
         this.klijent = klijent;
+        this.projekcija = projekcija;
+    }
+
+    public Projekcija getProjekcija() {
+        return projekcija;
+    }
+
+    public void setProjekcija(Projekcija projekcija) {
+        this.projekcija = projekcija;
     }
 
     public Integer getIdKarte() {
