@@ -4,6 +4,7 @@ import projektovanje.dto.DTOProdavacKarata;
 import projektovanje.dto.IDTO;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 public class DBDAOProdavacKarata implements IDBDAO {
