@@ -82,6 +82,17 @@ insert into repertoarProjekcija values (1,2);
 #izlistavanje svih projekcija sa repertoara 
 select f.naziv,p.idProjekcije,p.idFilma,p.VrijemeFilma from RepertoarProjekcija as rp inner join Projekcija as p inner join Film as f where rp.idProjekcije = p.idProjekcije and p.idFilma=f.idFilma;
 
-select * from zaposleni;
+insert into Plata values(1,0,0,0,0,0,0,0,0,0,0,0,0,"00-00-00","00-00-00");
+
+
+select * from Film;
+
+update Film set idZaposlenog = 9,
+                            naziv = 'TerminatorSila',
+                            trajanje = 5000,
+                            opis = "Bona",
+                            link = "link",
+                            tipFilma = "2D" 
+                        where idFilma = 3;
 
 insert into nalog values ("Coa","Coa");

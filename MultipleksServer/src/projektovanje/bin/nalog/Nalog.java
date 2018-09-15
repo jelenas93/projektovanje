@@ -14,6 +14,9 @@ public class Nalog implements Serializable {
         this.lozinkaHash = lozinkaHash;
     }
 
+    public Nalog(String korisnickoIme){
+        korisnickiNalog = korisnickoIme;
+    }
     public String getKorisnickiNalog() {
         return korisnickiNalog;
     }

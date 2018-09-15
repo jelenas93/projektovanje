@@ -25,6 +25,10 @@ public class Zaposleni implements Serializable {
         this.nalog = nalog;
     }
 
+    public Zaposleni(Integer id){
+        idZaposlenog = id;
+    }
+
     public Integer getIdZaposlenog() {
         return idZaposlenog;
     }

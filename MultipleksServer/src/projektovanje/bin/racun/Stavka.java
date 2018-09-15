@@ -13,6 +13,16 @@ public class Stavka implements Serializable {
     public Stavka() {
     }
 
+    @Override
+    public String toString() {
+        return "Stavka{" +
+                "idStavke=" + idStavke +
+                ", kolicina=" + kolicina +
+                ", ukupaCijena=" + ukupaCijena +
+                ", artikal=" + artikal.toString() +
+                '}';
+    }
+
     public Stavka(Integer idStavke, Integer kolicina, Double ukupaCijena, Artikal artikal) {
         this.idStavke = idStavke;
         this.kolicina = kolicina;

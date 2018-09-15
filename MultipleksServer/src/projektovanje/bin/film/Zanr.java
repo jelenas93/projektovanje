@@ -29,4 +29,12 @@ public class Zanr implements Serializable {
     public void setNazivZanra(String nazivZanra) {
         this.nazivZanra = nazivZanra;
     }
+
+    @Override
+    public String toString() {
+        return "Zanr{" +
+                "idZanra=" + idZanra +
+                ", nazivZanra='" + nazivZanra + '\'' +
+                '}';
+    }
 }
