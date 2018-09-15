@@ -24,7 +24,7 @@ public class DBDAOProjekcija implements IDBDAO {
     }
 
     @Override
-    public List<DTOProjekcija> pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
+    public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
         return null;
     }
 

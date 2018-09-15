@@ -13,12 +13,8 @@ public class ProdavacKarata extends Zaposleni {
         this.idProdavcaKarata = idProdavcaKarata;
     }
 
-    public ProdavacKarata(String ime, String prezime, String JMBG, Plata plata, Integer idZaposlenog, Nalog nalog) {
-        super(ime, prezime, JMBG, plata, idZaposlenog, nalog);
-    }
-
-    public ProdavacKarata(String ime, String prezime, String JMBG, Plata plata, Integer idZaposlenog, Nalog nalog, Integer idProdavcaKarata) {
-        super(ime, prezime, JMBG, plata, idZaposlenog, nalog);
+    public ProdavacKarata(Integer idZaposlenog, Plata plata, String ime, String prezime, String JMBG, Nalog nalog, Integer idProdavcaKarata) {
+        super(idZaposlenog, plata, ime, prezime, JMBG, nalog);
         this.idProdavcaKarata = idProdavcaKarata;
     }
 }

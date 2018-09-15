@@ -25,7 +25,7 @@ public class DBDAONalog implements IDBDAO {
 
 
     @Override
-    public List<DTONalog> pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
+    public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
         return null;
     }
 

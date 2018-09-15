@@ -24,7 +24,7 @@ public class DBDAORacunovodja implements IDBDAO {
     }
 
     @Override
-    public List<DTORacuovodja> pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
+    public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
         return null;
     }
 

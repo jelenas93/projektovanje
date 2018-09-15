@@ -25,7 +25,7 @@ public class DBDAOOprema implements IDBDAO{
 
 
     @Override
-    public List<DTOOprema> pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
+    public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
         return null;
     }
 

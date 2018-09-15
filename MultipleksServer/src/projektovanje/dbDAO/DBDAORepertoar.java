@@ -23,7 +23,7 @@ public class DBDAORepertoar implements IDBDAO {
     }
 
     @Override
-    public List<DTORepertoar> pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
+    public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
         return null;
     }
 

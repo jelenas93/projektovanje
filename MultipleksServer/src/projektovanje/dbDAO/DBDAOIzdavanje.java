@@ -3,7 +3,6 @@ package projektovanje.dbDAO;
 import projektovanje.dto.DTOIzdavanje;
 import projektovanje.dto.IDTO;
 
-import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -50,7 +49,7 @@ public class DBDAOIzdavanje implements IDBDAO {
 
 
     @Override
-    public List<DTOIzdavanje> pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
+    public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
         return null;
     }
 

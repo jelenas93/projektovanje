@@ -21,12 +21,8 @@ public class Menadzer extends Zaposleni {
     public Menadzer() {
     }
 
-    public Menadzer(String ime, String prezime, String JMBG, Plata plata, Integer idZaposlenog, Nalog nalog) {
-        super(ime, prezime, JMBG, plata, idZaposlenog, nalog);
-    }
-
-    public Menadzer(String ime, String prezime, String JMBG, Plata plata, Integer idZaposlenog, Nalog nalog, Integer idMenadzera) {
-        super(ime, prezime, JMBG, plata, idZaposlenog, nalog);
+    public Menadzer(Integer idZaposlenog, Plata plata, String ime, String prezime, String JMBG, Nalog nalog, Integer idMenadzera) {
+        super(idZaposlenog, plata, ime, prezime, JMBG, nalog);
         this.idMenadzera = idMenadzera;
     }
 }
