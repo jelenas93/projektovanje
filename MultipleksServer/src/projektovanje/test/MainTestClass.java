@@ -4,6 +4,7 @@ import projektovanje.bin.film.Zanr;
 import projektovanje.bin.oprema.Artikal;
 import projektovanje.bin.nalog.Nalog;
 import projektovanje.bin.plata.Plata;
+import projektovanje.bin.racun.Stavka;
 import projektovanje.bin.transakcije.UlaznaFaktura;
 import projektovanje.bin.zaposleni.Administrator;
 import projektovanje.bin.zaposleni.Zaposleni;
@@ -22,25 +23,25 @@ public class MainTestClass {
         Connection c = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/multipleks", "root", "admin");
 
-        DBDAOUlaznaFaktura faktDao = new DBDAOUlaznaFaktura();
-        UlaznaFaktura novaFaktura = new UlaznaFaktura(1,new Zaposleni(2),"abc","kes","kol",5.0,3.0,"Cijeli",new Date(),null);
-        List<DTOUlaznaFaktura> ispisi =(ArrayList<DTOUlaznaFaktura>) faktDao.ispisi(c);
-        ispisi.stream().forEach(x-> System.out.println(x.getUlaznaFaktura()));
+        DBDAOStavka faktDao = new DBDAOStavka();
+        Stavka novaStavka = new Stavka(1,5,32.5,new Artikal(1));
+        List<DTOStavka> ispisi =(ArrayList<DTOStavka>) faktDao.ispisi(c);
+        ispisi.stream().forEach(x-> System.out.println(x.getStavka()));
 
         System.out.println("Dodavanje...");
-        faktDao.upisiUBazu(new DTOUlaznaFaktura(novaFaktura),c);
+        faktDao.upisiUBazu(new DTOStavka(novaStavka),c);
         System.out.println("Dodavanje uspjesno");
 
 
-        ispisi =(ArrayList<DTOUlaznaFaktura>) faktDao.ispisi(c);
-        ispisi.stream().forEach(x-> System.out.println(x.getUlaznaFaktura()));
+        ispisi =(ArrayList<DTOStavka>) faktDao.ispisi(c);
+        ispisi.stream().forEach(x-> System.out.println(x.getStavka()));
         System.out.println("Pokusaj updatea");
-        novaFaktura.setJedinicaMjere("BLAZANR");
-        novaFaktura.setIdFakute(2);
-        faktDao.azurirajBazu(new DTOUlaznaFaktura(novaFaktura),c);
+        novaStavka.setKolicina(6);
+        novaStavka.setIdStavke(1);
+        faktDao.azurirajBazu(new DTOStavka(novaStavka),c);
 
-        ispisi = (ArrayList<DTOUlaznaFaktura>)faktDao.ispisi(c);
-        ispisi.stream().forEach(x-> System.out.println(x.getUlaznaFaktura()));
+        ispisi = (ArrayList<DTOStavka>)faktDao.ispisi(c);
+        ispisi.stream().forEach(x-> System.out.println(x.getStavka()));
         System.out.println("Everything done");
         c.close();
     }

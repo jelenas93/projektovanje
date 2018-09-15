@@ -14,6 +14,10 @@ public class Artikal implements IOprema{
     public Artikal() {
     }
 
+    public Artikal(Integer id){
+        idArtikla = id;
+    }
+
     public Artikal(Integer idArtikla, String naziv, Integer kolicinaNaStanju, Double jedinicnaCijena,  String tip, String barKod, Zaposleni zaposleni) {
         this.jedinicnaCijena = jedinicnaCijena;
         this.idArtikla = idArtikla;
