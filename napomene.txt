@@ -3,3 +3,4 @@
 	- Svaki thread ima kao atribut zaposlenog zbog kog je kreiran da se isti ne bi morao identifikovati
 	svaki put kad posalje zahtjev prema serveru. (DONE)
 	-Treba pripaziti na exception koji se baci pri isteku konekcije, u catch resetovati konekciju
+-Razmotriti mogucnost dodavanja metode pretrazi bazu po imenu u dbDto.

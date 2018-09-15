@@ -14,7 +14,6 @@ public class DBDAOZaposleni implements IDBDAO {
 
     @Override
     public synchronized Boolean upisiUBazu(IDTO zaposleni, Connection konekcijaNaBazu) throws SQLException {
-        Boolean uspjesno = false;
         DTOZaposleni lokalniDTOZaposleni = (DTOZaposleni) zaposleni;
         Zaposleni lokalniZaposleni = lokalniDTOZaposleni.getZaposleni();
         PreparedStatement ps = konekcijaNaBazu.prepareStatement("insert into Zaposleni values (default,?,?,?,?,?,?)");
@@ -26,7 +25,7 @@ public class DBDAOZaposleni implements IDBDAO {
         ps.setBoolean(5,true);
         ps.setString(6,lokalniZaposleni.getNalog().getKorisnickiNalog());
         ps.executeUpdate();
-        return uspjesno;
+        return true;
     }
 
     @Override
@@ -68,7 +67,7 @@ public class DBDAOZaposleni implements IDBDAO {
 
     @Override
     public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) throws SQLException {
-        ArrayList<DTOZaposleni> povratnaVrijednost = new ArrayList<>();
+        DTOZaposleni povratnaVrijednost = null;
         int idZaposlenog = Integer.valueOf(parametarPretrage);
         PreparedStatement s = konekcijaNaBazu.prepareStatement("select * from zaposleni where idZaposlenog = ?");
         s.setInt(1,idZaposlenog);
@@ -80,12 +79,14 @@ public class DBDAOZaposleni implements IDBDAO {
             String prezime = rezultat.getString(4);
             String JMBG = rezultat.getString(5);
             Boolean aktivan = rezultat.getBoolean(6);
+            String korisnickoIme = rezultat.getString(7);
+            povratnaVrijednost = new DTOZaposleni(new Zaposleni(id,new Plata(idPlate),ime,prezime,JMBG,new Nalog(korisnickoIme)));
         }
-        return null;
+        return povratnaVrijednost;
     }
 
     @Override
-    public List<? extends IDTO> ispisi(Connection konekcijaNaBazu) {
-        return null;
+    public List<? extends IDTO> ispisi(Connection konekcijaNaBazu) throws SQLException {
+        return citajIzBaze(konekcijaNaBazu);
     }
 }
