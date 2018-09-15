@@ -24,7 +24,7 @@ public class DBDAOProdavacHraneIPica implements IDBDAO {
     }
 
     @Override
-    public List<DTOProdavacHraneIPica> pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
+    public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
         return null;
     }
 

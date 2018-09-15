@@ -14,17 +14,15 @@ public class Racunovodja extends Zaposleni {
         this.idRacunovodje = idRacunovodje;
     }
 
-    public Racunovodja(String ime, String prezime, String JMBG, Plata plata, Integer idZaposlenog, Nalog nalog) {
-        super(ime, prezime, JMBG, plata, idZaposlenog, nalog);
+    public Racunovodja(Integer idZaposlenog, Plata plata, String ime, String prezime, String JMBG, Nalog nalog, Integer idRacunovodje) {
+        super(idZaposlenog, plata, ime, prezime, JMBG, nalog);
+        this.idRacunovodje = idRacunovodje;
     }
 
     public Racunovodja() {
     }
 
-    public Racunovodja(String ime, String prezime, String JMBG, Plata plata, Integer idZaposlenog, Nalog nalog, Integer idRacunovodje) {
-        super(ime, prezime, JMBG, plata, idZaposlenog, nalog);
-        this.idRacunovodje = idRacunovodje;
-    }
+
 
     public Racunovodja(Integer idRacunovodje) {
         this.idRacunovodje = idRacunovodje;

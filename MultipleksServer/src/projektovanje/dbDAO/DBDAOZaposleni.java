@@ -24,9 +24,6 @@ public class DBDAOZaposleni implements IDBDAO {
         ps.setString(3,lokalniZaposleni.getPrezime());
         ps.setString(4,lokalniZaposleni.getJMBG());
         ps.setBoolean(5,true);
-<<<<<<< HEAD
-        ps.setString(6,"test1");
-=======
         ps.setString(6,lokalniZaposleni.getNalog().getKorisnickiNalog());
         ps.executeUpdate();
         return uspjesno;
@@ -47,33 +44,43 @@ public class DBDAOZaposleni implements IDBDAO {
     }
 
     @Override
-<<<<<<< HEAD
-    public Boolean azurirajBazu(IDTO list, Connection konekcijaNaBazu) {
-        return null;
-=======
-
     public Boolean azurirajBazu(IDTO noviZaposleni, Connection konekcijaNaBazu) throws SQLException {
         DTOZaposleni lokalniDTOZaposleni = (DTOZaposleni) noviZaposleni;
         Zaposleni lokalniZaposleni = lokalniDTOZaposleni.getZaposleni();
-        PreparedStatement ps = konekcijaNaBazu.prepareStatement("update Zaposleni " +
-                "set idPlate = ?" +
-                "ime=?" +
-                "prezime=?" +
-                "JMBG=?" +
-                "nalog=?" +
-                "where idZaposlenog=?");
+        PreparedStatement ps = konekcijaNaBazu.prepareStatement("update Zaposleni" +
+                "   set idPlate = ?," +
+                        "   ime = ?," +
+                        "   prezime = ?," +
+                        "   JMBG = ?," +
+                        "   korisnickoIme = ?," +
+                        "   aktivan = ?" +
+                        "   where idZaposlenog = ?");
         ps.setInt(1,lokalniZaposleni.getPlata().getIDPlate());
         ps.setString(2,lokalniZaposleni.getIme());
         ps.setString(3,lokalniZaposleni.getPrezime());
         ps.setString(4,lokalniZaposleni.getJMBG());
         ps.setString(5,lokalniZaposleni.getNalog().getKorisnickiNalog());
-        ps.setInt(6,lokalniZaposleni.getIdZaposlenog());
+        ps.setBoolean(6,true);
+        ps.setInt(7,lokalniZaposleni.getIdZaposlenog());
+        ps.executeUpdate();
         return true;
->>>>>>> 119457b79ea8ebc88d4b6e2705a6ba9d3cd5687a
     }
 
     @Override
-    public List<? extends IDTO> pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
+    public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) throws SQLException {
+        ArrayList<DTOZaposleni> povratnaVrijednost = new ArrayList<>();
+        int idZaposlenog = Integer.valueOf(parametarPretrage);
+        PreparedStatement s = konekcijaNaBazu.prepareStatement("select * from zaposleni where idZaposlenog = ?");
+        s.setInt(1,idZaposlenog);
+        ResultSet rezultat = s.executeQuery();
+        if(rezultat.next()){
+            int id = rezultat.getInt(1);
+            int idPlate = rezultat.getInt(2);
+            String ime = rezultat.getString(3);
+            String prezime = rezultat.getString(4);
+            String JMBG = rezultat.getString(5);
+            Boolean aktivan = rezultat.getBoolean(6);
+        }
         return null;
     }
 

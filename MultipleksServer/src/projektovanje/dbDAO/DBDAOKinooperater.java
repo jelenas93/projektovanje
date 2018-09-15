@@ -25,7 +25,7 @@ public class DBDAOKinooperater implements IDBDAO {
 
 
     @Override
-    public List<DTOKinooperater> pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
+    public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
         return null;
     }
 

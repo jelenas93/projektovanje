@@ -25,7 +25,7 @@ public class DBDAOSala implements IDBDAO {
     }
 
     @Override
-    public List<DTOSala> pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
+    public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
         return null;
     }
 

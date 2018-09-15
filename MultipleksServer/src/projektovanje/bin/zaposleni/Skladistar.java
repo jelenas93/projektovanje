@@ -14,12 +14,8 @@ public class Skladistar extends Zaposleni {
         this.idSkladistara = idSkladistara;
     }
 
-    public Skladistar(String ime, String prezime, String JMBG, Plata plata, Integer idZaposlenog, Nalog nalog) {
-        super(ime, prezime, JMBG, plata, idZaposlenog, nalog);
-    }
-
-    public Skladistar(String ime, String prezime, String JMBG, Plata plata, Integer idZaposlenog, Nalog nalog, Integer idSkladistara) {
-        super(ime, prezime, JMBG, plata, idZaposlenog, nalog);
+    public Skladistar(Integer idZaposlenog, Plata plata, String ime, String prezime, String JMBG, Nalog nalog, Integer idSkladistara) {
+        super(idZaposlenog, plata, ime, prezime, JMBG, nalog);
         this.idSkladistara = idSkladistara;
     }
 

@@ -23,12 +23,8 @@ public class Administrator extends Zaposleni{
     public Administrator() {
     }
 
-    public Administrator(String ime, String prezime, String JMBG, Plata plata, Integer idZaposlenog, Nalog nalog, Integer idAdministratora) {
-        super(ime, prezime, JMBG, plata, idZaposlenog, nalog);
+    public Administrator(Integer idZaposlenog, Plata plata, String ime, String prezime, String JMBG, Nalog nalog, Integer idAdministratora) {
+        super(idZaposlenog, plata, ime, prezime, JMBG, nalog);
         this.idAdministratora = idAdministratora;
-    }
-
-    public Administrator(String ime, String prezime, String JMBG, Plata plata, Integer idZaposlenog, Nalog nalog) {
-        super(ime, prezime, JMBG, plata, idZaposlenog, nalog);
     }
 }

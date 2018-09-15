@@ -25,7 +25,7 @@ public class DBDAOMenadzer implements IDBDAO {
     }
 
     @Override
-    public List<DTOMenadzer> pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
+    public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
         return null;
     }
 

@@ -5,7 +5,6 @@ import projektovanje.bin.zaposleni.Zaposleni;
 import projektovanje.dto.DTOFilm;
 import projektovanje.dto.IDTO;
 
-import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -77,7 +76,7 @@ public class DBDAOFilm implements IDBDAO {
     }
 
     @Override
-    public List<DTOFilm> pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
+    public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
         return null;
     }
 

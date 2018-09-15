@@ -14,12 +14,8 @@ public class ProdavacHraneIPica extends Zaposleni {
         this.idProdavacaHraneIPica = idProdavacaHraneIPica;
     }
 
-    public ProdavacHraneIPica(String ime, String prezime, String JMBG, Plata plata, Integer idZaposlenog, Nalog nalog) {
-        super(ime, prezime, JMBG, plata, idZaposlenog, nalog);
-    }
-
-    public ProdavacHraneIPica(String ime, String prezime, String JMBG, Plata plata, Integer idZaposlenog, Nalog nalog, Integer idProdavacaHraneIPica) {
-        super(ime, prezime, JMBG, plata, idZaposlenog, nalog);
+    public ProdavacHraneIPica(Integer idZaposlenog, Plata plata, String ime, String prezime, String JMBG, Nalog nalog, Integer idProdavacaHraneIPica) {
+        super(idZaposlenog, plata, ime, prezime, JMBG, nalog);
         this.idProdavacaHraneIPica = idProdavacaHraneIPica;
     }
 

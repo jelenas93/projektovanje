@@ -44,7 +44,7 @@ public class DBDAOAdministrator implements IDBDAO {
 
 
     @Override
-    public List<DTOAdministrator> pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
+    public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
         return null;
     }
 

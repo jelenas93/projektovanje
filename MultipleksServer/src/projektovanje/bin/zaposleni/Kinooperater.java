@@ -21,12 +21,8 @@ public class Kinooperater extends Zaposleni {
     public Kinooperater() {
     }
 
-    public Kinooperater(String ime, String prezime, String JMBG, Plata plata, Integer idZaposlenog, Nalog nalog, Integer idKinooperatera) {
-        super(ime, prezime, JMBG, plata, idZaposlenog, nalog);
+    public Kinooperater(Integer idZaposlenog, Plata plata, String ime, String prezime, String JMBG, Nalog nalog, Integer idKinooperatera) {
+        super(idZaposlenog, plata, ime, prezime, JMBG, nalog);
         this.idKinooperatera = idKinooperatera;
-    }
-
-    public Kinooperater(String ime, String prezime, String JMBG, Plata plata, Integer idZaposlenog, Nalog nalog) {
-        super(ime, prezime, JMBG, plata, idZaposlenog, nalog);
     }
 }

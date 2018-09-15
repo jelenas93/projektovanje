@@ -22,7 +22,7 @@ public class DBDAORacun implements IDBDAO {
     }
 
     @Override
-    public List<? extends IDTO> pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
+    public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
         return null;
     }
 

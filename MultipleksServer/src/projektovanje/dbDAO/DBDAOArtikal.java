@@ -79,7 +79,7 @@ public class DBDAOArtikal implements IDBDAO {
     }
 
     @Override
-    public List<DTOArtikal> pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
+    public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
         return null;
     }
 
