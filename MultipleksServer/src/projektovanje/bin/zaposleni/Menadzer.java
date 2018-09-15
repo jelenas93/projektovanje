@@ -17,6 +17,12 @@ public class Menadzer extends Zaposleni {
         this.setIdZaposlenog(idMenadzera);
     }
 
+
+    public Menadzer(Zaposleni zaposleni){
+        super(zaposleni.getIdZaposlenog(), zaposleni.getPlata(), zaposleni.getIme(), zaposleni.getPrezime(), zaposleni.getJMBG(), zaposleni.getNalog());
+    }
+
+
     public Menadzer() {
     }
 

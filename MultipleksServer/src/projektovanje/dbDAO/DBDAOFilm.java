@@ -1,7 +1,9 @@
 package projektovanje.dbDAO;
 
 import projektovanje.bin.film.Film;
+import projektovanje.bin.zaposleni.Administrator;
 import projektovanje.bin.zaposleni.Zaposleni;
+import projektovanje.dto.DTOAdministrator;
 import projektovanje.dto.DTOFilm;
 import projektovanje.dto.IDTO;
 
@@ -25,7 +27,7 @@ public class DBDAOFilm implements IDBDAO {
         preparedStatement.setString(4, LokalniDtoFilm.getFilm().getOpis());
         preparedStatement.setString(5, LokalniDtoFilm.getFilm().getLinkTrailera());
         preparedStatement.setString(6, LokalniDtoFilm.getFilm().getTipFilma());
-        preparedStatement.executeQuery();
+        preparedStatement.executeUpdate();
 
         uspjesno = true;
         return uspjesno;
@@ -56,13 +58,13 @@ public class DBDAOFilm implements IDBDAO {
 
         PreparedStatement preparedStatement = konekcijaNaBazu.prepareStatement(
                 "update Film" +
-                        "set idZaposlenog = ?," +
-                        "    naziv = ?," +
-                        "    trajanje = ?," +
-                        "    opis = ?," +
-                        "    link = ?," +
-                        "    tipFilma = ?" +
-                        "where idFilma = ?");
+                        "   set idZaposlenog = ?," +
+                        "   naziv = ?," +
+                        "   trajanje = ?," +
+                        "   opis = ?," +
+                        "   link = ?," +
+                        "   tipFilma = ?" +
+                        "   where idFilma = ?");
         preparedStatement.setInt(1, lokalniDtoFilm.getFilm().getZaposleni().getIdZaposlenog());
         preparedStatement.setString(2, lokalniDtoFilm.getFilm().getNaziv());
         preparedStatement.setInt(3, lokalniDtoFilm.getFilm().getTrajanje());
@@ -70,14 +72,33 @@ public class DBDAOFilm implements IDBDAO {
         preparedStatement.setString(5, lokalniDtoFilm.getFilm().getLinkTrailera());
         preparedStatement.setString(6, lokalniDtoFilm.getFilm().getTipFilma());
         preparedStatement.setInt(7, lokalniDtoFilm.getFilm().getIdFilma());
-
+        preparedStatement.executeUpdate();
         uspjesno = true;
         return uspjesno;
     }
 
     @Override
-    public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
-        return null;
+    public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) throws java.sql.SQLException{
+        DTOFilm lokalniFilm;
+        PreparedStatement preparedStatement = konekcijaNaBazu.prepareStatement("select * from Film where idFilma = ?");
+        preparedStatement.setInt(1, Integer.parseInt(parametarPretrage));
+        ResultSet resultSet = preparedStatement.executeQuery();
+        Film film = new Film();
+        if (resultSet.next()){
+            film.setIdFilma(resultSet.getInt(1));
+            Zaposleni zaposleni = new Zaposleni();
+            zaposleni.setIdZaposlenog(resultSet.getInt(2));
+            film.setZaposleni(zaposleni);
+            film.setNaziv(resultSet.getString(3));
+            film.setTrajanje(resultSet.getInt(4));
+            film.setOpis(resultSet.getString(5));
+            film.setLinkTrailera(resultSet.getString(6));
+            film.setTipFilma(resultSet.getString(7));
+            lokalniFilm = new DTOFilm(film);
+        }else{
+            lokalniFilm = null;
+        }
+        return lokalniFilm;
     }
 
     @Override

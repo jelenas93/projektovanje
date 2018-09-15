@@ -20,6 +20,12 @@ public class Skladistar extends Zaposleni {
     public Skladistar() {
     }
 
+
+    public Skladistar(Zaposleni zaposleni){
+        super(zaposleni.getIdZaposlenog(), zaposleni.getPlata(), zaposleni.getIme(), zaposleni.getPrezime(), zaposleni.getJMBG(), zaposleni.getNalog());
+    }
+
+
     public Skladistar(Integer idSkladistara) {
         this.setIdZaposlenog(idSkladistara);
     }

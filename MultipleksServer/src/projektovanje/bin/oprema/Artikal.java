@@ -92,4 +92,16 @@ public class Artikal implements IOprema{
     public String vratiTipOpreme() {
         return this.naziv + "#ARTIKAL";
     }
+
+    @Override
+    public String toString() {
+        return "Artikal{" +
+                "jedinicnaCijena=" + jedinicnaCijena +
+                ", idArtikla=" + idArtikla +
+                ", naziv='" + naziv + '\'' +
+                ", kolicinaNaStanju=" + kolicinaNaStanju +
+                ", tip='" + tip + '\'' +
+                ", barKod='" + barKod + '\'' +
+                '}';
+    }
 }

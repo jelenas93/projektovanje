@@ -28,6 +28,19 @@ public class Film implements Serializable {
         this.tipFilma = tipFilma;
     }
 
+    @Override
+    public String toString() {
+        return "Film{" +
+                "idFilma=" + idFilma +
+                ", zanrovi=" + zanrovi +
+                ", trajanje=" + trajanje +
+                ", naziv='" + naziv + '\'' +
+                ", opis='" + opis + '\'' +
+                ", linkTrailera='" + linkTrailera + '\'' +
+                ", tipFilma='" + tipFilma + '\'' +
+                '}';
+    }
+
     public Zaposleni getZaposleni() {
         return zaposleni;
     }

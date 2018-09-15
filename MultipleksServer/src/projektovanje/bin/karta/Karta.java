@@ -1,6 +1,7 @@
 package projektovanje.bin.karta;
 
 import projektovanje.bin.klijent.Klijent;
+import projektovanje.bin.nalog.Nalog;
 import projektovanje.bin.projekcija.Projekcija;
 
 import java.io.Serializable;
@@ -11,11 +12,11 @@ public class Karta implements Serializable {
     private Date datumIzdavanja;
     private Double cijena;
     private Boolean rezervisana;
-    private Klijent klijent;
+    private Nalog nalog;
     private Projekcija projekcija;
 
     {
-        klijent = null;
+        nalog = null;
     }
 
     public Karta(){
@@ -28,12 +29,12 @@ public class Karta implements Serializable {
         this.projekcija = projekcija;
     }
 
-    public Karta(Integer idKarte, Date datumIzdavanja, Double cijena, Boolean rezervisana, Klijent klijent, Projekcija projekcija) {
+    public Karta(Integer idKarte, Date datumIzdavanja, Double cijena, Boolean rezervisana, Nalog nalog, Projekcija projekcija) {
         this.idKarte = idKarte;
         this.datumIzdavanja = datumIzdavanja;
         this.cijena = cijena;
         this.rezervisana = rezervisana;
-        this.klijent = klijent;
+        this.nalog = nalog;
         this.projekcija = projekcija;
     }
 
@@ -77,11 +78,26 @@ public class Karta implements Serializable {
         this.rezervisana = rezervisana;
     }
 
-    public Klijent getKlijent() {
-        return klijent;
+    public Nalog getNalog() {
+        return nalog;
     }
 
-    public void setKlijent(Klijent klijent) {
-        this.klijent = klijent;
+    public void setNalog(Nalog nalog) {
+        this.nalog = nalog;
+    }
+
+    public Karta(Integer idKarte) {
+        this.idKarte = idKarte;
+    }
+
+    @Override
+    public String toString() {
+        return "Karta{" +
+                "idKarte=" + idKarte +
+                ", datumIzdavanja=" + datumIzdavanja +
+                ", cijena=" + cijena +
+                ", rezervisana=" + rezervisana +
+                ", nalog=" + nalog +
+                '}';
     }
 }

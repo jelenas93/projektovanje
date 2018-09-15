@@ -20,7 +20,11 @@ public class Administrator extends Zaposleni{
     public Administrator() {
     }
 
-    public Administrator(Integer idZaposlenog, Plata plata, String ime, String prezime, String JMBG, Nalog nalog, Integer idAdministratora) {
+    public Administrator(Zaposleni zaposleni){
+        super(zaposleni.getIdZaposlenog(), zaposleni.getPlata(), zaposleni.getIme(), zaposleni.getPrezime(), zaposleni.getJMBG(), zaposleni.getNalog());
+    }
+
+    public Administrator(Integer idZaposlenog, Plata plata, String ime, String prezime, String JMBG, Nalog nalog) {
         super(idZaposlenog, plata, ime, prezime, JMBG, nalog);
     }
 }

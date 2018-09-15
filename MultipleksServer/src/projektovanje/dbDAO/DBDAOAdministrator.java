@@ -1,7 +1,9 @@
 package projektovanje.dbDAO;
 
 import projektovanje.bin.zaposleni.Administrator;
+import projektovanje.bin.zaposleni.Zaposleni;
 import projektovanje.dto.DTOAdministrator;
+import projektovanje.dto.DTOZaposleni;
 import projektovanje.dto.IDTO;
 
 import java.sql.Connection;
@@ -29,7 +31,11 @@ public class DBDAOAdministrator implements IDBDAO {
     PreparedStatement citanjeSvihAdministratora = konekcijaNaBazu.prepareStatement("select * from Administrator");
     ResultSet resultSet = citanjeSvihAdministratora.executeQuery();
     while(resultSet.next()){
-        Administrator administrator = new Administrator(resultSet.getInt(1));
+        DBDAOZaposleni zaposleniDAO = new DBDAOZaposleni();
+        DTOZaposleni zaposleniDTO;
+        Integer hlpVar = resultSet.getInt(1);
+        zaposleniDTO = (DTOZaposleni)zaposleniDAO.pretraziBazu(konekcijaNaBazu, hlpVar.toString());
+        Administrator administrator = new Administrator(zaposleniDTO.getZaposleni());
         DTOAdministrator dtoAdministrator = new DTOAdministrator(administrator);
         listaAdministratora.add(dtoAdministrator);
     }
@@ -39,7 +45,11 @@ public class DBDAOAdministrator implements IDBDAO {
 
     @Override
     public Boolean azurirajBazu(IDTO list, Connection konekcijaNaBazu) throws SQLException {
-        return null;
+        DBDAOZaposleni zaposleniDAO = new DBDAOZaposleni();
+        DTOAdministrator lovalVar = (DTOAdministrator) list;
+        DTOZaposleni zaposleniDTO = new DTOZaposleni((Zaposleni)lovalVar.getAdministrator());
+        zaposleniDAO.azurirajBazu(zaposleniDTO, konekcijaNaBazu);
+        return true;
     }
 
 
@@ -47,7 +57,7 @@ public class DBDAOAdministrator implements IDBDAO {
     public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) throws SQLException {
         DTOAdministrator lokalniAdministrator;
 
-        PreparedStatement preparedStatement = konekcijaNaBazu.prepareStatement("select * from Administrator where idAdministratora = ?");
+        PreparedStatement preparedStatement = konekcijaNaBazu.prepareStatement("select * from Administrator where idZaposlenog = ?");
         preparedStatement.setInt(1, Integer.parseInt(parametarPretrage));
         ResultSet resultSet = preparedStatement.executeQuery();
         Administrator admin = new Administrator();

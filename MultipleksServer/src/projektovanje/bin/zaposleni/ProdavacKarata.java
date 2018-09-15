@@ -16,6 +16,12 @@ public class ProdavacKarata extends Zaposleni {
         super(idZaposlenog, plata, ime, prezime, JMBG, nalog);
     }
 
+
+    public ProdavacKarata(Zaposleni zaposleni){
+        super(zaposleni.getIdZaposlenog(), zaposleni.getPlata(), zaposleni.getIme(), zaposleni.getPrezime(), zaposleni.getJMBG(), zaposleni.getNalog());
+    }
+
+
     public void setIdProdavcaKarata(Integer idProdavcaKarata){
         this.setIdZaposlenog(idProdavcaKarata);
     }

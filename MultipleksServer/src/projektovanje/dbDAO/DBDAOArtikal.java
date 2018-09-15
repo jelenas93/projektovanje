@@ -5,6 +5,7 @@ import projektovanje.bin.zaposleni.Zaposleni;
 import projektovanje.dto.DTOArtikal;
 import projektovanje.dto.IDTO;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -79,8 +80,28 @@ public class DBDAOArtikal implements IDBDAO {
     }
 
     @Override
-    public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
-        return null;
+    public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) throws java.sql.SQLException{
+        DTOArtikal lokalniArtikal;
+
+        PreparedStatement preparedStatement = konekcijaNaBazu.prepareStatement("select * from Artikal where idArtikla = ?");
+        preparedStatement.setInt(1, Integer.parseInt(parametarPretrage));
+        ResultSet resultSet = preparedStatement.executeQuery();
+        Artikal artikal = new Artikal();
+        if (resultSet.next()){
+            artikal.setIdArtikla(resultSet.getInt(1));
+            artikal.setNaziv(resultSet.getString(2));
+            artikal.setKolicinaNaStanju(resultSet.getInt(3));
+            artikal.setJedinicnaCijena(resultSet.getDouble(4));
+            artikal.setTip(resultSet.getString(5));
+            artikal.setBarKod(resultSet.getString(6));
+            Zaposleni zaposleni = new Zaposleni();
+            zaposleni.setIdZaposlenog(resultSet.getInt(7));
+            artikal.setZaposleni(zaposleni);
+            lokalniArtikal = new DTOArtikal(artikal);
+        }else{
+            lokalniArtikal = null;
+        }
+        return lokalniArtikal;
     }
 
     @Override
