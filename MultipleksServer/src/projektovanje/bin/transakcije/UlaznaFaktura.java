@@ -19,7 +19,7 @@ public class UlaznaFaktura implements Serializable {
     private Date datum;
     private List<? extends IOprema> kupljenaRoba;
 
-    public UlaznaFaktura(Integer idFakute, Zaposleni zaposleni, String brojRacina, String vrstaTransakcije, Double kolicina, String jedinicaMjere, Double cijena, String kupac, Date datum, List<? extends IOprema> kupljenaRoba) {
+    public UlaznaFaktura(Integer idFakute, Zaposleni zaposleni, String brojRacina, String vrstaTransakcije, String jedinicaMjere,Double kolicina, Double cijena, String kupac, Date datum, List<? extends IOprema> kupljenaRoba) {
         this.idFakute = idFakute;
         this.zaposleni = zaposleni;
         this.brojRacina = brojRacina;
@@ -113,5 +113,20 @@ public class UlaznaFaktura implements Serializable {
 
     public void setKupljenaRoba(List<? extends IOprema> kupljenaRoba) {
         this.kupljenaRoba = kupljenaRoba;
+    }
+
+    @Override
+    public String toString() {
+        return "UlaznaFaktura{" +
+                "idFakute=" + idFakute +
+                ", zaposleni=" + zaposleni.toString() +
+                ", brojRacina='" + brojRacina + '\'' +
+                ", vrstaTransakcije='" + vrstaTransakcije + '\'' +
+                ", kolicina=" + kolicina +
+                ", jedinicaMjere='" + jedinicaMjere + '\'' +
+                ", cijena=" + cijena +
+                ", kupac='" + kupac + '\'' +
+                ", datum=" + datum +
+                '}';
     }
 }
