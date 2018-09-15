@@ -1,5 +1,12 @@
 package projektovanje.dbDAO;
 
+import projektovanje.bin.film.Film;
+import projektovanje.bin.izdavanje.Izdavanje;
+import projektovanje.bin.karta.Karta;
+import projektovanje.bin.projekcija.Projekcija;
+import projektovanje.bin.sala.Sala;
+import projektovanje.bin.sala.Sjediste;
+import projektovanje.bin.zaposleni.Zaposleni;
 import projektovanje.dto.DTOIzdavanje;
 import projektovanje.dto.IDTO;
 
@@ -38,7 +45,23 @@ public class DBDAOIzdavanje implements IDBDAO {
         PreparedStatement preparedStatement = konekcijaNaBazu.prepareStatement("select * from Izdavanje");
         ResultSet resultSet = preparedStatement.executeQuery();
         while(resultSet.next()){
-            //TO-DO uradi formatiranje izlaza
+            Karta karta = new Karta();
+            Sjediste sjediste = new Sjediste();
+            Sala sala = new Sala();
+            Projekcija projekcija = new Projekcija();
+            Film film = new Film();
+            Zaposleni zaposleni = new Zaposleni();
+
+            karta.setIdKarte(resultSet.getInt(1));
+            sjediste.setIdSjedista(resultSet.getInt(2));
+            sala.setIdSale(resultSet.getInt(3));
+            projekcija.setIdProjekcije(resultSet.getInt(4));
+            film.setIdFilma(resultSet.getInt(5));
+            zaposleni.setIdZaposlenog(resultSet.getInt(6));
+
+            Izdavanje izdavanje = new Izdavanje(karta, sjediste, sala, projekcija, film, zaposleni);
+            DTOIzdavanje dtoIzdavanje = new DTOIzdavanje(izdavanje);
+            listaIzdavanja.add(dtoIzdavanje);
         }
         return listaIzdavanja;
     }
@@ -47,7 +70,6 @@ public class DBDAOIzdavanje implements IDBDAO {
     public Boolean azurirajBazu(IDTO list, Connection konekcijaNaBazu) throws SQLException {
         return null;
     }
-
 
     @Override
     public List<DTOIzdavanje> pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
