@@ -41,7 +41,7 @@ alter table Zaposleni add foreign key(idPlate) references Plata(idPlate);
 
 alter table Zaposleni add column korisnickoIme varchar(20);
 alter table Zaposleni add foreign key(korisnickoIme) references Nalog(korisnickoIme);
-
+alter table Zaposleni modify korisnickoIme varchar(20) unique;
 
 create table Administrator
 (
