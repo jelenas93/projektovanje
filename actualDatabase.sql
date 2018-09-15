@@ -199,7 +199,7 @@ cijena decimal(6,2),
 rezervisana boolean,
 korisnickoIme varchar(20),
 primary key (idKarte),
-foreign key (korisnickoIme) references Klijent(korisnickoIme)# provjeriti sa cijelim nisam siguran sta treba referencirati
+foreign key (korisnickoIme) references Nalog(korisnickoIme)# provjeriti sa cijelim nisam siguran sta treba referencirati
 );
 
 create table Projekcija
@@ -300,5 +300,5 @@ primary key(idRepertoara,idProjekcije)
 );
 
 alter table Racun add foreign key (idZaposlenog) references Zaposleni(idZaposlenog);
-
+alter table Film modify link varchar(200);
 alter table UlaznaFaktura_Artikal add foreign key (idArtikla) references Artikal(idArtikla);

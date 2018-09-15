@@ -31,7 +31,7 @@ public class DBDAOIzdavanje implements IDBDAO {
         preparedStatement.setInt(4, lokalniDtoIzdavanje.getIzdavanje().getProjekcija().getIdProjekcije());
         preparedStatement.setInt(5, lokalniDtoIzdavanje.getIzdavanje().getFilm().getIdFilma());
         preparedStatement.setInt(6, lokalniDtoIzdavanje.getIzdavanje().getZaposleni().getIdZaposlenog());
-        preparedStatement.executeQuery();
+        preparedStatement.executeUpdate();
 
         uspjesno = true;
         return uspjesno;
@@ -76,7 +76,7 @@ public class DBDAOIzdavanje implements IDBDAO {
     }
 
     @Override
-    public List<DTOIzdavanje> ispisi(Connection konekcijaNaBazu) {
-        return null;
+    public List<DTOIzdavanje> ispisi(Connection konekcijaNaBazu)throws java.sql.SQLException {
+        return citajIzBaze(konekcijaNaBazu);
     }
 }

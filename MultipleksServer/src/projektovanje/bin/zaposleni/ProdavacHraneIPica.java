@@ -17,6 +17,12 @@ public class ProdavacHraneIPica extends Zaposleni {
         super(idZaposlenog, plata, ime, prezime, JMBG, nalog);
     }
 
+
+    public ProdavacHraneIPica(Zaposleni zaposleni){
+        super(zaposleni.getIdZaposlenog(), zaposleni.getPlata(), zaposleni.getIme(), zaposleni.getPrezime(), zaposleni.getJMBG(), zaposleni.getNalog());
+    }
+
+
     public ProdavacHraneIPica(Integer idProdavacaHraneIPica) {
         this.setIdZaposlenog(idProdavacaHraneIPica);
     }

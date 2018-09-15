@@ -17,6 +17,12 @@ public class Kinooperater extends Zaposleni {
         this.setIdZaposlenog(idKinooperatera);
     }
 
+
+    public Kinooperater(Zaposleni zaposleni){
+        super(zaposleni.getIdZaposlenog(), zaposleni.getPlata(), zaposleni.getIme(), zaposleni.getPrezime(), zaposleni.getJMBG(), zaposleni.getNalog());
+    }
+
+
     public Kinooperater() {
     }
 

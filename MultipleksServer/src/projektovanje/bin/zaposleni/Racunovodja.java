@@ -17,6 +17,12 @@ public class Racunovodja extends Zaposleni {
         super(idZaposlenog, plata, ime, prezime, JMBG, nalog);
     }
 
+
+    public Racunovodja(Zaposleni zaposleni){
+        super(zaposleni.getIdZaposlenog(), zaposleni.getPlata(), zaposleni.getIme(), zaposleni.getPrezime(), zaposleni.getJMBG(), zaposleni.getNalog());
+    }
+
+
     public Racunovodja() {
     }
 
