@@ -1,6 +1,8 @@
 package projektovanje.bin.sala;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Sala  implements Serializable {
@@ -12,10 +14,30 @@ public class Sala  implements Serializable {
     public Sala() {
     }
 
+    @Override
+    public String toString() {
+        String ret="";
+//        Iterator<Sjediste> it = sjedista.iterator();
+  //      while(it.hasNext()){
+    //        ret+=it.next().toString();
+      //  }
+        return "Sala{" +
+                "idSale=" + idSale +
+                ", brojVrsta=" + brojVrsta +
+                ", brojKolona=" + brojKolona +
+                ", sjedista=" + ret +
+                '}';
+    }
+
+    public Sala(Integer id){
+        idSale = id;
+    }
+
     public Sala(Integer idSale, Integer brojVrsta, Integer brojKolona, List<Sjediste> sjedista) {
         this.idSale = idSale;
         this.brojVrsta = brojVrsta;
-	this.brojKolona = brojKolona;
+	    this.brojKolona = brojKolona;
+	    this.sjedista = sjedista;
     }
 
     public List<Sjediste> getSjedista() {

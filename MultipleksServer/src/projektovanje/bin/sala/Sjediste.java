@@ -18,6 +18,16 @@ public class Sjediste  implements Serializable {
         this.kolona = kolona;
     }
 
+    @Override
+    public String toString() {
+        return "Sjediste{" +
+                "idSjedista=" + idSjedista +
+                ", sala=" + sala.toString() +
+                ", vrsta=" + vrsta +
+                ", kolona=" + kolona +
+                '}';
+    }
+
     public Integer getIdSjedista() {
         return idSjedista;
     }
