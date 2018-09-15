@@ -12,6 +12,10 @@ public class Sala  implements Serializable {
     public Sala() {
     }
 
+    public Sala(Integer id){
+        idSale = id;
+    }
+
     public Sala(Integer idSale, Integer brojVrsta, Integer brojKolona, List<Sjediste> sjedista) {
         this.idSale = idSale;
         this.brojVrsta = brojVrsta;
