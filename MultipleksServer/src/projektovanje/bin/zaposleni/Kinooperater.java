@@ -29,4 +29,9 @@ public class Kinooperater extends Zaposleni {
     public Kinooperater(Integer idZaposlenog, Plata plata, String ime, String prezime, String JMBG, Nalog nalog, Integer idKinooperatera) {
         super(idZaposlenog, plata, ime, prezime, JMBG, nalog);
     }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

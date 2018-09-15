@@ -29,4 +29,9 @@ public class ProdavacHraneIPica extends Zaposleni {
 
     public ProdavacHraneIPica() {
     }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

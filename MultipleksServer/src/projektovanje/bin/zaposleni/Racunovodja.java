@@ -31,4 +31,9 @@ public class Racunovodja extends Zaposleni {
     public Racunovodja(Integer idRacunovodje) {
         this.setIdZaposlenog(idRacunovodje);
     }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

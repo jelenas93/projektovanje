@@ -29,9 +29,13 @@ public class DBDAOKinooperater implements IDBDAO {
         PreparedStatement citanjeSvihKinooperatera = konekcijaNaBazu.prepareStatement("select * from Kinooperater");
         ResultSet resultSet = citanjeSvihKinooperatera.executeQuery();
         while(resultSet.next()){
-            Kinooperater kinooperater = new Kinooperater(resultSet.getInt(1));
-            DTOKinooperater dtoKinooperater = new DTOKinooperater(kinooperater);
-            listaKinooperatera.add(dtoKinooperater);
+            DBDAOZaposleni zaposleniDAO = new DBDAOZaposleni();
+            DTOZaposleni zaposleniDTO;
+            Integer hlpVar = resultSet.getInt(1);
+            zaposleniDTO = (DTOZaposleni)zaposleniDAO.pretraziBazu(konekcijaNaBazu, hlpVar.toString());
+            Kinooperater administrator = new Kinooperater(zaposleniDTO.getZaposleni());
+            DTOKinooperater dtoAdministrator = new DTOKinooperater(administrator);
+            listaKinooperatera.add(dtoAdministrator);
         }
         return listaKinooperatera;
     }
@@ -52,10 +56,14 @@ public class DBDAOKinooperater implements IDBDAO {
         PreparedStatement preparedStatement = konekcijaNaBazu.prepareStatement("select * from Kinooperater where idZaposlenog = ?");
         preparedStatement.setInt(1, Integer.parseInt(parametarPretrage));
         ResultSet resultSet = preparedStatement.executeQuery();
-        Kinooperater kino = new Kinooperater();
+        Kinooperater var = new Kinooperater();
         if (resultSet.next()){
-            kino.setIdKinooperatera(resultSet.getInt(1));
-            lokalniKinooperater = new DTOKinooperater(kino);
+            DBDAOZaposleni zaposleniDAO = new DBDAOZaposleni();
+            DTOZaposleni zaposleniDTO;
+            Integer hlpVar = resultSet.getInt(1);
+            zaposleniDTO = (DTOZaposleni)zaposleniDAO.pretraziBazu(konekcijaNaBazu, hlpVar.toString());
+            var = new Kinooperater(zaposleniDTO.getZaposleni());
+            lokalniKinooperater = new DTOKinooperater(var);
         }else{
             lokalniKinooperater = null;
         }

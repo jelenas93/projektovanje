@@ -46,8 +46,8 @@ public class DBDAOAdministrator implements IDBDAO {
     @Override
     public Boolean azurirajBazu(IDTO list, Connection konekcijaNaBazu) throws SQLException {
         DBDAOZaposleni zaposleniDAO = new DBDAOZaposleni();
-        DTOAdministrator lovalVar = (DTOAdministrator) list;
-        DTOZaposleni zaposleniDTO = new DTOZaposleni((Zaposleni)lovalVar.getAdministrator());
+        DTOAdministrator localVar = (DTOAdministrator) list;
+        DTOZaposleni zaposleniDTO = new DTOZaposleni((Zaposleni)localVar.getAdministrator());
         zaposleniDAO.azurirajBazu(zaposleniDTO, konekcijaNaBazu);
         return true;
     }
@@ -60,10 +60,14 @@ public class DBDAOAdministrator implements IDBDAO {
         PreparedStatement preparedStatement = konekcijaNaBazu.prepareStatement("select * from Administrator where idZaposlenog = ?");
         preparedStatement.setInt(1, Integer.parseInt(parametarPretrage));
         ResultSet resultSet = preparedStatement.executeQuery();
-        Administrator admin = new Administrator();
+        Administrator var = new Administrator();
         if (resultSet.next()){
-            admin.setIdAdministratora(resultSet.getInt(1));
-            lokalniAdministrator = new DTOAdministrator(admin);
+            DBDAOZaposleni zaposleniDAO = new DBDAOZaposleni();
+            DTOZaposleni zaposleniDTO;
+            Integer hlpVar = resultSet.getInt(1);
+            zaposleniDTO = (DTOZaposleni)zaposleniDAO.pretraziBazu(konekcijaNaBazu, hlpVar.toString());
+            var = new Administrator(zaposleniDTO.getZaposleni());
+            lokalniAdministrator = new DTOAdministrator(var);
         }else{
             lokalniAdministrator = null;
         }

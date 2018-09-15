@@ -29,4 +29,9 @@ public class Skladistar extends Zaposleni {
     public Skladistar(Integer idSkladistara) {
         this.setIdZaposlenog(idSkladistara);
     }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

@@ -31,6 +31,8 @@ datumOd date not null,
 datumDo date
 );
 
+alter table Plata add column bruto decimal(10,2);
+
 create table Nalog
 (
 korisnickoIme varchar(20) primary key,
@@ -302,3 +304,4 @@ primary key(idRepertoara,idProjekcije)
 alter table Racun add foreign key (idZaposlenog) references Zaposleni(idZaposlenog);
 alter table Film modify link varchar(200);
 alter table UlaznaFaktura_Artikal add foreign key (idArtikla) references Artikal(idArtikla);
+alter table Artikal modify barKod varchar(20) unique;

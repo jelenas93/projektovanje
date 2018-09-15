@@ -29,4 +29,9 @@ public class ProdavacKarata extends Zaposleni {
     public Integer getIdProdavcaKarata(){
         return this.getIdZaposlenog();
     }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

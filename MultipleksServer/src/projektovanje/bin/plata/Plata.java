@@ -17,10 +17,10 @@ public class Plata implements Serializable {
     private Double stopaZaZaposljavanje;
     private Double netoTekuciRad;
     private Double netoMinuliRad;
-    private Double bruto;
     private Double porezNaPlatu;
     private Date datumOd;
     private Date datumDo;
+    private Double bruto;
 
     public static final Plata nulaPlata = new Plata(1,0.0,0.0,
                                 0.0,0.0,0.0,
@@ -179,5 +179,27 @@ public class Plata implements Serializable {
 
     public void setIDPlate(Integer IDPlate) {
         this.IDPlate = IDPlate;
+    }
+
+    @Override
+    public String toString() {
+        return "Plata{" +
+                "IDPlate=" + IDPlate +
+                ",\n doprinosZaPenziono=" + doprinosZaPenziono +
+                ",\n doprinosZaZdravstveno=" + doprinosZaZdravstveno +
+                ",\n doprinosZaDjecijuZastitu=" + doprinosZaDjecijuZastitu +
+                ",\n doprinosZaZaposljavanje=" + doprinosZaZaposljavanje +
+                ",\n stopaPoreza=" + stopaPoreza +
+                ",\n stopaZaPenziono=" + stopaZaPenziono +
+                ",\n stopaZaZdravstveno=" + stopaZaZdravstveno +
+                ",\n stopaZaDjecijuZastitu=" + stopaZaDjecijuZastitu +
+                ",\n stopaZaZaposljavanje=" + stopaZaZaposljavanje +
+                ",\n netoTekuciRad=" + netoTekuciRad +
+                ",\n netoMinuliRad=" + netoMinuliRad +
+                ",\n porezNaPlatu=" + porezNaPlatu +
+                ",\n datumOd=" + datumOd +
+                ",\n datumDo=" + datumDo +
+                ",\n bruto=" + bruto +
+                '}';
     }
 }

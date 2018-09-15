@@ -4,13 +4,13 @@ import projektovanje.bin.zaposleni.Racunovodja;
 
 import java.io.Serializable;
 
-public class DTORacuovodja implements Serializable, IDTO {
+public class DTORacunovodja implements Serializable, IDTO {
     Racunovodja racunovodja;
 
-    public DTORacuovodja() {
+    public DTORacunovodja() {
     }
 
-    public DTORacuovodja(Racunovodja racunovodja) {
+    public DTORacunovodja(Racunovodja racunovodja) {
         this.racunovodja = racunovodja;
     }
 
