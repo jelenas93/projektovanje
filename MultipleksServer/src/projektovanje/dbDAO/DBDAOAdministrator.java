@@ -44,8 +44,20 @@ public class DBDAOAdministrator implements IDBDAO {
 
 
     @Override
-    public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
-        return null;
+    public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) throws SQLException {
+        DTOAdministrator lokalniAdministrator;
+
+        PreparedStatement preparedStatement = konekcijaNaBazu.prepareStatement("select * from Administrator where idAdministratora = ?");
+        preparedStatement.setInt(1, Integer.parseInt(parametarPretrage));
+        ResultSet resultSet = preparedStatement.executeQuery();
+        Administrator admin = new Administrator();
+        if (resultSet.next()){
+            admin.setIdAdministratora(resultSet.getInt(1));
+            lokalniAdministrator = new DTOAdministrator(admin);
+        }else{
+            lokalniAdministrator = null;
+        }
+        return lokalniAdministrator;
     }
 
     @Override
