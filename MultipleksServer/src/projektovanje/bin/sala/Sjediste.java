@@ -22,7 +22,7 @@ public class Sjediste  implements Serializable {
     public String toString() {
         return "Sjediste{" +
                 "idSjedista=" + idSjedista +
-                ", sala=" + sala.toString() +
+                ", sala=" + sala.getIdSale() +
                 ", vrsta=" + vrsta +
                 ", kolona=" + kolona +
                 '}';

@@ -72,17 +72,17 @@ public class DBDAOSjediste implements IDBDAO {
         return povratnaVrijednost;
     }
 
-    public List<DTOSjediste> pretraziSjedistaZaSalu(Integer idSale,Connection konekcijaNaBazu) throws SQLException {
+    public List<DTOSjediste> pretraziSjedistaZaSalu(Sala sala,Connection konekcijaNaBazu) throws SQLException {
         List<DTOSjediste> povratnaVrijednost = new ArrayList<>();
         PreparedStatement s = konekcijaNaBazu.prepareStatement("select * from Sjediste where idSale = ?");
-        s.setInt(1,idSale);
+        s.setInt(1,sala.getIdSale());
         ResultSet rezultat = s.executeQuery();
         while(rezultat.next()){
             int id = rezultat.getInt(1);
             int idSale2 = rezultat.getInt(2);
             int vrsta = rezultat.getInt(3);
             int kolona = rezultat.getInt(4);
-            povratnaVrijednost.add (new DTOSjediste(new Sjediste(id,new Sala(idSale),vrsta,kolona)));
+            povratnaVrijednost.add (new DTOSjediste(new Sjediste(id,sala,vrsta,kolona)));
         }
         return povratnaVrijednost;
     }

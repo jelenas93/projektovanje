@@ -17,10 +17,10 @@ public class Sala  implements Serializable {
     @Override
     public String toString() {
         String ret="";
-//        Iterator<Sjediste> it = sjedista.iterator();
-  //      while(it.hasNext()){
-    //        ret+=it.next().toString();
-      //  }
+        Iterator<Sjediste> it = sjedista.iterator();
+        while(it.hasNext()){
+            ret+=it.next().toString();
+        }
         return "Sala{" +
                 "idSale=" + idSale +
                 ", brojVrsta=" + brojVrsta +
@@ -65,10 +65,10 @@ public class Sala  implements Serializable {
     }
 
     public Integer getBrojKolona() {
-        return brojVrsta;
+        return brojKolona;
     }
 
     public void setBrojKolona(Integer brojKolona) {
-        this.brojVrsta = brojVrsta;
+        this.brojKolona = brojKolona;
     }
 }
