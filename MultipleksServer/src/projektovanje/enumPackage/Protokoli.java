@@ -3,6 +3,7 @@ package projektovanje.enumPackage;
 public enum Protokoli {
     LOGIN,
     REGISTER,
+    CHANGE_PASSWORD,
     ADD_EMPLOYEE,
     LIST_EMPLOYEES,
     UPDATE_EMPLOYEE,

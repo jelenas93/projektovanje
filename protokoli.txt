@@ -1,8 +1,22 @@
-login: LOGIN#USERNAME#PASSWORD, odgovor OK ili NOK
+login: LOGIN#USERNAME#PASSWORD, odgovor iz dva dijela (prvo OK ili NOK i razlog zbog cega kao objekat tipa String) zatim (DTO klasa objekta koji se loginuje)
+														ako je NOK drugi ispis vraca null
+														Format prve poruke je ili "NOK razlog zasto se nije desio login" 
+																			  ili "OK#TIPPRIJAVLJENEOSOBE" za pravljenje odgovarajuce klase 
+																			  npr ako vrati "OK#ADMINISTRATOR" lokalno napravite DTOAdministrator 
+																			  i dodjelite objekat u njega
+																			  sve varijante "OK#ADMINISTRATOR"
+																							"OK#KINOOPERATER"
+																							"OK#MENADZER"
+																							"OK#PRODAVACHARANEIPICA"
+																							"OK#PRODAVACKARATA"
+																							"OK#RACUNOVODJA"
+																							"OK#SKLADISTAR"
+																							"OK#KLIJENT"
+																			  
 registracija: REGISTER#NAME#SURNAME#USERNAME#PASSWORD#EMAIL, odgovor OK ili NOK+razlog
 promjena lozinke: CHANGE_PASSWORD#oldPassword#newPassword, odgovor OK ili NOK
 
-dodavanje zaposlenog: ADD_EMPLOYEE#NAME#SURNAME#PASSWORD#EMAIL#POSITION, odgovor OK ili NOK+razlog
+dodavanje zaposlenog: ADD_EMPLOYEE#NAME#SURNAME#USERNAME#PASSWORD#POSITION, odgovor OK ili NOK+razlog
 prikaz liste zaposlenih: LIST_EMPLOYEES, odgovor: List<Zaposleni>
 azuriranje zaposlenog: UPDATE_EMPLOYEE, odgovor: WHICHONE poruka: objekat zaposleni sa novim podacima, odgovor OK ili NOK+razlog
 brisanje zaposlenog:DELETE_EMPLOYEE#korisnickoIme, odgovor: OK ili NOK+razlog

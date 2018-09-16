@@ -1,14 +1,11 @@
 package projektovanje.net;
 
 import projektovanje.bin.nalog.Nalog;
-import projektovanje.bin.zaposleni.Zaposleni;
 import projektovanje.db.ConnectionPool;
-import projektovanje.dbDAO.DBDAOAdministrator;
-import projektovanje.dbDAO.DBDAOKlijent;
-import projektovanje.dbDAO.DBDAOZaposleni;
-import projektovanje.dto.*;
 import projektovanje.enumPackage.Protokoli;
 import projektovanje.services.ServisZaPrijavu;
+import projektovanje.services.ServisZaPromjenuLozike;
+import projektovanje.services.ServisZaRegistracijuKlijenta;
 
 import java.io.*;
 import java.net.Socket;
@@ -40,11 +37,16 @@ public class ServerThread extends Thread{
                 msg = (String)in.readObject();
                 switch (Protokoli.valueOf(msg.split("#")[0])) {
                     case LOGIN:
-                        new ServisZaPrijavu().outPrijava(msg, konekcijaNaBazu, out);
+                        new ServisZaPrijavu().outPrijava(msg, konekcijaNaBazu, out, nalogTrenutnogKorisnika);
                         break;
                     case REGISTER:
+                        new ServisZaRegistracijuKlijenta().obaviRegistraciju(msg, konekcijaNaBazu, out);
+                        break;
+                    case CHANGE_PASSWORD:
+                        new ServisZaPromjenuLozike().promjeniLozinku(msg, konekcijaNaBazu, out, nalogTrenutnogKorisnika);
                         break;
                     case ADD_EMPLOYEE:
+
                         break;
                     case LIST_EMPLOYEES:
                         break;
