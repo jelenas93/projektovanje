@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="641.0" prefWidth="1085.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.KinooperaterController">
+    <stylesheets>
+        <URL value="@kinooperater.css" />
+    </stylesheets>
+   <children>
+      <TableView fx:id="tabelaOpreme" layoutX="31.0" layoutY="139.0" prefHeight="486.0" prefWidth="1025.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="110.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="Sifra artikla" />
+          <TableColumn prefWidth="75.0" text="Naziv artikla" />
+            <TableColumn prefWidth="75.0" text="Stanje" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <HBox alignment="CENTER_LEFT" layoutX="31.0" layoutY="48.0" prefHeight="71.0" prefWidth="1025.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+         <children>
+            <Label alignment="BOTTOM_LEFT" contentDisplay="CENTER" prefHeight="47.0" prefWidth="99.0" text="Trazi:" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </HBox.margin>
+            </Label>
+            <FontAwesomeIconView glyphName="SEARCH" size="20" HBox.hgrow="ALWAYS" />
+            <JFXTextField fx:id="traziOpremu" focusColor="BLACK" prefHeight="39.0" prefWidth="246.0" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXTextField>
+            <JFXButton fx:id="dodajOpremuButton" alignment="CENTER" buttonType="RAISED" onAction="#dodajStisak" prefHeight="40.0" prefWidth="200.0" ripplerFill="#bfb8b8" text="Dodaj opremu" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </JFXButton>
+            <JFXButton fx:id="izmjeniOpremu" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#izmjeniStisak" prefHeight="40.0" prefWidth="200.0" ripplerFill="#bfb8b8" text="Izmjeni opremu" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </JFXButton>
+            <JFXButton fx:id="obrisiOpremu" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#obrisiStisak" prefHeight="40.0" prefWidth="200.0" text="Obrisi opremu" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </JFXButton>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
