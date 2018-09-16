@@ -1,6 +1,7 @@
 package projektovanje.test;
 
 import projektovanje.bin.film.Film;
+import projektovanje.bin.film.Zanr;
 import projektovanje.bin.karta.Karta;
 import projektovanje.bin.oprema.Artikal;
 import projektovanje.bin.nalog.Nalog;
@@ -27,7 +28,7 @@ public class MainTestClass {
         Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/multipleks", "root", "admin");
 
         DBDAOSala faktDao = new DBDAOSala();
-        Sala novaSala = new Sala(1,5,6,null);
+        Sala novaSala = new Sala(1,5,6,new ArrayList<Sjediste>());
         List<DTOSala> ispisi =(ArrayList<DTOSala>) faktDao.ispisi(c);
         ispisi.stream().forEach(x-> System.out.println(x.getSala()));
 
@@ -47,6 +48,7 @@ public class MainTestClass {
         ispisi = (ArrayList<DTOSala>)faktDao.ispisi(c);
         ispisi.stream().forEach(x-> System.out.println(x.getSala()));
         System.out.println("almost Everything done");
+
 
         c.close();
 

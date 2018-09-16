@@ -17,7 +17,7 @@ public class DBDAOSala implements IDBDAO {
         Sala lokalniSala = lokalniDTOSala.getSala();
         PreparedStatement ps = konekcijaNaBazu.prepareStatement("insert into Sala values (default,?,?)");
         ps.setInt(1,lokalniSala.getBrojVrsta());
-        ps.setInt(3,lokalniSala.getBrojKolona());
+        ps.setInt(2,lokalniSala.getBrojKolona());
         ps.executeUpdate();
         return true;
     }
@@ -30,11 +30,17 @@ public class DBDAOSala implements IDBDAO {
         ArrayList<DTOSala> povratnaVrijednost = new ArrayList<>();
         while (rs.next()){
             int idSale = rs.getInt(1);
-            List<DTOSjediste> dtoSjedista = sjedisteDao.pretraziSjedistaZaSalu(idSale,konekcijaNaBazu);
+            int brojVrsta = rs.getInt(2);
+            int brojKolona = rs.getInt(3);
+            System.out.println(brojKolona);
+            Sala ret = new Sala(idSale);
+            List<DTOSjediste> dtoSjedista = sjedisteDao.pretraziSjedistaZaSalu(ret,konekcijaNaBazu);
             ArrayList<Sjediste> sjedista = new ArrayList<>();
             dtoSjedista.forEach(x->sjedista.add(x.getSjediste()));
-            Sala procitaniSala = new Sala(idSale,rs.getInt(2),rs.getInt(3),sjedista);
-            povratnaVrijednost.add(new DTOSala(procitaniSala));
+            ret.setBrojVrsta(brojVrsta);
+            ret.setBrojKolona(brojKolona);
+            ret.setSjedista(sjedista);
+            povratnaVrijednost.add(new DTOSala(ret));
         }
         return povratnaVrijednost;
 
@@ -46,11 +52,12 @@ public class DBDAOSala implements IDBDAO {
         DTOSala lokalniDTOSala = (DTOSala) dtoSala;
         Sala lokalniSala = lokalniDTOSala.getSala();
         PreparedStatement ps = konekcijaNaBazu.prepareStatement("update Sala" +
-                "   brojvrsta = ?," +
+                "   set brojvrsta = ?," +
                 "   brojkolona = ?" +
                 "   where idSale = ?");
         ps.setInt(1,lokalniSala.getBrojVrsta());
         ps.setInt(2,lokalniSala.getBrojKolona());
+        ps.setInt(3,lokalniSala.getIdSale());
         DBDAOSjediste sjedisteDao = new DBDAOSjediste();
         lokalniSala.getSjedista().forEach(x-> {
             try {
@@ -76,10 +83,14 @@ public class DBDAOSala implements IDBDAO {
             int id = rezultat.getInt(1);
             int vrsta = rezultat.getInt(2);
             int kolona = rezultat.getInt(3);
-            List<DTOSjediste> sjedistaDto = sjedistaDao.pretraziSjedistaZaSalu(id,konekcijaNaBazu);
+            Sala sala = new Sala();
+            sala.setIdSale(id);
+            sala.setBrojVrsta(vrsta);
+            sala.setBrojKolona(kolona);
+            List<DTOSjediste> sjedistaDto = sjedistaDao.pretraziSjedistaZaSalu(sala,konekcijaNaBazu);
             ArrayList<Sjediste> sjedista = new ArrayList<>();
             sjedistaDto.forEach(x->sjedista.add(x.getSjediste()));
-            povratnaVrijednost = new DTOSala(new Sala(id,vrsta,kolona,sjedista));
+            povratnaVrijednost = new DTOSala(sala);
         }
         return povratnaVrijednost;
     }
