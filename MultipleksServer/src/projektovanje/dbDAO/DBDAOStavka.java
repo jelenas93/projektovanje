@@ -76,4 +76,19 @@ public class DBDAOStavka implements IDBDAO {
     public List<? extends IDTO> ispisi(Connection konekcijaNaBazu) throws SQLException {
         return citajIzBaze(konekcijaNaBazu);
     }
+
+    public List<Stavka> dohvatiSveStavkeSaRacuna(Integer idRacuna,Connection konekcijaNaBazu) throws SQLException {
+        List<Stavka> povratnaVrijednost = new ArrayList<>();
+        PreparedStatement s = konekcijaNaBazu.prepareStatement("select * from Stavka where idRacuna = ?");
+        s.setInt(1,idRacuna);
+        ResultSet rezultat = s.executeQuery();
+        while(rezultat.next()){
+            int id = rezultat.getInt(1);
+            int kolicina = rezultat.getInt(2);
+            Double ukupnaCijena = rezultat.getDouble(3);
+            int idArtikla = rezultat.getInt(4);
+            povratnaVrijednost.add(new Stavka(id,kolicina,ukupnaCijena,new Artikal(idArtikla)));
+        }
+        return povratnaVrijednost;
+    }
 }

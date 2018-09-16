@@ -11,20 +11,30 @@ public class Racun implements Serializable {
     private Integer idRacuna;
     private List<Stavka> stavka;
     private Date datumIzdavanja;
+
+    @Override
+    public String toString() {
+        return "Racun{" +
+                "idRacuna=" + idRacuna +
+                ", stavka=" + stavka +
+                ", datumIzdavanja=" + datumIzdavanja +
+                ", ukupndaCijena=" + ukupndaCijena +
+                ", zaposleni=" + zaposleni +
+                '}';
+    }
+
     private Double ukupndaCijena;
     private Zaposleni zaposleni;
-    private Double kolicina;
 
     public Racun() {
     }
 
-    public Racun(Integer idRacuna, List<Stavka> stavka, Date datumIzdavanja, Double ukupndaCijena, Zaposleni zaposleni, Double kolicina) {
+    public Racun(Integer idRacuna, List<Stavka> stavka, Date datumIzdavanja, Double ukupndaCijena, Zaposleni zaposleni) {
         this.idRacuna = idRacuna;
         this.stavka = stavka;
         this.datumIzdavanja = datumIzdavanja;
         this.ukupndaCijena = ukupndaCijena;
         this.zaposleni = zaposleni;
-        this.kolicina = kolicina;
     }
 
     public Integer getIdRacuna() {
@@ -63,19 +73,8 @@ public class Racun implements Serializable {
         return zaposleni;
     }
 
-    public Integer getIdZaposlenog(){
-        return this.zaposleni.getIdZaposlenog();
-    }
-
     public void setZaposleni(Zaposleni zaposleni) {
         this.zaposleni = zaposleni;
     }
 
-    public Double getKolicina() {
-        return kolicina;
-    }
-
-    public void setKolicina(Double kolicina) {
-        this.kolicina = kolicina;
-    }
 }
