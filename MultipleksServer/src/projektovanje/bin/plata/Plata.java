@@ -26,7 +26,7 @@ public class Plata implements Serializable {
                                 0.0,0.0,0.0,
                                     0.0,0.0,0.0,
                                 0.0,0.0,0.0,0.0,
-                                    0.0,new Date(),new Date());
+                                    0.0,new Date(0),new Date(0));
     public Plata() {
     }
 

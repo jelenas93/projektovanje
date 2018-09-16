@@ -16,7 +16,7 @@ login: LOGIN#USERNAME#PASSWORD, odgovor iz dva dijela (prvo OK ili NOK i razlog 
 registracija: REGISTER#NAME#SURNAME#USERNAME#PASSWORD#EMAIL, odgovor OK ili NOK+razlog
 promjena lozinke: CHANGE_PASSWORD#oldPassword#newPassword, odgovor OK ili NOK
 
-dodavanje zaposlenog: ADD_EMPLOYEE#NAME#SURNAME#USERNAME#PASSWORD#POSITION, odgovor OK ili NOK+razlog
+dodavanje zaposlenog: ADD_EMPLOYEE#NAME#SURNAME#JMBG#USERNAME#PASSWORD#POSITION, odgovor OK ili NOK+razlog
 prikaz liste zaposlenih: LIST_EMPLOYEES, odgovor: List<Zaposleni>
 azuriranje zaposlenog: UPDATE_EMPLOYEE, odgovor: WHICHONE poruka: objekat zaposleni sa novim podacima, odgovor OK ili NOK+razlog
 brisanje zaposlenog:DELETE_EMPLOYEE#korisnickoIme, odgovor: OK ili NOK+razlog

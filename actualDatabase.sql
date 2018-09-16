@@ -309,3 +309,4 @@ alter table Racun drop column idStavke;
 alter table Stavka add column idRacuna int;
 alter table Stavka add foreign key(idRacuna) references Racun(idRacuna);
 
+insert into Plata values(default,0,0,0,0,0,0,0,0,0,0,0,0,1970-01-01,1970-01-01,0);

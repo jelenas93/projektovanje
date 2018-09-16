@@ -3,6 +3,7 @@ package projektovanje.net;
 import projektovanje.bin.nalog.Nalog;
 import projektovanje.db.ConnectionPool;
 import projektovanje.enumPackage.Protokoli;
+import projektovanje.services.ServisZaAdministratora;
 import projektovanje.services.ServisZaPrijavu;
 import projektovanje.services.ServisZaPromjenuLozike;
 import projektovanje.services.ServisZaRegistracijuKlijenta;
@@ -46,7 +47,7 @@ public class ServerThread extends Thread{
                         new ServisZaPromjenuLozike().promjeniLozinku(msg, konekcijaNaBazu, out, nalogTrenutnogKorisnika);
                         break;
                     case ADD_EMPLOYEE:
-
+                        new ServisZaAdministratora().dodavanjeZaposlenog(msg, konekcijaNaBazu, out);
                         break;
                     case LIST_EMPLOYEES:
                         break;
