@@ -305,3 +305,7 @@ alter table Racun add foreign key (idZaposlenog) references Zaposleni(idZaposlen
 alter table Film modify link varchar(200);
 alter table UlaznaFaktura_Artikal add foreign key (idArtikla) references Artikal(idArtikla);
 alter table Artikal modify barKod varchar(20) unique;
+alter table Racun drop column idStavke;
+alter table Stavka add column idRacuna int;
+alter table Stavka add foreign key(idRacuna) references Racun(idRacuna);
+
