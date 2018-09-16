@@ -13,13 +13,13 @@ public class Racunovodja extends Zaposleni {
         this.setIdZaposlenog(idRacunovodje);
     }
 
-    public Racunovodja(Integer idZaposlenog, Plata plata, String ime, String prezime, String JMBG, Nalog nalog, Integer idRacunovodje) {
-        super(idZaposlenog, plata, ime, prezime, JMBG, nalog);
+    public Racunovodja(Integer idZaposlenog, Plata plata, String ime, String prezime, String JMBG, Nalog nalog,Boolean aktivan, Integer idRacunovodje) {
+        super(idZaposlenog, plata, ime, prezime, JMBG, aktivan, nalog);
     }
 
 
     public Racunovodja(Zaposleni zaposleni){
-        super(zaposleni.getIdZaposlenog(), zaposleni.getPlata(), zaposleni.getIme(), zaposleni.getPrezime(), zaposleni.getJMBG(), zaposleni.getNalog());
+        super(zaposleni.getIdZaposlenog(), zaposleni.getPlata(), zaposleni.getIme(), zaposleni.getPrezime(), zaposleni.getJMBG(),zaposleni.getAktivan(), zaposleni.getNalog());
     }
 
 

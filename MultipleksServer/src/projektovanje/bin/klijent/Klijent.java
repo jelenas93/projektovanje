@@ -14,6 +14,17 @@ public class Klijent implements Serializable{
     public Klijent() {
     }
 
+    @Override
+    public String toString() {
+        return "Klijent{" +
+                "idKlijenta=" + idKlijenta +
+                ", korisnickiNalog=" + korisnickiNalog.getKorisnickiNalog() +
+                ", ime='" + ime + '\'' +
+                ", prezime='" + prezime + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
+
     public Klijent(Integer idKlijenta, Nalog korisnickiNalog, String ime, String prezime, String email) {
         this.idKlijenta = idKlijenta;
 		this.korisnickiNalog = korisnickiNalog;

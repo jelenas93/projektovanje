@@ -13,8 +13,8 @@ public class Skladistar extends Zaposleni {
         this.setIdZaposlenog(idSkladistara);
     }
 
-    public Skladistar(Integer idZaposlenog, Plata plata, String ime, String prezime, String JMBG, Nalog nalog, Integer idSkladistara) {
-        super(idZaposlenog, plata, ime, prezime, JMBG, nalog);
+    public Skladistar(Integer idZaposlenog, Plata plata, String ime, String prezime, String JMBG, Nalog nalog,Boolean aktivan, Integer idSkladistara) {
+        super(idZaposlenog, plata, ime, prezime, JMBG, aktivan, nalog);
     }
 
     public Skladistar() {
@@ -22,7 +22,7 @@ public class Skladistar extends Zaposleni {
 
 
     public Skladistar(Zaposleni zaposleni){
-        super(zaposleni.getIdZaposlenog(), zaposleni.getPlata(), zaposleni.getIme(), zaposleni.getPrezime(), zaposleni.getJMBG(), zaposleni.getNalog());
+        super(zaposleni.getIdZaposlenog(), zaposleni.getPlata(), zaposleni.getIme(), zaposleni.getPrezime(), zaposleni.getJMBG(),zaposleni.getAktivan(), zaposleni.getNalog());
     }
 
 

@@ -13,16 +13,26 @@ public class Zaposleni implements Serializable {
     private Plata plata;
     private Integer idZaposlenog;
     private Nalog nalog;
+    private Boolean aktivan;
 
     public Zaposleni(){}
 
-    public Zaposleni(Integer idZaposlenog,Plata plata,String ime, String prezime, String JMBG ,  Nalog nalog){
+    public Zaposleni(Integer idZaposlenog,Plata plata,String ime, String prezime, String JMBG , Boolean aktivan, Nalog nalog){
         this.ime = ime;
         this.prezime = prezime;
         this.JMBG = JMBG;
         this.plata = plata;
         this.idZaposlenog = idZaposlenog;
         this.nalog = nalog;
+        this.aktivan = aktivan;
+    }
+
+    public Boolean getAktivan() {
+        return aktivan;
+    }
+
+    public void setAktivan(Boolean aktivan) {
+        this.aktivan = aktivan;
     }
 
     public Zaposleni(Integer id){

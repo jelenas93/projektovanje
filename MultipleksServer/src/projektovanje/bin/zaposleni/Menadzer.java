@@ -19,15 +19,15 @@ public class Menadzer extends Zaposleni {
 
 
     public Menadzer(Zaposleni zaposleni){
-        super(zaposleni.getIdZaposlenog(), zaposleni.getPlata(), zaposleni.getIme(), zaposleni.getPrezime(), zaposleni.getJMBG(), zaposleni.getNalog());
+        super(zaposleni.getIdZaposlenog(), zaposleni.getPlata(), zaposleni.getIme(), zaposleni.getPrezime(), zaposleni.getJMBG(), zaposleni.getAktivan(), zaposleni.getNalog());
     }
 
 
     public Menadzer() {
     }
 
-    public Menadzer(Integer idZaposlenog, Plata plata, String ime, String prezime, String JMBG, Nalog nalog, Integer idMenadzera) {
-        super(idZaposlenog, plata, ime, prezime, JMBG, nalog);
+    public Menadzer(Integer idZaposlenog, Plata plata, String ime, String prezime, String JMBG, Nalog nalog, Boolean aktivan, Integer idMenadzera) {
+        super(idZaposlenog, plata, ime, prezime, JMBG, aktivan, nalog);
     }
 
     @Override

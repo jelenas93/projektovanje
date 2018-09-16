@@ -19,15 +19,15 @@ public class Kinooperater extends Zaposleni {
 
 
     public Kinooperater(Zaposleni zaposleni){
-        super(zaposleni.getIdZaposlenog(), zaposleni.getPlata(), zaposleni.getIme(), zaposleni.getPrezime(), zaposleni.getJMBG(), zaposleni.getNalog());
+        super(zaposleni.getIdZaposlenog(), zaposleni.getPlata(), zaposleni.getIme(), zaposleni.getPrezime(), zaposleni.getJMBG(),zaposleni.getAktivan(), zaposleni.getNalog());
     }
 
 
     public Kinooperater() {
     }
 
-    public Kinooperater(Integer idZaposlenog, Plata plata, String ime, String prezime, String JMBG, Nalog nalog, Integer idKinooperatera) {
-        super(idZaposlenog, plata, ime, prezime, JMBG, nalog);
+    public Kinooperater(Integer idZaposlenog, Plata plata, String ime, String prezime, String JMBG, Boolean aktivan, Nalog nalog) {
+        super(idZaposlenog, plata, ime, prezime, JMBG, aktivan, nalog);
     }
 
     @Override

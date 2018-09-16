@@ -12,13 +12,13 @@ public class ProdavacKarata extends Zaposleni {
         this.setIdZaposlenog(idProdavcaKarata);
     }
 
-    public ProdavacKarata(Integer idZaposlenog, Plata plata, String ime, String prezime, String JMBG, Nalog nalog, Integer idProdavcaKarata) {
-        super(idZaposlenog, plata, ime, prezime, JMBG, nalog);
+    public ProdavacKarata(Integer idZaposlenog, Plata plata, String ime, String prezime, String JMBG, Nalog nalog, Boolean aktivan, Integer idProdavcaKarata) {
+        super(idZaposlenog, plata, ime, prezime, JMBG, aktivan, nalog);
     }
 
 
     public ProdavacKarata(Zaposleni zaposleni){
-        super(zaposleni.getIdZaposlenog(), zaposleni.getPlata(), zaposleni.getIme(), zaposleni.getPrezime(), zaposleni.getJMBG(), zaposleni.getNalog());
+        super(zaposleni.getIdZaposlenog(), zaposleni.getPlata(), zaposleni.getIme(), zaposleni.getPrezime(), zaposleni.getJMBG(), zaposleni.getAktivan(), zaposleni.getNalog());
     }
 
 

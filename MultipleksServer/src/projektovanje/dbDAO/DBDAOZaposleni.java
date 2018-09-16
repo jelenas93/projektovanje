@@ -3,12 +3,16 @@ package projektovanje.dbDAO;
 import projektovanje.bin.nalog.Nalog;
 import projektovanje.bin.plata.Plata;
 import projektovanje.bin.zaposleni.Zaposleni;
+import projektovanje.dto.DTONalog;
+import projektovanje.dto.DTOPlata;
 import projektovanje.dto.DTOZaposleni;
 import projektovanje.dto.IDTO;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static javax.swing.UIManager.getString;
 
 public class DBDAOZaposleni implements IDBDAO {
 
@@ -22,7 +26,7 @@ public class DBDAOZaposleni implements IDBDAO {
         ps.setString(2,lokalniZaposleni.getIme());
         ps.setString(3,lokalniZaposleni.getPrezime());
         ps.setString(4,lokalniZaposleni.getJMBG());
-        ps.setBoolean(5,true);
+        ps.setBoolean(5,lokalniZaposleni.getAktivan());
         ps.setString(6,lokalniZaposleni.getNalog().getKorisnickiNalog());
         ps.executeUpdate();
         return true;
@@ -34,9 +38,12 @@ public class DBDAOZaposleni implements IDBDAO {
         ResultSet rs = s.executeQuery("select * from zaposleni");
         ArrayList<DTOZaposleni> povratnaVrijednost = new ArrayList<>();
         while (rs.next()){
-            Zaposleni procitaniZaposleni = new Zaposleni(rs.getInt(1),new Plata(rs.getInt(2)),
-                    rs.getString(3),rs.getString(4),rs.getString(5)
-                    ,new Nalog(rs.getString(7),null));
+            DTONalog nalogDTO = (DTONalog) new DBDAONalog().pretraziBazu(konekcijaNaBazu,rs.getString(7));
+            Integer hlpVar = rs.getInt(2);
+            DTOPlata plataDTO = (DTOPlata) new DBDAOPlata().pretraziBazu(konekcijaNaBazu, hlpVar.toString());
+            Zaposleni procitaniZaposleni = new Zaposleni(rs.getInt(1), plataDTO.getPlata(),
+                    rs.getString(3),rs.getString(4),rs.getString(5),
+                    rs.getBoolean(6), nalogDTO.getNalog());
             povratnaVrijednost.add(new DTOZaposleni(procitaniZaposleni));
         }
         return povratnaVrijednost;
@@ -59,7 +66,7 @@ public class DBDAOZaposleni implements IDBDAO {
         ps.setString(3,lokalniZaposleni.getPrezime());
         ps.setString(4,lokalniZaposleni.getJMBG());
         ps.setString(5,lokalniZaposleni.getNalog().getKorisnickiNalog());
-        ps.setBoolean(6,true);
+        ps.setBoolean(6,lokalniDTOZaposleni.getZaposleni().getAktivan());
         ps.setInt(7,lokalniZaposleni.getIdZaposlenog());
         ps.executeUpdate();
         return true;
@@ -73,14 +80,34 @@ public class DBDAOZaposleni implements IDBDAO {
         s.setInt(1,idZaposlenog);
         ResultSet rezultat = s.executeQuery();
         if(rezultat.next()){
+            DTONalog nalogDTO = (DTONalog) new DBDAONalog().pretraziBazu(konekcijaNaBazu,rezultat.getString(7));
+            Integer hlpVar = rezultat.getInt(2);
+            DTOPlata plataDTO = (DTOPlata) new DBDAOPlata().pretraziBazu(konekcijaNaBazu, hlpVar.toString());
             int id = rezultat.getInt(1);
-            int idPlate = rezultat.getInt(2);
             String ime = rezultat.getString(3);
             String prezime = rezultat.getString(4);
             String JMBG = rezultat.getString(5);
             Boolean aktivan = rezultat.getBoolean(6);
-            String korisnickoIme = rezultat.getString(7);
-            povratnaVrijednost = new DTOZaposleni(new Zaposleni(id,new Plata(idPlate),ime,prezime,JMBG,new Nalog(korisnickoIme)));
+            povratnaVrijednost = new DTOZaposleni(new Zaposleni(id,plataDTO.getPlata(),ime,prezime,JMBG,aktivan, nalogDTO.getNalog()));
+        }
+        return povratnaVrijednost;
+    }
+
+    public IDTO pretraziZaposlenogPoNalogu(Connection konekcijaNaBazu, String parametarPretrage) throws SQLException {
+        DTOZaposleni povratnaVrijednost = null;
+        PreparedStatement ps = konekcijaNaBazu.prepareStatement("select * from zaposleni where korisnickoIme = ?");
+        ps.setString(1 , parametarPretrage);
+        ResultSet rezultat = ps.executeQuery();
+        if(rezultat.next()){
+            DTONalog nalogDTO = (DTONalog) new DBDAONalog().pretraziBazu(konekcijaNaBazu,rezultat.getString(7));
+            Integer hlpVar = rezultat.getInt(2);
+            DTOPlata plataDTO = (DTOPlata) new DBDAOPlata().pretraziBazu(konekcijaNaBazu, hlpVar.toString());
+            int id = rezultat.getInt(1);
+            String ime = rezultat.getString(3);
+            String prezime = rezultat.getString(4);
+            String JMBG = rezultat.getString(5);
+            Boolean aktivan = rezultat.getBoolean(6);
+            povratnaVrijednost = new DTOZaposleni(new Zaposleni(id,plataDTO.getPlata(),ime,prezime,JMBG,aktivan, nalogDTO.getNalog()));
         }
         return povratnaVrijednost;
     }
