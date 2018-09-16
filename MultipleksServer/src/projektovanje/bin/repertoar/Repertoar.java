@@ -18,7 +18,18 @@ public class Repertoar implements Serializable {
     public Repertoar() {
     }
 
-    public Repertoar(Integer idRepertoara, List<Projekcija> projekcija, Film film, Zaposleni zaposleni, Date datumOd, Date datumDo) {
+    @Override
+    public String toString() {
+        return "Repertoar{" +
+                "idRepertoara=" + idRepertoara +
+                ", projekcija=" + projekcija +
+                ", zaposleni=" + zaposleni +
+                ", datumOd=" + datumOd +
+                ", datumDo=" + datumDo +
+                '}';
+    }
+
+    public Repertoar(Integer idRepertoara, List<Projekcija> projekcija, Zaposleni zaposleni, Date datumOd, Date datumDo) {
         this.idRepertoara = idRepertoara;
         this.projekcija = projekcija;
         this.zaposleni = zaposleni;
