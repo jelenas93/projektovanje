@@ -1,24 +1,22 @@
-login: LOGIN#USERNAME#PASSWORD, odgovor iz dva dijela (prvo OK ili NOK i razlog zbog cega kao objekat tipa String) zatim (DTO klasa objekta koji se loginuje)
-														ako je NOK drugi ispis vraca null
-														Format prve poruke je ili "NOK razlog zasto se nije desio login" 
-																			  ili "OK#TIPPRIJAVLJENEOSOBE" za pravljenje odgovarajuce klase 
-																			  npr ako vrati "OK#ADMINISTRATOR" lokalno napravite DTOAdministrator 
-																			  i dodjelite objekat u njega
-																			  sve varijante "OK#ADMINISTRATOR"
-																							"OK#KINOOPERATER"
-																							"OK#MENADZER"
-																							"OK#PRODAVACHARANEIPICA"
-																							"OK#PRODAVACKARATA"
-																							"OK#RACUNOVODJA"
-																							"OK#SKLADISTAR"
-																							"OK#KLIJENT"
-																			  
+login: LOGIN#USERNAME#PASSWORD, odgovor (prvo OK ili NOK i razlog zbog cega kao objekat tipa String)
+														Format poruke je ili "NOK razlog zasto se nije desio login" 
+																			  ili "OK#TIPPRIJAVLJENEOSOBE#id" za pravljenje odgovarajuce klase 
+																			  npr vrati "OK#ADMINISTRATOR#1" 
+																			  sve varijante "OK#ADMINISTRATOR#id"
+																							"OK#KINOOPERATER#id"
+																							"OK#MENADZER#id"
+																							"OK#PRODAVACHARANEIPICA#id"
+																							"OK#PRODAVACKARATA#id"
+																							"OK#RACUNOVODJA#id"
+																							"OK#SKLADISTAR#id"
+																							"OK#KLIJENT#id"
+																			
 registracija: REGISTER#NAME#SURNAME#USERNAME#PASSWORD#EMAIL, odgovor OK ili NOK+razlog
 promjena lozinke: CHANGE_PASSWORD#oldPassword#newPassword, odgovor OK ili NOK
 
 dodavanje zaposlenog: ADD_EMPLOYEE#NAME#SURNAME#JMBG#USERNAME#PASSWORD#POSITION, odgovor OK ili NOK+razlog
 prikaz liste zaposlenih: LIST_EMPLOYEES, odgovor: List<Zaposleni>
-azuriranje zaposlenog: UPDATE_EMPLOYEE, odgovor: WHICHONE poruka: objekat zaposleni sa novim podacima, odgovor OK ili NOK+razlog
+azuriranje zaposlenog: UPDATE_EMPLOYEE, odgovor: WHICHONE poruka: objekat zaposleni sa novim podacima, odgovor POSITION kao string, String sa STARAPOZICIJA#NOVAPOZICIJA , odgovor OK ili NOK+razlog
 brisanje zaposlenog:DELETE_EMPLOYEE#korisnickoIme, odgovor: OK ili NOK+razlog
 
 dodavanje projekcije:NEW_PROJECTION, odgovor: WHICHONE, poruka: objekat tipa projekcija
@@ -66,7 +64,4 @@ dodaj novi repertoar: ADD_REPERTOIRE, odgovor WHICHONE, poruka: objekat klase Re
 prodaja karte: SELL_TICKET, objekat klase Karta (2 poruke zaredom)
 rezervacija karte: RESERVE_TICKET, objekat klase Karta (2 poruke zaredom)
 otkazi rezervaciju: CANCEL_RESERVATION, objekat klase Karta (2 poruke zaredom)
-
-
-
-
+ 

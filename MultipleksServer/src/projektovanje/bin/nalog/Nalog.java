@@ -41,11 +41,4 @@ public class Nalog implements Serializable {
         this.lozinkaHash = lozinkaHash;
     }
 
-    @Override
-    public String toString() {
-        return "Nalog{" +
-                "korisnickiNalog='" + korisnickiNalog + '\'' +
-                ", lozinkaHash='" + lozinkaHash + '\'' +
-                '}';
-    }
 }

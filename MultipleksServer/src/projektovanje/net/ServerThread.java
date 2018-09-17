@@ -41,12 +41,15 @@ public class ServerThread extends Thread{
                 switch (Protokoli.valueOf(msg.split("#")[0])) {
                     case LOGIN:
                         ServisZaPrijavu.outPrijava(msg, konekcijaNaBazu, out, nalogTrenutnogKorisnika, prijavljen, in);
+                        if(prijavljen[Korisnici.RACUNOVODJA.getRacunovodja()]){
+                            //ServisZaRacunovodju.obradiNedodjeljenePlate(out, in, konekcijaNaBazu); mozda odradi, mozda ne
+                        }
                         break;
                     case REGISTER:
                         if(prijavljen[Korisnici.ADMINISTRATOR.getAdministrator()]) {
                             ServisZaRegistracijuKlijenta.obaviRegistraciju(msg, konekcijaNaBazu, out);
                         }else{
-                            out.writeObject(new String("NOK Prijavljeni korisnike nije nadlezan za registraciju zaposlenih."));
+                            out.writeObject(new String("NOK#Prijavljeni korisnike nije nadlezan za registraciju zaposlenih."));
                         }
                         break;
                     case CHANGE_PASSWORD:
@@ -56,7 +59,7 @@ public class ServerThread extends Thread{
                         if(prijavljen[Korisnici.ADMINISTRATOR.getAdministrator()]) {
                             ServisZaAdministratora.dodavanjeZaposlenog(msg, konekcijaNaBazu, out);
                         }else{
-                            out.writeObject(new String("NOK Prijavljeni korisnike nije Adminstrator."));
+                            out.writeObject(new String("NOK#Prijavljeni korisnike nije Adminstrator."));
                         }
                         break;
                     case LIST_EMPLOYEES:
@@ -65,7 +68,7 @@ public class ServerThread extends Thread{
                         }else if(prijavljen[Korisnici.RACUNOVODJA.getRacunovodja()]){
                             ServisZaRacunovodju.prikazListeZaposlenih(msg, konekcijaNaBazu, out);
                         }else{
-                            out.writeObject(new String("NOK Prijavljeni korisnik nema pravo pregleda zaposlenih."));
+                            out.writeObject(new String("NOK#Prijavljeni korisnik nema pravo pregleda zaposlenih."));
                         }
                         break;
                     case UPDATE_EMPLOYEE:
@@ -74,7 +77,7 @@ public class ServerThread extends Thread{
                         }else if(prijavljen[Korisnici.RACUNOVODJA.getRacunovodja()]){
                             ServisZaRacunovodju.azuriranjeZaposlenog(msg, konekcijaNaBazu, out, in);
                         }else{
-                            out.writeObject(new String("NOK Prijavljeni korisnik nema pravo promjene podataka zaposlenih."));
+                            out.writeObject(new String("NOK#Prijavljeni korisnik nema pravo promjene podataka zaposlenih."));
                         }
                         break;
                     case DELETE_EMPLOYEE:

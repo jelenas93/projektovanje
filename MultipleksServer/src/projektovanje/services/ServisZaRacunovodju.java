@@ -1,6 +1,7 @@
 package projektovanje.services;
 
 import projektovanje.bin.nalog.Nalog;
+import projektovanje.bin.plata.Plata;
 import projektovanje.dbDAO.*;
 import projektovanje.dto.*;
 
@@ -8,6 +9,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,18 +69,7 @@ public class ServisZaRacunovodju {
     public static void azuriranjeZaposlenog(String msg, Connection konekcijaNaBazu, ObjectOutputStream out, ObjectInputStream in) throws IOException, SQLException, ClassNotFoundException {
         out.writeObject(new String("WHICHONE"));
         DTOZaposleni dtoZaposleni = (DTOZaposleni)in.readObject();
-        Integer pomocniInteger = dtoZaposleni.getZaposleni().getIdZaposlenog();
-        DTOPlata dtoPlata = new DTOPlata(dtoZaposleni.getZaposleni().getPlata());
-        if(null == dtoPlata){
-            out.writeObject(new String("NOK Plata nije ispravna."));
-        }
-        DTOZaposleni provjeraPostojanjaDatogZaposlenog = (DTOZaposleni)new DBDAOZaposleni().pretraziBazu(konekcijaNaBazu,pomocniInteger.toString());
-        if(null == provjeraPostojanjaDatogZaposlenog.getZaposleni().getIdZaposlenog()){
-            out.writeObject(new String("NOK Zaposleni ne postoju u bazi."));
-            return;
-        }
-        new DBDAOPlata().upisiUBazu(dtoPlata, konekcijaNaBazu);
-        new DBDAOZaposleni().izmjeniInformacijeOZaposlenom(dtoZaposleni, konekcijaNaBazu);
-        out.writeObject(new String("OK"));
+        new DBDAOPlata().azurirajBazu(new DTOPlata(dtoZaposleni.getZaposleni().getPlata()), konekcijaNaBazu);
+        out.writeObject(new String("OK#Uspjesna izmjena."));
     }
 }

@@ -19,20 +19,20 @@ public class ServisZaRegistracijuKlijenta {
             return;
         }
         registruj(msg,konekcijaNaBazu,out);
-        out.writeObject(new String("OK Uspjesna registracija klijenta."));
+        out.writeObject(new String("OK#Uspjesna registracija klijenta."));
     }
 
     private static Boolean provjeriNalog(String msg, Connection konekcijaNaBazu, ObjectOutputStream out) throws SQLException, IOException {
         String[] hlpNizStringova = msg.split("#");
         if(6!=hlpNizStringova.length){
-            out.writeObject(new String("NOK Pogresan broj argumenata u protokolu. Provjeri dokumentaciju protokola."));
+            out.writeObject(new String("NOK#Pogresan broj argumenata u protokolu. Provjeri dokumentaciju protokola."));
             return false;
         }
         DTONalog dtoNalog = (DTONalog)new DBDAONalog().pretraziBazu(konekcijaNaBazu,hlpNizStringova[3]);
         if(null == dtoNalog){
             return true;
         }
-        out.writeObject(new String("NOK Korisnicko ime vec postoji."));
+        out.writeObject(new String("NOK#Korisnicko ime vec postoji."));
         return false;
     }
 
@@ -41,6 +41,6 @@ public class ServisZaRegistracijuKlijenta {
         Nalog nalog = new Nalog(hlpNizStringova[3],hlpNizStringova[4]);
         new DBDAONalog().upisiUBazu(new DTONalog(nalog),konekcijaNaBazu);
         new DBDAOKlijent().upisiUBazu(new DTOKlijent(new Klijent(1, nalog, hlpNizStringova[1], hlpNizStringova[2],hlpNizStringova[5])), konekcijaNaBazu);
-        out.writeObject(new String("OK Uspjesna promjena."));
+        out.writeObject(new String("OK#Uspjesna promjena."));
     }
 }
