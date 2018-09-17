@@ -90,7 +90,7 @@ public class DBDAOFilm implements IDBDAO {
         if (resultSet.next()){
             int idFilma = resultSet.getInt(1);
             film.setIdFilma(idFilma);
-            int idZaposlenog = resultSet.getInt(7);
+            int idZaposlenog = resultSet.getInt(2);
             DTOZaposleni zaposleni = (DTOZaposleni) new DBDAOZaposleni().pretraziBazu(konekcijaNaBazu,String.valueOf(idZaposlenog));
             film.setZaposleni(zaposleni.getZaposleni());
             film.setNaziv(resultSet.getString(3));

@@ -14,19 +14,28 @@ public class Izdavanje implements Serializable {
     private Sjediste sjediste;
     private Sala sala;
     private Projekcija projekcija;
-    private Film film;
     private Zaposleni zaposleni;
 
     public Izdavanje() {
     }
 
-    public Izdavanje(Karta karta, Sjediste sjediste, Sala sala, Projekcija projekcija, Film film, Zaposleni zaposleni) {
+    public Izdavanje(Karta karta, Sjediste sjediste, Sala sala, Projekcija projekcija, Zaposleni zaposleni) {
         this.karta = karta;
         this.sjediste = sjediste;
         this.sala = sala;
         this.projekcija = projekcija;
-        this.film = film;
         this.zaposleni = zaposleni;
+    }
+
+    @Override
+    public String toString() {
+        return "Izdavanje{" +
+                "karta=" + karta +
+                ", sjediste=" + sjediste +
+                ", sala=" + sala +
+                ", projekcija=" + projekcija +
+                ", zaposleni=" + zaposleni +
+                '}';
     }
 
     public Karta getKarta() {
@@ -59,14 +68,6 @@ public class Izdavanje implements Serializable {
 
     public void setProjekcija(Projekcija projekcija) {
         this.projekcija = projekcija;
-    }
-
-    public Film getFilm() {
-        return film;
-    }
-
-    public void setFilm(Film film) {
-        this.film = film;
     }
 
     public Zaposleni getZaposleni() {

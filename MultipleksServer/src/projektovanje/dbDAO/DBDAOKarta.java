@@ -3,6 +3,7 @@ package projektovanje.dbDAO;
 import projektovanje.bin.karta.Karta;
 import projektovanje.bin.nalog.Nalog;
 import projektovanje.dto.DTOKarta;
+import projektovanje.dto.DTONalog;
 import projektovanje.dto.IDTO;
 
 import java.sql.*;
@@ -46,8 +47,9 @@ public class DBDAOKarta implements IDBDAO {
             karta.setDatumIzdavanja(new java.util.Date(resultSet.getDate(2).getTime()));
             karta.setCijena(resultSet.getDouble(3));
             karta.setRezervisana(resultSet.getBoolean(4));
-            Nalog nalog = new Nalog();
-            nalog.setKorisnickiNalog(resultSet.getString(5));
+            String korisnickoIme = resultSet.getString(5);
+            DTONalog dtoNalog = (DTONalog) new DBDAONalog().pretraziBazu(konekcijaNaBazu,korisnickoIme);
+            Nalog nalog = dtoNalog.getNalog();
             karta.setNalog(nalog);
             DTOKarta dtoKarta = new DTOKarta(karta);
             listaKarti.add(dtoKarta);
@@ -94,7 +96,7 @@ public class DBDAOKarta implements IDBDAO {
     @Override
     public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) throws SQLException {
         DTOKarta lokalniKarta;
-        PreparedStatement preparedStatement = konekcijaNaBazu.prepareStatement("select * from Karta where idKarta = ?");
+        PreparedStatement preparedStatement = konekcijaNaBazu.prepareStatement("select * from Karta where idKarte = ?");
         preparedStatement.setInt(1, Integer.parseInt(parametarPretrage));
         ResultSet resultSet = preparedStatement.executeQuery();
         Karta karta = new Karta();
@@ -103,8 +105,9 @@ public class DBDAOKarta implements IDBDAO {
             karta.setDatumIzdavanja(new java.util.Date(resultSet.getDate(2).getTime()));
             karta.setCijena(resultSet.getDouble(3));
             karta.setRezervisana(resultSet.getBoolean(4));
-            Nalog nalog = new Nalog();
-            nalog.setKorisnickiNalog(resultSet.getString(5));
+            String korisnickoIme = resultSet.getString(5);
+            DTONalog dtoNalog = (DTONalog) new DBDAONalog().pretraziBazu(konekcijaNaBazu,korisnickoIme);
+            Nalog nalog = dtoNalog.getNalog();
             karta.setNalog(nalog);
             lokalniKarta = new DTOKarta(karta);
             }else{
