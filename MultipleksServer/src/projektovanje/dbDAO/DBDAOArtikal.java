@@ -3,6 +3,7 @@ package projektovanje.dbDAO;
 import projektovanje.bin.oprema.Artikal;
 import projektovanje.bin.zaposleni.Zaposleni;
 import projektovanje.dto.DTOArtikal;
+import projektovanje.dto.DTOZaposleni;
 import projektovanje.dto.IDTO;
 
 import java.math.BigDecimal;
@@ -37,12 +38,12 @@ public class DBDAOArtikal implements IDBDAO {
         PreparedStatement preparedStatement = konekcijaNaBazu.prepareStatement("select * from Artikal");
         ResultSet resultSet = preparedStatement.executeQuery();
         while(resultSet.next()){
-            Zaposleni zaposleni = new Zaposleni();
-            zaposleni.setIdZaposlenog(resultSet.getInt(7));
+            int idZaposlenog = resultSet.getInt(7);
+            DTOZaposleni zaposleni = (DTOZaposleni) new DBDAOZaposleni().pretraziBazu(konekcijaNaBazu,String.valueOf(idZaposlenog));
             Artikal artikal = new Artikal(resultSet.getInt(1), resultSet.getString(2)
                     , resultSet.getInt(3), resultSet.getDouble(4), resultSet.getString(5)
                     , resultSet.getString(6)
-                    , zaposleni);
+                    , zaposleni.getZaposleni());
             DTOArtikal dtoArtikal = new DTOArtikal(artikal);
             listaArtikala.add(dtoArtikal);
         }
@@ -94,9 +95,9 @@ public class DBDAOArtikal implements IDBDAO {
             artikal.setJedinicnaCijena(resultSet.getDouble(4));
             artikal.setTip(resultSet.getString(5));
             artikal.setBarKod(resultSet.getString(6));
-            Zaposleni zaposleni = new Zaposleni();
-            zaposleni.setIdZaposlenog(resultSet.getInt(7));
-            artikal.setZaposleni(zaposleni);
+            int idZaposlenog = resultSet.getInt(7);
+            DTOZaposleni zaposleni = (DTOZaposleni) new DBDAOZaposleni().pretraziBazu(konekcijaNaBazu,String.valueOf(idZaposlenog));
+            artikal.setZaposleni(zaposleni.getZaposleni());
             lokalniArtikal = new DTOArtikal(artikal);
         }else{
             lokalniArtikal = null;

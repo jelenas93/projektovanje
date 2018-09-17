@@ -3,6 +3,7 @@ package projektovanje.bin.film;
 import projektovanje.bin.zaposleni.Zaposleni;
 
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.List;
 
 public class Film implements Serializable {
@@ -18,7 +19,7 @@ public class Film implements Serializable {
     public Film() {
     }
 
-    public Film(Integer idFilma, Zaposleni zaposleni, String naziv, Integer trajanje,  String opis, String linkTrailera, String tipFilma ) {
+    public Film(Integer idFilma, Zaposleni zaposleni, String naziv, Integer trajanje,  String opis, String linkTrailera, String tipFilma, List<Zanr> zanrovi ) {
         this.idFilma = idFilma;
         this.zaposleni = zaposleni;
         this.trajanje = trajanje;
@@ -26,13 +27,19 @@ public class Film implements Serializable {
         this.opis = opis;
         this.linkTrailera = linkTrailera;
         this.tipFilma = tipFilma;
+        this.zanrovi = zanrovi;
     }
 
     @Override
     public String toString() {
+        String zanroviStr = "";
+        Iterator<Zanr> it = zanrovi.iterator();
+        while(it.hasNext()){
+            zanroviStr+=it.next().toString();
+        }
         return "Film{" +
                 "idFilma=" + idFilma +
-                ", zanrovi=" + zanrovi +
+                ", zanrovi=" + zanroviStr +
                 ", trajanje=" + trajanje +
                 ", naziv='" + naziv + '\'' +
                 ", opis='" + opis + '\'' +

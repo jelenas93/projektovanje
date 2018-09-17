@@ -40,4 +40,12 @@ public class Nalog implements Serializable {
     public void setLozinkaHash(String lozinkaHash) {
         this.lozinkaHash = lozinkaHash;
     }
+
+    @Override
+    public String toString() {
+        return "Nalog{" +
+                "korisnickiNalog='" + korisnickiNalog + '\'' +
+                ", lozinkaHash='" + lozinkaHash + '\'' +
+                '}';
+    }
 }
