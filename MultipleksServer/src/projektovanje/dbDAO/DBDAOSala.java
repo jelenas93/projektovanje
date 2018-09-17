@@ -90,6 +90,7 @@ public class DBDAOSala implements IDBDAO {
             List<DTOSjediste> sjedistaDto = sjedistaDao.pretraziSjedistaZaSalu(sala,konekcijaNaBazu);
             ArrayList<Sjediste> sjedista = new ArrayList<>();
             sjedistaDto.forEach(x->sjedista.add(x.getSjediste()));
+            sala.setSjedista(sjedista);
             povratnaVrijednost = new DTOSala(sala);
         }
         return povratnaVrijednost;

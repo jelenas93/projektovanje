@@ -94,4 +94,21 @@ public class DBDAOSjediste implements IDBDAO {
         return citajIzBaze(konekcijaNaBazu);
 
     }
+
+    public DTOSjediste dohvatiSjedisteIzSale(Connection konekcijaNaBazu, String idStr, Sala sala) throws SQLException {
+            DTOSjediste povratnaVrijednost = null;
+            Integer id = Integer.valueOf(idStr);
+            PreparedStatement s = konekcijaNaBazu.prepareStatement("select * from Sjediste where idSjedista = ?");
+            s.setInt(1,id);
+            ResultSet rezultat = s.executeQuery();
+            if(rezultat.next()){
+                int idSjedista = rezultat.getInt(1);
+                int idSale = rezultat.getInt(2);
+                int vrsta = rezultat.getInt(3);
+                int kolona = rezultat.getInt(4);
+                povratnaVrijednost = new DTOSjediste(new Sjediste(idSjedista,sala,vrsta,kolona));
+            }
+            return povratnaVrijednost;
+    }
 }
+

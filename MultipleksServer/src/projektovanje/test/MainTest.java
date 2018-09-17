@@ -6,10 +6,7 @@ import projektovanje.bin.oprema.Artikal;
 import projektovanje.bin.racun.Stavka;
 import projektovanje.bin.transakcije.Racun;
 import projektovanje.bin.zaposleni.Zaposleni;
-import projektovanje.dbDAO.DBDAOArtikal;
-import projektovanje.dbDAO.DBDAOFilm;
-import projektovanje.dbDAO.DBDAOPonuda;
-import projektovanje.dbDAO.DBDAORacun;
+import projektovanje.dbDAO.*;
 import projektovanje.dto.*;
 
 import java.sql.Connection;
@@ -54,10 +51,15 @@ public class MainTest {
         System.out.println("Procitani artikal");
         System.out.println(art.getArtikal());*/
 
-       System.out.println("Citam sve filmove");
+      /* System.out.println("Citam sve filmove");
        DBDAOFilm filmDAO = new DBDAOFilm();
         List<DTOFilm> dtoFilms = filmDAO.citajIzBaze(c);
-        dtoFilms.forEach(x-> System.out.println(x.getFilm()));
+        dtoFilms.forEach(x-> System.out.println(x.getFilm()));*/
+
+      System.out.println("Citam sva izdavanja");
+        DBDAOIzdavanje izdDAO = new DBDAOIzdavanje();
+        List<DTOIzdavanje> dtoFilms = izdDAO.citajIzBaze(c);
+        dtoFilms.forEach(x->System.out.println(x.getIzdavanje()));
         System.out.println("all done");
     }
 }
