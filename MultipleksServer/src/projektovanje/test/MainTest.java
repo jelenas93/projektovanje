@@ -44,7 +44,7 @@ public class MainTest {
         System.out.println("Update gotov opet citam");
 
         stavkaIzBaze = (ArrayList<DTOFilm>) dao.citajIzBaze(c);
-        stavkaIzBaze.forEach(x->System.out.println(x.getFilm()));*/
+        stavkaIzBaze.forEach(x->System.out.println(x.getFilm()));
 
         System.out.println("pokusavam citati artikle");
         List<DTOArtikal> artikliIzBaze = artDao.citajIzBaze(c);
@@ -52,7 +52,12 @@ public class MainTest {
 
         DTOArtikal art = (DTOArtikal) artDao.pretraziBazu(c,"3");
         System.out.println("Procitani artikal");
-        System.out.println(art.getArtikal());
+        System.out.println(art.getArtikal());*/
+
+       System.out.println("Citam sve filmove");
+       DBDAOFilm filmDAO = new DBDAOFilm();
+        List<DTOFilm> dtoFilms = filmDAO.citajIzBaze(c);
+        dtoFilms.forEach(x-> System.out.println(x.getFilm()));
         System.out.println("all done");
     }
 }

@@ -1,11 +1,10 @@
 package projektovanje.dbDAO;
 
 import projektovanje.bin.film.Film;
+import projektovanje.bin.film.Zanr;
 import projektovanje.bin.zaposleni.Administrator;
 import projektovanje.bin.zaposleni.Zaposleni;
-import projektovanje.dto.DTOAdministrator;
-import projektovanje.dto.DTOFilm;
-import projektovanje.dto.IDTO;
+import projektovanje.dto.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -40,10 +39,14 @@ public class DBDAOFilm implements IDBDAO {
         PreparedStatement preparedStatement = konekcijaNaBazu.prepareStatement("select * from Film");
         ResultSet resultSet = preparedStatement.executeQuery();
         while(resultSet.next()){
-            Zaposleni zaposleni = new Zaposleni();
-            zaposleni.setIdZaposlenog(resultSet.getInt(2));
-            Film film = new Film(resultSet.getInt(1), zaposleni, resultSet.getString(3), resultSet.getInt(4)
-                    ,  resultSet.getString(5), resultSet.getString(6) , resultSet.getString(7));
+            int idZaposlenog = resultSet.getInt(2);
+            int idFilma = resultSet.getInt(1);
+            DTOZaposleni zaposleni = (DTOZaposleni) new DBDAOZaposleni().pretraziBazu(konekcijaNaBazu,String.valueOf(idZaposlenog));
+            List<DTOZanr> dtoZanrovi = new DBDAOFillmZanr().pretraziSveZanroveZaFilm(idFilma, konekcijaNaBazu);
+            List<Zanr> zanrovi = new ArrayList<>();
+            dtoZanrovi.forEach(x->zanrovi.add(x.getZanr()));
+            Film film = new Film(idFilma, zaposleni.getZaposleni(), resultSet.getString(3), resultSet.getInt(4)
+                    ,  resultSet.getString(5), resultSet.getString(6) , resultSet.getString(7),zanrovi);
             DTOFilm dtoFilm = new DTOFilm(film);
             listaFilmova.add(dtoFilm);
         }
@@ -85,15 +88,20 @@ public class DBDAOFilm implements IDBDAO {
         ResultSet resultSet = preparedStatement.executeQuery();
         Film film = new Film();
         if (resultSet.next()){
-            film.setIdFilma(resultSet.getInt(1));
-            Zaposleni zaposleni = new Zaposleni();
-            zaposleni.setIdZaposlenog(resultSet.getInt(2));
-            film.setZaposleni(zaposleni);
+            int idFilma = resultSet.getInt(1);
+            film.setIdFilma(idFilma);
+            int idZaposlenog = resultSet.getInt(7);
+            DTOZaposleni zaposleni = (DTOZaposleni) new DBDAOZaposleni().pretraziBazu(konekcijaNaBazu,String.valueOf(idZaposlenog));
+            film.setZaposleni(zaposleni.getZaposleni());
             film.setNaziv(resultSet.getString(3));
             film.setTrajanje(resultSet.getInt(4));
             film.setOpis(resultSet.getString(5));
             film.setLinkTrailera(resultSet.getString(6));
             film.setTipFilma(resultSet.getString(7));
+            List<DTOZanr> dtoZanrovi = new DBDAOFillmZanr().pretraziSveZanroveZaFilm(idFilma, konekcijaNaBazu);
+            List<Zanr> zanrovi = new ArrayList<>();
+            dtoZanrovi.forEach(x-> zanrovi.add(x.getZanr()));
+            film.setZanrovi(zanrovi);
             lokalniFilm = new DTOFilm(film);
         }else{
             lokalniFilm = null;
