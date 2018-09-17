@@ -43,7 +43,7 @@ public class DBDAOFilm implements IDBDAO {
             Zaposleni zaposleni = new Zaposleni();
             zaposleni.setIdZaposlenog(resultSet.getInt(2));
             Film film = new Film(resultSet.getInt(1), zaposleni, resultSet.getString(3), resultSet.getInt(4)
-                    ,  resultSet.getString(5), resultSet.getString(6) , resultSet.getString(7) );
+                    ,  resultSet.getString(5), resultSet.getString(6) , resultSet.getString(7));
             DTOFilm dtoFilm = new DTOFilm(film);
             listaFilmova.add(dtoFilm);
         }

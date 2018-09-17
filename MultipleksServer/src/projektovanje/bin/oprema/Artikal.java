@@ -102,6 +102,7 @@ public class Artikal implements IOprema{
                 ", kolicinaNaStanju=" + kolicinaNaStanju +
                 ", tip='" + tip + '\'' +
                 ", barKod='" + barKod + '\'' +
+                ", zaposleni = " + zaposleni.toString() +
                 '}';
     }
 }
