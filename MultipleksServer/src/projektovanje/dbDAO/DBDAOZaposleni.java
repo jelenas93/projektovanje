@@ -1,6 +1,5 @@
 package projektovanje.dbDAO;
 
-import projektovanje.bin.nalog.Nalog;
 import projektovanje.bin.plata.Plata;
 import projektovanje.bin.zaposleni.Zaposleni;
 import projektovanje.dto.DTONalog;
@@ -32,8 +31,9 @@ public class DBDAOZaposleni implements IDBDAO {
         return true;
     }
 
+
     @Override
-    public List<? extends IDTO> citajIzBaze(Connection konekcijaNaBazu) throws SQLException {
+    public List<DTOZaposleni> citajIzBaze(Connection konekcijaNaBazu) throws SQLException {
         Statement s = konekcijaNaBazu.createStatement();
         ResultSet rs = s.executeQuery("select * from zaposleni");
         ArrayList<DTOZaposleni> povratnaVrijednost = new ArrayList<>();
@@ -72,6 +72,54 @@ public class DBDAOZaposleni implements IDBDAO {
         return true;
     }
 
+    public Boolean izmjeniInformacijeOZaposlenom(IDTO noviZaposleni, Connection konekcijaNaBazu) throws SQLException {
+        DTOZaposleni lokalniDTOZaposleni = (DTOZaposleni) noviZaposleni;
+        Zaposleni lokalniZaposleni = lokalniDTOZaposleni.getZaposleni();
+        PreparedStatement ps = konekcijaNaBazu.prepareStatement("update Zaposleni" +
+                "   set " +
+                "   ime = ?," +
+                "   prezime = ?," +
+                "   JMBG = ?," +
+                "   aktivan = ?" +
+                "   where idZaposlenog = ?");
+        ps.setString(1,lokalniZaposleni.getIme());
+        ps.setString(2,lokalniZaposleni.getPrezime());
+        ps.setString(3,lokalniZaposleni.getJMBG());
+        ps.setBoolean(4,lokalniDTOZaposleni.getZaposleni().getAktivan());
+        ps.setInt(5,lokalniZaposleni.getIdZaposlenog());
+        ps.executeUpdate();
+        return true;
+    }
+
+    public Boolean dajOtkaz(IDTO noviZaposleni, Connection konekcijaNaBazu) throws SQLException {
+        DTOZaposleni lokalniDTOZaposleni = (DTOZaposleni) noviZaposleni;
+        Zaposleni lokalniZaposleni = lokalniDTOZaposleni.getZaposleni();
+        PreparedStatement ps = konekcijaNaBazu.prepareStatement("update Zaposleni" +
+                "   set " +
+                "   aktivan = ?" +
+                "   where idZaposlenog = ?");
+        ps.setBoolean(1,false);
+        ps.setInt(2,lokalniZaposleni.getIdZaposlenog());
+        ps.executeUpdate();
+        return true;
+    }
+
+    public Boolean azurirajZaposlenogPlatuZaposlenog(IDTO noviZaposleni, Connection konekcijaNaBazu) throws SQLException {
+        DTOZaposleni lokalniDTOZaposleni = (DTOZaposleni) noviZaposleni;
+        Zaposleni lokalniZaposleni = lokalniDTOZaposleni.getZaposleni();
+        PreparedStatement ps = konekcijaNaBazu.prepareStatement("update Zaposleni" +
+                "   set " +
+                "   idPlate = ?" +
+                "   where idZaposlenog = ?");
+        ps.setInt(1,lokalniDTOZaposleni.getZaposleni().getPlata().getIDPlate());
+        ps.setInt(2,lokalniZaposleni.getIdZaposlenog());
+        ps.executeUpdate();
+        return true;
+    }
+
+
+
+
     @Override
     public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) throws SQLException {
         DTOZaposleni povratnaVrijednost = null;
@@ -89,6 +137,44 @@ public class DBDAOZaposleni implements IDBDAO {
             String JMBG = rezultat.getString(5);
             Boolean aktivan = rezultat.getBoolean(6);
             povratnaVrijednost = new DTOZaposleni(new Zaposleni(id,plataDTO.getPlata(),ime,prezime,JMBG,aktivan, nalogDTO.getNalog()));
+        }
+        return povratnaVrijednost;
+    }
+
+    public IDTO procitajZaposlenogAkoJeAktivan(Connection konekcijaNaBazu, String parametarPretrage) throws SQLException {
+        DTOZaposleni povratnaVrijednost = null;
+        int idZaposlenog = Integer.valueOf(parametarPretrage);
+        PreparedStatement s = konekcijaNaBazu.prepareStatement("select * from zaposleni where idZaposlenog = ? and aktivan = true");
+        s.setInt(1,idZaposlenog);
+        ResultSet rezultat = s.executeQuery();
+        if(rezultat.next()){
+            DTONalog nalogDTO = (DTONalog) new DBDAONalog().pretraziBazu(konekcijaNaBazu,rezultat.getString(7));
+            Integer hlpVar = rezultat.getInt(2);
+            DTOPlata plataDTO = (DTOPlata) new DBDAOPlata().pretraziBazu(konekcijaNaBazu, hlpVar.toString());
+            int id = rezultat.getInt(1);
+            String ime = rezultat.getString(3);
+            String prezime = rezultat.getString(4);
+            String JMBG = rezultat.getString(5);
+            Boolean aktivan = rezultat.getBoolean(6);
+            povratnaVrijednost = new DTOZaposleni(new Zaposleni(id,plataDTO.getPlata(),ime,prezime,JMBG,aktivan, nalogDTO.getNalog()));
+        }
+        return povratnaVrijednost;
+    }
+
+    public List<? extends IDTO> procitajSveAktivneZaposlene(Connection konekcijaNaBazu) throws SQLException {
+        List<DTOZaposleni> povratnaVrijednost = null;
+        PreparedStatement s = konekcijaNaBazu.prepareStatement("select * from zaposleni where aktivan = true");
+        ResultSet rezultat = s.executeQuery();
+        while(rezultat.next()){
+            DTONalog nalogDTO = (DTONalog) new DBDAONalog().pretraziBazu(konekcijaNaBazu,rezultat.getString(7));
+            Integer hlpVar = rezultat.getInt(2);
+            DTOPlata plataDTO = (DTOPlata) new DBDAOPlata().pretraziBazu(konekcijaNaBazu, hlpVar.toString());
+            int id = rezultat.getInt(1);
+            String ime = rezultat.getString(3);
+            String prezime = rezultat.getString(4);
+            String JMBG = rezultat.getString(5);
+            Boolean aktivan = rezultat.getBoolean(6);
+            povratnaVrijednost.add(new DTOZaposleni(new Zaposleni(id,plataDTO.getPlata(),ime,prezime,JMBG,aktivan, nalogDTO.getNalog())));
         }
         return povratnaVrijednost;
     }
@@ -113,7 +199,7 @@ public class DBDAOZaposleni implements IDBDAO {
     }
 
     @Override
-    public List<? extends IDTO> ispisi(Connection konekcijaNaBazu) throws SQLException {
+    public List<DTOZaposleni> ispisi(Connection konekcijaNaBazu) throws SQLException {
         return citajIzBaze(konekcijaNaBazu);
     }
 }

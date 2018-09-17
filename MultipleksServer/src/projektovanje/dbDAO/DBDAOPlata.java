@@ -128,4 +128,14 @@ public class DBDAOPlata implements IDBDAO {
     public List<DTOPlata> ispisi(Connection konekcijaNaBazu) throws SQLException {
         return citajIzBaze(konekcijaNaBazu);
     }
+
+    public DTOPlata dobaviZadnjuUmetnutuPlatu(Connection konekcijaNaBazu) throws SQLException {
+        DTOPlata dtoPlata = null;
+        PreparedStatement ps = konekcijaNaBazu.prepareCall("select last_insert_id() from Plata into @?");
+        int lastId = 1;
+        ps.setInt(1, lastId);
+        ps.executeQuery();
+
+        return dtoPlata;
+    }
 }

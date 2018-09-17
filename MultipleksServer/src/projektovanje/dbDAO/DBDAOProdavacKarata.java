@@ -36,7 +36,23 @@ public class DBDAOProdavacKarata implements IDBDAO {
             DTOProdavacKarata dtoAdministrator = new DTOProdavacKarata(ProdavacKarata);
             listaProdavacKarataa.add(dtoAdministrator);
         }
-        return listaProdavacKarataa;}
+        return listaProdavacKarataa;
+    }
+
+    public List<? extends IDTO> ispisiSveAktivneProdavceKarata(Connection konekcijaNaBazu) throws SQLException {
+        List<DTOProdavacKarata> povratnaVrijednost = new ArrayList<>();
+        PreparedStatement s = konekcijaNaBazu.prepareStatement("select * from ProdavacKarata");
+        ResultSet rezultat = s.executeQuery();
+        while(rezultat.next()){
+            Integer id = rezultat.getInt(1);
+            DTOZaposleni dtoZaposleni = (DTOZaposleni)new DBDAOZaposleni().procitajZaposlenogAkoJeAktivan(konekcijaNaBazu, id.toString());
+            if(null != dtoZaposleni) {
+                ProdavacKarata pomocnaVarijabla = new ProdavacKarata(dtoZaposleni.getZaposleni());
+                povratnaVrijednost.add(new DTOProdavacKarata(pomocnaVarijabla));
+            }
+        }
+        return povratnaVrijednost;
+    }
 
     @Override
     public Boolean azurirajBazu(IDTO list, Connection konekcijaNaBazu) throws SQLException {

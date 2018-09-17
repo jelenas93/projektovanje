@@ -36,7 +36,23 @@ public class DBDAORacunovodja implements IDBDAO {
             DTORacunovodja dtoAdministrator = new DTORacunovodja(Racunovodja);
             listaRacunovodja.add(dtoAdministrator);
         }
-        return listaRacunovodja;}
+        return listaRacunovodja;
+    }
+
+    public List<? extends IDTO> ispisiSveAktivneRacunovodje(Connection konekcijaNaBazu) throws SQLException {
+        List<DTORacunovodja> povratnaVrijednost = new ArrayList<>();
+        PreparedStatement s = konekcijaNaBazu.prepareStatement("select * from Racunovodja");
+        ResultSet rezultat = s.executeQuery();
+        while(rezultat.next()){
+            Integer id = rezultat.getInt(1);
+            DTOZaposleni dtoZaposleni = (DTOZaposleni)new DBDAOZaposleni().procitajZaposlenogAkoJeAktivan(konekcijaNaBazu, id.toString());
+            if(null != dtoZaposleni) {
+                Racunovodja pomocnaVarijabla = new Racunovodja(dtoZaposleni.getZaposleni());
+                povratnaVrijednost.add(new DTORacunovodja(pomocnaVarijabla));
+            }
+        }
+        return povratnaVrijednost;
+    }
 
     @Override
     public Boolean azurirajBazu(IDTO list, Connection konekcijaNaBazu) throws SQLException {

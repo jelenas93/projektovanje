@@ -4,3 +4,14 @@
 	svaki put kad posalje zahtjev prema serveru. (DONE)
 	-Treba pripaziti na exception koji se baci pri isteku konekcije, u catch resetovati konekciju
 -Razmotriti mogucnost dodavanja metode pretrazi bazu po imenu u dbDto.
+===========================================================================================================================================
+		OVAKO PROCITAS LISTU ZAPOSLENIH DA BI IZBJEGAO KONFLIKTE IZMEDJU TIPOVA 
+        List<List<? extends IDTO>> listaZaposlenih = (List<List<? extends IDTO>>)in.readObject();
+        List<DTOAdministrator> listaAktivnihAdministratora = (List<DTOAdministrator>)listaZaposlenih.get(0);
+        List<DTOMenadzer> listaAktivnihMenadzera = (List<DTOMenadzer>)listaZaposlenih.get(1);
+        List<DTORacunovodja> listaAktivnihRacunovodja = (List<DTORacunovodja>)listaZaposlenih.get(2);
+        List<DTOSkladistar> listaAktivnihSkladistara = (List<DTOSkladistar>)listaZaposlenih.get(3);
+        List<DTOProdavacKarata> listaAktivnihProdavacaKarata = (List<DTOProdavacKarata>)listaZaposlenih.get(4);
+        List<DTOProdavacHraneIPica> listaAktivnihProdavacaHraneIPica = (List<DTOProdavacHraneIPica>)listaZaposlenih.get(5);
+        List<DTOKinooperater> listaAktivnihKinooperatera = (List<DTOKinooperater>)listaZaposlenih.get(6);
+===========================================================================================================================================		

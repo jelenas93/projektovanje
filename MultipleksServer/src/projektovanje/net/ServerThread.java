@@ -2,11 +2,9 @@ package projektovanje.net;
 
 import projektovanje.bin.nalog.Nalog;
 import projektovanje.db.ConnectionPool;
+import projektovanje.enumPackage.Korisnici;
 import projektovanje.enumPackage.Protokoli;
-import projektovanje.services.ServisZaAdministratora;
-import projektovanje.services.ServisZaPrijavu;
-import projektovanje.services.ServisZaPromjenuLozike;
-import projektovanje.services.ServisZaRegistracijuKlijenta;
+import projektovanje.services.*;
 
 import java.io.*;
 import java.net.Socket;
@@ -21,8 +19,12 @@ public class ServerThread extends Thread{
     ObjectInputStream in = null;
     Connection konekcijaNaBazu= null;
     Nalog nalogTrenutnogKorisnika;
+    Boolean prijavljen[] = new Boolean[8];
 
     public ServerThread(Socket klijent) throws IOException, SQLException {
+        for(Boolean x : prijavljen){
+            x = false;
+        }
         konekcijaNaBazu = ConnectionPool.getInstance().checkOut();
         klijentSoket = klijent;
         in = new ObjectInputStream(klijent.getInputStream());
@@ -38,20 +40,42 @@ public class ServerThread extends Thread{
                 msg = (String)in.readObject();
                 switch (Protokoli.valueOf(msg.split("#")[0])) {
                     case LOGIN:
-                        new ServisZaPrijavu().outPrijava(msg, konekcijaNaBazu, out, nalogTrenutnogKorisnika);
+                        ServisZaPrijavu.outPrijava(msg, konekcijaNaBazu, out, nalogTrenutnogKorisnika, prijavljen, in);
                         break;
                     case REGISTER:
-                        new ServisZaRegistracijuKlijenta().obaviRegistraciju(msg, konekcijaNaBazu, out);
+                        if(prijavljen[Korisnici.ADMINISTRATOR.getAdministrator()]) {
+                            ServisZaRegistracijuKlijenta.obaviRegistraciju(msg, konekcijaNaBazu, out);
+                        }else{
+                            out.writeObject(new String("NOK Prijavljeni korisnike nije nadlezan za registraciju zaposlenih."));
+                        }
                         break;
                     case CHANGE_PASSWORD:
-                        new ServisZaPromjenuLozike().promjeniLozinku(msg, konekcijaNaBazu, out, nalogTrenutnogKorisnika);
+                        ServisZaPromjenuLozike.promjeniLozinku(msg, konekcijaNaBazu, out, nalogTrenutnogKorisnika);
                         break;
                     case ADD_EMPLOYEE:
-                        new ServisZaAdministratora().dodavanjeZaposlenog(msg, konekcijaNaBazu, out);
+                        if(prijavljen[Korisnici.ADMINISTRATOR.getAdministrator()]) {
+                            ServisZaAdministratora.dodavanjeZaposlenog(msg, konekcijaNaBazu, out);
+                        }else{
+                            out.writeObject(new String("NOK Prijavljeni korisnike nije Adminstrator."));
+                        }
                         break;
                     case LIST_EMPLOYEES:
+                        if(prijavljen[Korisnici.ADMINISTRATOR.getAdministrator()]){
+                            ServisZaAdministratora.prikazListeZaposlenih(msg, konekcijaNaBazu, out);
+                        }else if(prijavljen[Korisnici.RACUNOVODJA.getRacunovodja()]){
+                            ServisZaRacunovodju.prikazListeZaposlenih(msg, konekcijaNaBazu, out);
+                        }else{
+                            out.writeObject(new String("NOK Prijavljeni korisnik nema pravo pregleda zaposlenih."));
+                        }
                         break;
                     case UPDATE_EMPLOYEE:
+                        if(prijavljen[Korisnici.ADMINISTRATOR.getAdministrator()]){
+                            ServisZaAdministratora.azuriranjeZaposlenog(msg, konekcijaNaBazu, out, in);
+                        }else if(prijavljen[Korisnici.RACUNOVODJA.getRacunovodja()]){
+                            ServisZaRacunovodju.azuriranjeZaposlenog(msg, konekcijaNaBazu, out, in);
+                        }else{
+                            out.writeObject(new String("NOK Prijavljeni korisnik nema pravo promjene podataka zaposlenih."));
+                        }
                         break;
                     case DELETE_EMPLOYEE:
                         break;

@@ -48,6 +48,21 @@ public class DBDAOMenadzer implements IDBDAO {
         return true;
     }
 
+    public List<? extends IDTO> ispisiSveAktivneMenadzere(Connection konekcijaNaBazu) throws SQLException {
+        List<DTOMenadzer> povratnaVrijednost = new ArrayList<>();
+        PreparedStatement s = konekcijaNaBazu.prepareStatement("select * from menadzer");
+        ResultSet rezultat = s.executeQuery();
+        while(rezultat.next()){
+            Integer id = rezultat.getInt(1);
+            DTOZaposleni dtoZaposleni = (DTOZaposleni)new DBDAOZaposleni().procitajZaposlenogAkoJeAktivan(konekcijaNaBazu, id.toString());
+            if(null != dtoZaposleni) {
+                Menadzer pomocnaVarijabla = new Menadzer(dtoZaposleni.getZaposleni());
+                povratnaVrijednost.add(new DTOMenadzer(pomocnaVarijabla));
+            }
+        }
+        return povratnaVrijednost;
+    }
+
     @Override
     public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) throws SQLException {
         DTOMenadzer lokalniMenadzer;

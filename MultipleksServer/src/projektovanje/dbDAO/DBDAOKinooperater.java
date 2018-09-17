@@ -49,6 +49,20 @@ public class DBDAOKinooperater implements IDBDAO {
         return true;
     }
 
+    public List<? extends IDTO> ispisiSveAktivneKinooperatere(Connection konekcijaNaBazu) throws SQLException {
+        List <DTOKinooperater> povratnaVrijednost = new ArrayList<>();
+        PreparedStatement s = konekcijaNaBazu.prepareStatement("select * from kinooperater");
+        ResultSet rezultat = s.executeQuery();
+        while(rezultat.next()){
+            Integer id = rezultat.getInt(1);
+            DTOZaposleni dtoZaposleni = (DTOZaposleni)new DBDAOZaposleni().procitajZaposlenogAkoJeAktivan(konekcijaNaBazu, id.toString());
+            if(null != dtoZaposleni) {
+                Kinooperater pomocnaVarijabla = new Kinooperater(dtoZaposleni.getZaposleni());
+                povratnaVrijednost.add(new DTOKinooperater(pomocnaVarijabla));
+            }
+        }
+        return povratnaVrijednost;
+    }
 
     @Override
     public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) throws SQLException {

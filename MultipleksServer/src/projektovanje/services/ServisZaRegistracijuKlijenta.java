@@ -14,7 +14,7 @@ import java.sql.SQLException;
 
 public class ServisZaRegistracijuKlijenta {
 
-    public void obaviRegistraciju(String msg, Connection konekcijaNaBazu, ObjectOutputStream out) throws SQLException, IOException {
+    public static void obaviRegistraciju(String msg, Connection konekcijaNaBazu, ObjectOutputStream out) throws SQLException, IOException {
         if(!provjeriNalog(msg,konekcijaNaBazu,out)){
             return;
         }
@@ -22,7 +22,7 @@ public class ServisZaRegistracijuKlijenta {
         out.writeObject(new String("OK Uspjesna registracija klijenta."));
     }
 
-    private Boolean provjeriNalog(String msg, Connection konekcijaNaBazu, ObjectOutputStream out) throws SQLException, IOException {
+    private static Boolean provjeriNalog(String msg, Connection konekcijaNaBazu, ObjectOutputStream out) throws SQLException, IOException {
         String[] hlpNizStringova = msg.split("#");
         if(6!=hlpNizStringova.length){
             out.writeObject(new String("NOK Pogresan broj argumenata u protokolu. Provjeri dokumentaciju protokola."));
@@ -36,10 +36,11 @@ public class ServisZaRegistracijuKlijenta {
         return false;
     }
 
-    private void registruj(String msg, Connection konekcijaNaBazu, ObjectOutputStream out) throws SQLException{
+    private static void registruj(String msg, Connection konekcijaNaBazu, ObjectOutputStream out) throws SQLException, IOException {
         String[] hlpNizStringova = msg.split("#");
         Nalog nalog = new Nalog(hlpNizStringova[3],hlpNizStringova[4]);
         new DBDAONalog().upisiUBazu(new DTONalog(nalog),konekcijaNaBazu);
         new DBDAOKlijent().upisiUBazu(new DTOKlijent(new Klijent(1, nalog, hlpNizStringova[1], hlpNizStringova[2],hlpNizStringova[5])), konekcijaNaBazu);
+        out.writeObject(new String("OK Uspjesna promjena."));
     }
 }

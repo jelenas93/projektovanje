@@ -2,9 +2,7 @@ package projektovanje.dbDAO;
 
 import projektovanje.bin.zaposleni.Administrator;
 import projektovanje.bin.zaposleni.Zaposleni;
-import projektovanje.dto.DTOAdministrator;
-import projektovanje.dto.DTOZaposleni;
-import projektovanje.dto.IDTO;
+import projektovanje.dto.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -52,6 +50,20 @@ public class DBDAOAdministrator implements IDBDAO {
         return true;
     }
 
+    public List<? extends IDTO> ispisiSveAktivneAdministratore(Connection konekcijaNaBazu) throws SQLException {
+        List<DTOAdministrator> povratnaVrijednost = new ArrayList<>();
+        PreparedStatement s = konekcijaNaBazu.prepareStatement("select * from administrator");
+        ResultSet rezultat = s.executeQuery();
+        while(rezultat.next()){
+            Integer id = rezultat.getInt(1);
+            DTOZaposleni dtoZaposleni = (DTOZaposleni)new DBDAOZaposleni().procitajZaposlenogAkoJeAktivan(konekcijaNaBazu, id.toString());
+            if(null != dtoZaposleni) {
+                Administrator pomocnaVarijabla = new Administrator(dtoZaposleni.getZaposleni());
+                povratnaVrijednost.add(new DTOAdministrator(pomocnaVarijabla));
+            }
+        }
+        return povratnaVrijednost;
+    }
 
     @Override
     public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) throws SQLException {

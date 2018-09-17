@@ -37,7 +37,23 @@ public class DBDAOSkladistar implements IDBDAO {
             DTOSkladistar dtoAdministrator = new DTOSkladistar(Skladistar);
             listaSkladistara.add(dtoAdministrator);
         }
-        return listaSkladistara;}
+        return listaSkladistara;
+    }
+
+    public List<? extends IDTO> ispisiSveAktivneSkladistare(Connection konekcijaNaBazu) throws SQLException {
+        List<DTOSkladistar> povratnaVrijednost = new ArrayList<>();
+        PreparedStatement s = konekcijaNaBazu.prepareStatement("select * from Skladistar");
+        ResultSet rezultat = s.executeQuery();
+        while(rezultat.next()){
+            Integer id = rezultat.getInt(1);
+            DTOZaposleni dtoZaposleni = (DTOZaposleni)new DBDAOZaposleni().procitajZaposlenogAkoJeAktivan(konekcijaNaBazu, id.toString());
+            if(null != dtoZaposleni) {
+                Skladistar pomocnaVarijabla = new Skladistar(dtoZaposleni.getZaposleni());
+                povratnaVrijednost.add(new DTOSkladistar(pomocnaVarijabla));
+            }
+        }
+        return povratnaVrijednost;
+    }
 
     @Override
     public Boolean azurirajBazu(IDTO list, Connection konekcijaNaBazu) throws SQLException {
