@@ -190,7 +190,7 @@ public class ServisZaAdministratora {
         out.writeObject(new String("OK"));
     }
 
-    public static void brisanjeZaposlenog(String msg, Connection konekcijaNaBazu, ObjectOutputStream out) throws IOException, SQLException {
+    public static void brisanjeZaposlenog(String msg, Connection konekcijaNaBazu, ObjectOutputStream out, Nalog nalogTrenutnogKorisnika) throws IOException, SQLException {
         if(2 != msg.trim().split("#").length){
             logServisaZaAdministratore.logujDogadjaj(Level.WARNING, new ServisZaAdministratora(), "Greska u protokolu." + msg);
             out.writeObject(new String("NOK#Neispravan protokol."));

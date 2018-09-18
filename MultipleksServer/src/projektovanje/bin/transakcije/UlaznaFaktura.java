@@ -5,6 +5,7 @@ import projektovanje.bin.zaposleni.Zaposleni;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 public class UlaznaFaktura implements Serializable {
@@ -118,6 +119,11 @@ public class UlaznaFaktura implements Serializable {
 
     @Override
     public String toString() {
+        String ret = "";
+        Iterator<? extends IOprema> it = kupljenaRoba.iterator();
+        while(it.hasNext()){
+            ret+=it.next().toString();
+        }
         return "UlaznaFaktura{" +
                 "idFakute=" + idFakute +
                 ", zaposleni=" + zaposleni.toString() +
@@ -128,6 +134,7 @@ public class UlaznaFaktura implements Serializable {
                 ", cijena=" + cijena +
                 ", kupac='" + kupac + '\'' +
                 ", datum=" + datum +
+                ", roba = "+ ret +
                 '}';
     }
 }
