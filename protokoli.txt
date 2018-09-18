@@ -46,10 +46,6 @@ dodavanje fakture: ADD_INVOICE, odgovor WHICHONE, poruka: objekat tipa Faktura
 azuriranje fakture: UPDATE_INVOICE, odgovor WHICHONE, poruka:objekat tipa Faktura sa novim podacima
 pregledaj sve fakture: LIST_INVOICES, odgovor LIST<Faktura>
 
-dodavanje transakcije: ADD_TRANSACTION, odgovor WHICHONE, odgovor objekat tipa Transakcija
-pregled svih transakcija: LIST_TRANSACTIONS, odgovor List<Transakcija>
-pregled svih transakcija odredjene vrste: LISTTRANSACTIONS#CACHE(ili CARD), odgovor List<Transakcija>
-
 pregled svih racuna: LIST_ALL_BILLS, odgovor List<Racun>
 upis racuna u bazu: ADDBILL, odgovor WHICH_ONE, poruka objekat klase Racun
 
