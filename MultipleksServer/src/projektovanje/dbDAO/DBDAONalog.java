@@ -61,10 +61,7 @@ public class DBDAONalog implements IDBDAO {
         if(resultSet.next()) {
             Nalog hlpVar = new Nalog(resultSet.getString(1), resultSet.getString(2));
             lokalniNalog = new DTONalog(hlpVar);
-            System.out.println(hlpVar);
-            System.out.println(hlpVar.getLozinkaHash());
         }else{
-            System.out.println("NEMA NALOGA");
             lokalniNalog = null;
         }
         return lokalniNalog;

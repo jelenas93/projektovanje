@@ -2,6 +2,7 @@ package projektovanje.test;
 
 import projektovanje.bin.film.Film;
 import projektovanje.bin.film.Ponuda;
+import projektovanje.bin.film.Zanr;
 import projektovanje.bin.oprema.Artikal;
 import projektovanje.bin.oprema.Oprema;
 import projektovanje.bin.racun.Stavka;
@@ -13,6 +14,7 @@ import projektovanje.dto.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MainTest {
@@ -24,36 +26,52 @@ public class MainTest {
         DBDAOFilm dao = new DBDAOFilm();
         DBDAOArtikal artDao = new DBDAOArtikal();
         DBDAOOprema opremaDao = new DBDAOOprema();
-       /* Film f = new Film(1,z,"Film1",45,"mlogo dobar film","www.link.ba","3D");*/
+        DBDAOPonuda ponudaDao = new DBDAOPonuda();
+        DBDAOFilm filmDao = new DBDAOFilm();
+        Zanr za = new Zanr(1,"Kulovi");
+        List<Zanr> zanrovi = new ArrayList<>();
+        zanrovi.add(za);
+        Film f = new Film(1,z,"TestFilm2",54,"kulj film","www.trailers.com","2d",zanrovi);
+        ArrayList<Film> filmovi = new ArrayList<>();
+        filmDao.upisiUBazu(new DTOFilm(f),c);
+        filmovi.add(f);
         System.out.println("pokusavama procitati sve:");
        /* ArrayList<DTOFilm> stavkaIzBaze = (ArrayList<DTOFilm>) dao.citajIzBaze(c);
-        stavkaIzBaze.forEach(x->System.out.println(x.getFilm()));*/
+        stavkaIzBaze.forEach(x->System.out.println(x.getFilm()));*
        List<DTOOprema> dtoOprema = (List<DTOOprema>)opremaDao.ispisi(c);
-        dtoOprema.forEach(x-> System.out.println(x.getOprema()));
+        dtoOprema.forEach(x-> System.out.println(x.getOprema()));*/
+       List<DTOPonuda> ponude = (List<DTOPonuda>) ponudaDao.ispisi(c);
+       ponude.forEach(x-> System.out.println(x.getPonuda()));
         System.out.println("Pokusavam dodati u bazu");
-        Oprema o = new Oprema(1,2,"Testna oprema",true,z);
-        opremaDao.upisiUBazu(new DTOOprema(o),c);
-        /*
-        dao.upisiUBazu(new DTOFilm(f),c);*/
+        /*Oprema o = new Oprema(1,2,"Testna oprema",true,z);
+        opremaDao.upisiUBazu(new DTOOprema(o),c);*/
+        Ponuda p = new Ponuda(1,filmovi,new Date(),z);
+        ponudaDao.upisiUBazu(new DTOPonuda(p),c);
         System.out.println("Dodao");
         System.out.println("pokusavam opet procitati sve:");
 
-        dtoOprema = (List<DTOOprema>)opremaDao.ispisi(c);
+        ponude = (List<DTOPonuda>) ponudaDao.ispisi(c);
+        ponude.forEach(x-> System.out.println(x.getPonuda()));
+
+        /*dtoOprema = (List<DTOOprema>)opremaDao.ispisi(c);
         dtoOprema.forEach(x-> System.out.println(x.getOprema()));
-        /*stavkaIzBaze = (ArrayList<DTOFilm>) dao.citajIzBaze(c);
+        stavkaIzBaze = (ArrayList<DTOFilm>) dao.citajIzBaze(c);
         stavkaIzBaze.forEach(x->System.out.println(x.getFilm()));*/
 
 
         System.out.println("Pokusavam update");
-        o.setNaziv("BLABLABLA");
-        opremaDao.azurirajBazu(new DTOOprema(o),c);
+        p.setZaposleni(new Zaposleni(2));
+        ponudaDao.azurirajBazu(new DTOPonuda(p),c);
+        /*opremaDao.azurirajBazu(new DTOOprema(o),c);*/
 
         System.out.println("Update gotov opet citam");
 
         /*stavkaIzBaze = (ArrayList<DTOFilm>) dao.citajIzBaze(c);
-        stavkaIzBaze.forEach(x->System.out.println(x.getFilm()));*/
+        stavkaIzBaze.forEach(x->System.out.println(x.getFilm()));
         dtoOprema = (List<DTOOprema>)opremaDao.ispisi(c);
-        dtoOprema.forEach(x-> System.out.println(x.getOprema()));
+        dtoOprema.forEach(x-> System.out.println(x.getOprema()));*/
+        ponude = (List<DTOPonuda>) ponudaDao.ispisi(c);
+        ponude.forEach(x-> System.out.println(x.getPonuda()));
 
         /*System.out.println("pokusavam citati artikle");
         List<DTOArtikal> artikliIzBaze = artDao.citajIzBaze(c);
