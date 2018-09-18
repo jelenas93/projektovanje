@@ -3,6 +3,7 @@ package projektovanje.dbDAO;
 import projektovanje.bin.oprema.Oprema;
 import projektovanje.bin.sala.Sjediste;
 import projektovanje.dto.DTOOprema;
+import projektovanje.dto.DTOSjediste;
 import projektovanje.dto.DTOZaposleni;
 import projektovanje.dto.IDTO;
 
@@ -37,6 +38,7 @@ public class DBDAOOprema implements IDBDAO{
             String naziv = rs.getString(3);
             Boolean ispravne = rs.getBoolean(4);
             Integer idZaposlenog = rs.getInt(5);
+            System.out.println(idZaposlenog);
             DTOZaposleni zaposleni = (DTOZaposleni) zaposleniDao.pretraziBazu(konekcijaNaBazu,String.valueOf(idZaposlenog));
             Oprema o = new Oprema(idOpreme,brojInventara,naziv,ispravne,zaposleni.getZaposleni());
             povratnaVrijednost.add(new DTOOprema(o));
@@ -50,10 +52,10 @@ public class DBDAOOprema implements IDBDAO{
         Oprema lokalniOprema = lokalniDTOOprema.getOprema();
         PreparedStatement ps = konekcijaNaBazu.prepareStatement("update Oprema" +
                 "   set brojInventara = ?," +
-                "   naziv = ?" +
-                "   ispravnost = ?" +
+                "   naziv = ?," +
+                "   ispravnost = ?," +
                 "   idZaposlenog = ?" +
-                "   where idOprema = ?");
+                "   where idOpreme = ?");
         ps.setInt(1,lokalniOprema.getBrojInventara());
         ps.setString(2,lokalniOprema.getNaziv());
         ps.setBoolean(3,lokalniOprema.getIspravnost());
@@ -65,12 +67,28 @@ public class DBDAOOprema implements IDBDAO{
 
 
     @Override
-    public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) {
-        return null;
+    public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) throws SQLException {
+
+        DTOOprema povratnaVrijednost = null;
+        int idSale = Integer.valueOf(parametarPretrage);
+        PreparedStatement s = konekcijaNaBazu.prepareStatement("select * from Oprema where idOpreme = ?");
+        s.setInt(1,idSale);
+        ResultSet rezultat = s.executeQuery();
+        if(rezultat.next()){
+            int id = rezultat.getInt(1);
+            int brojInventara = rezultat.getInt(2);
+            String naziv = rezultat.getString(3);
+            Boolean ispravnost = rezultat.getBoolean(4);
+            int idZaposlenog = rezultat.getInt(5);
+            DTOZaposleni zaposleni = (DTOZaposleni) new DBDAOZaposleni().pretraziBazu(konekcijaNaBazu,String.valueOf(idZaposlenog));
+            Oprema ret = new Oprema(id,brojInventara,naziv,ispravnost,zaposleni.getZaposleni());
+            povratnaVrijednost = new DTOOprema(ret);
+        }
+        return povratnaVrijednost;
     }
 
     @Override
-    public List<DTOOprema> ispisi(Connection konekcijaNaBazu) {
-        return null;
+    public List<DTOOprema> ispisi(Connection konekcijaNaBazu) throws SQLException {
+        return citajIzBaze(konekcijaNaBazu);
     }
 }

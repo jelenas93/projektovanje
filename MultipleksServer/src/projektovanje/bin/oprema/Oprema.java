@@ -69,4 +69,15 @@ public class Oprema implements IOprema{
     public String vratiTipOpreme() {
         return this.naziv + "#OPREMA";
     }
+
+    @Override
+    public String toString() {
+        return "Oprema{" +
+                "idOpreme=" + idOpreme +
+                ", brojInventara=" + brojInventara +
+                ", naziv='" + naziv + '\'' +
+                ", ispravnost=" + ispravnost +
+                ", zaposleni=" + zaposleni +
+                '}';
+    }
 }
