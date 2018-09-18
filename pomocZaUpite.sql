@@ -96,3 +96,31 @@ update Film set idZaposlenog = 9,
                         where idFilma = 3;
 
 insert into nalog values ("Coa","Coa");
+
+select * from Oprema;
+select * from Zaposleni;
+
+select * from Ponuda;
+select * from FilmPonuda;
+select * from Film;
+
+insert into FilmPonuda values(3,1);
+
+update Zaposleni 
+	set idPlate = 1
+    where idZaposlenog = 2;
+select * from repertoarProjekcija;
+
+
+select * from Projekcija;
+select * from Repertoar;
+
+delete from  repertoarProjekcija;
+
+update Projekcija
+set idRepertoara = 1;
+
+select * from Stavka;
+select * from Racun;
+update Stavka 
+set idRacuna = 1;

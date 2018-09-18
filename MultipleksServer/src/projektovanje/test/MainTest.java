@@ -28,13 +28,15 @@ public class MainTest {
         DBDAOOprema opremaDao = new DBDAOOprema();
         DBDAOPonuda ponudaDao = new DBDAOPonuda();
         DBDAOFilm filmDao = new DBDAOFilm();
+        DBDAORepertoar repDao = new DBDAORepertoar();
         Zanr za = new Zanr(1,"Kulovi");
         List<Zanr> zanrovi = new ArrayList<>();
         zanrovi.add(za);
-        Film f = new Film(1,z,"TestFilm2",54,"kulj film","www.trailers.com","2d",zanrovi);
+
+        /*Film f = new Film(1,z,"TestFilm2",54,"kulj film","www.trailers.com","2d",zanrovi);
         ArrayList<Film> filmovi = new ArrayList<>();
         filmDao.upisiUBazu(new DTOFilm(f),c);
-        filmovi.add(f);
+        filmovi.add(f);*/
         System.out.println("pokusavama procitati sve:");
        /* ArrayList<DTOFilm> stavkaIzBaze = (ArrayList<DTOFilm>) dao.citajIzBaze(c);
         stavkaIzBaze.forEach(x->System.out.println(x.getFilm()));*
@@ -44,9 +46,9 @@ public class MainTest {
        ponude.forEach(x-> System.out.println(x.getPonuda()));
         System.out.println("Pokusavam dodati u bazu");
         /*Oprema o = new Oprema(1,2,"Testna oprema",true,z);
-        opremaDao.upisiUBazu(new DTOOprema(o),c);*/
-        Ponuda p = new Ponuda(1,filmovi,new Date(),z);
-        ponudaDao.upisiUBazu(new DTOPonuda(p),c);
+        opremaDao.upisiUBazu(new DTOOprema(o),c);
+        //Ponuda p = new Ponuda(1,filmovi,new Date(),z);
+        //ponudaDao.upisiUBazu(new DTOPonuda(p),c);*/
         System.out.println("Dodao");
         System.out.println("pokusavam opet procitati sve:");
 
@@ -60,7 +62,7 @@ public class MainTest {
 
 
         System.out.println("Pokusavam update");
-        p.setZaposleni(new Zaposleni(2));
+       /* p.setZaposleni(new Zaposleni(2));
         ponudaDao.azurirajBazu(new DTOPonuda(p),c);
         /*opremaDao.azurirajBazu(new DTOOprema(o),c);*/
 
@@ -91,5 +93,12 @@ public class MainTest {
         List<DTOIzdavanje> dtoFilms = izdDAO.citajIzBaze(c);
         dtoFilms.forEach(x->System.out.println(x.getIzdavanje()));*/
         System.out.println("all done");
+
+        List<DTORepertoar> dtoRepertoars = repDao.citajIzBaze(c);
+        dtoRepertoars.forEach(x->System.out.println(x.getRepertoar()));
+        System.out.println("It's now done");
+
+        List<DTOStavka> dtoStavke = (List<DTOStavka>) new DBDAOStavka().ispisi(c);
+        dtoStavke.forEach(x->System.out.println(x.getStavka()));
     }
 }
