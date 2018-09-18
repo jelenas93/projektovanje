@@ -92,9 +92,9 @@ public class ServerThread extends Thread{
                         break;
                     case DELETE_EMPLOYEE:
                         if(prijavljen[Korisnici.ADMINISTRATOR.getAdministrator()]){
-                            ServisZaAdministratora.brisanjeZaposlenog(msg, konekcijaNaBazu, out);
-
+                            ServisZaAdministratora.brisanjeZaposlenog(msg, konekcijaNaBazu, out, nalogTrenutnogKorisnika);
                         }else{
+
                             logServerThreada.logujDogadjaj(Level.WARNING, new DTONalog(), "Korisnik koji nije nadlezan za otpustanje zaposlenih je poslao zahtjev.\nKorisnik: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
                             out.writeObject(new String("NOK#Prijavljeni korisnik nema pravo da otpusti zaposlene."));
                         }
@@ -169,6 +169,7 @@ public class ServerThread extends Thread{
                         logServerThreada.logujDogadjaj(Level.SEVERE, this, "Neispravan protokol. Poruka = " + msg);
                         out.writeObject(new String("NOK ProtokolError"));
                 }
+                logServerThreada.logujDogadjaj(Level.FINEST, this, "Obradio zahtjev i ceka na sledeci.");
             }catch(SocketException e){
                 logServerThreada.logujDogadjaj(Level.SEVERE, new SocketException(), e.getStackTrace().toString());
                 break;
@@ -185,7 +186,11 @@ public class ServerThread extends Thread{
                 logServerThreada.logujDogadjaj(Level.SEVERE, new Exception(), e.getStackTrace().toString());
                 break;
             }
-            logServerThreada.logujDogadjaj(Level.FINEST, this, "Obradio zahtjev i ceka na sledeci.");
+        }
+        if(null != nalogTrenutnogKorisnika.getKorisnickiNalog()){
+            logServerThreada.logujDogadjaj(Level.FINE, this, "Korisnik: " + nalogTrenutnogKorisnika.getKorisnickiNalog()+" se odjavio sa Servera.");
+        }else{
+            logServerThreada.logujDogadjaj(Level.FINE, this, "Korisnik je izgubio konekciju sa Serverom.");
         }
         ConnectionPool.getInstance().checkIn(konekcijaNaBazu);
     }

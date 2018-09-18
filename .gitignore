@@ -5,3 +5,4 @@
 *.class
 MultipleksServer/src/projektovanje/test/MainTestClass.java
 *.class
+*.log
