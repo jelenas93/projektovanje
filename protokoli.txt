@@ -33,7 +33,7 @@ dodavanje ponude: ADD_OFFER, odgovor: WHICHONE, poruka: objekat tipa Ponuda
 pregled svih ponuda: LIST_OFFERS, odgovor: List<Ponuda>
 
 dodavanje plate: ADD_PAYMENT,odgovor: WHICHONE, poruka: objeka tipa DTOZaposleni
-azuriranje plate: UPDATE_PAYMENT, odgovor WHICHONE, poruka: objekat tipa DTOZaposleni sa novim podacima
+azuriranje plate: UPDATE_PAYMENT, odgovor WHICHONE, poruka: objekat tipa DTOZaposleni sa novim podacima u polju DTOZaposleni.Zaposleni.Plata
 pregled svih plata: LIST_PAYMENTS, odgovor List<DTOZaposleni>
 
 dodavanje opreme: ADD_EQUIPMENT, odgovor WHICHONE, poruka: objekat tipa Oprema
@@ -54,7 +54,7 @@ dodavanje artikla: ADD_PRODUCT, odgovor WHICHONE, poruka: objekat klase Proizvod
 pregled svih artikala: LIST_PRODUCTS, odgovor List<Artikal>
 
 pregled repertoara: LIST_REPERTOIRE, odgovor List<Repertoar>
-dodaj film na repertoar: ADD_MOVIE_TO_REPERTOIRE,odgovor: GIVE_ME_DATA,poruka: objekat klase Film, objekat klase Repertoar (2 poruke za redom)
+dodaj film na repertoar: ADD_MOVIE_TO_REPERTOIRE,odgovor: GIVE_ME_DATA,poruka: objekat klase DTOProjekcija, odgovor GIVE_ ME_REPERTOAR ,objekat klase DTORepertoar (2 poruke za redom)
 dodaj novi repertoar: ADD_REPERTOIRE, odgovor WHICHONE, poruka: objekat klase Repertoar
 
 prodaja karte: SELL_TICKET, odgovor WHICHONE , objekat klase Karta (2 poruke zaredom)
