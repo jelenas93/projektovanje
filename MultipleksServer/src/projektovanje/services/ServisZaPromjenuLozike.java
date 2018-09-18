@@ -22,17 +22,17 @@ public class ServisZaPromjenuLozike {
         String[] hlpNizStringova = msg.split("#");
         if(3 != hlpNizStringova.length){
             logServisaPromjene.logujDogadjaj(Level.WARNING, new ServisZaPromjenuLozike(), "Greska u protokolu, primljena poruka = " + msg);
-            out.writeObject(new String("NOK Pogresan broj argumenata u protokolu. Provjeri dokumentaciju protokola."));
+            out.writeObject(new String("NOK#Pogresan broj argumenata u protokolu. Provjeri dokumentaciju protokola."));
             return;
         }
         if(!nalogTrenutnogKorisnika.getLozinkaHash().equals(hlpNizStringova[1])){
             logServisaPromjene.logujDogadjaj(Level.FINE, new ServisZaPromjenuLozike(), "Pogresna stara lozinka pri pokusaju promjene iste.");
-            out.writeObject(new String("NOK Pogresna lozinka."));
+            out.writeObject(new String("NOK#Pogresna lozinka."));
             return;
         }
         nalogTrenutnogKorisnika.setLozinkaHash(hlpNizStringova[2]);
         new DBDAONalog().azurirajBazu(new DTONalog(nalogTrenutnogKorisnika),konekcijaNaBazu);
         logServisaPromjene.logujDogadjaj(Level.FINE, new ServisZaPromjenuLozike(), "Korisnik promjenio lozinku.");
-        out.writeObject(new String("OK Uspjesna promjena lozinke."));
+        out.writeObject(new String("OK#Uspjesna promjena lozinke."));
     }
 }

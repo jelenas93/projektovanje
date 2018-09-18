@@ -17,6 +17,7 @@ public class DBDAOFillmZanr {
         PreparedStatement ps = konekcijaNaBazu.prepareStatement("insert into filmZanr values(?,?)");
         ps.setInt(1,idFilma);
         ps.setInt(2,idZanra);
+        ps.executeUpdate();
         return true;
     }
 
@@ -44,5 +45,11 @@ public class DBDAOFillmZanr {
             povratnaVrijednost.add(film);
         }
         return povratnaVrijednost;
+    }
+
+    public void ukloniSveZandroveVezaneZaFilm(Connection konekcijaNaBazu, int idFilma) throws SQLException {
+        PreparedStatement ps = konekcijaNaBazu.prepareStatement("delete from FilmZanr where idFilma = ?");
+        ps.setInt(1,idFilma);
+        ps.execute();
     }
 }

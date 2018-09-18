@@ -4,7 +4,7 @@ import projektovanje.bin.transakcije.Racun;
 
 import java.io.Serializable;
 
-public class DTORacun implements Serializable, IDTO {
+public class DTORacun implements IDTO {
     public static final long serialVersionUID=10015l;
     Racun racun;
 

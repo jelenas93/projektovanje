@@ -4,7 +4,7 @@ import projektovanje.bin.plata.Plata;
 
 import java.io.Serializable;
 
-public class DTOPlata implements Serializable, IDTO {
+public class DTOPlata implements IDTO {
     public static final long serialVersionUID=10010l;
 
     Plata plata;

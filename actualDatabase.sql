@@ -313,3 +313,4 @@ insert into Plata values(default,0,0,0,0,0,0,0,0,0,0,0,0,'1970-01-01','1970-01-0
 insert into Nalog values("admin","92668751");
 insert into Zaposleni values(default,1,'admin','admin', '0000000000000', true, 'admin');
 insert into Administrator values(last_insert_id());
+alter table Klijent modify email varchar(150);

@@ -4,7 +4,7 @@ import projektovanje.bin.zaposleni.ProdavacKarata;
 
 import java.io.Serializable;
 
-public class DTOProdavacKarata implements Serializable, IDTO {
+public class DTOProdavacKarata implements IDTO {
     public static final long serialVersionUID=10013l;
     ProdavacKarata prodavacKarata;
 

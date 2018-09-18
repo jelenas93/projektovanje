@@ -4,7 +4,7 @@ import projektovanje.bin.film.Zanr;
 
 import java.io.Serializable;
 
-public class DTOZanr implements Serializable, IDTO {
+public class DTOZanr implements IDTO {
     public static final long serialVersionUID=10023l;
     Zanr zanr;
 

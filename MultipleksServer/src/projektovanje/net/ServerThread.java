@@ -83,8 +83,6 @@ public class ServerThread extends Thread{
                     case UPDATE_EMPLOYEE:
                         if(prijavljen[Korisnici.ADMINISTRATOR.getAdministrator()]){
                             ServisZaAdministratora.azuriranjeZaposlenog(msg, konekcijaNaBazu, out, in, nalogTrenutnogKorisnika);
-                        }else if(prijavljen[Korisnici.RACUNOVODJA.getRacunovodja()]){
-                            ServisZaRacunovodju.azuriranjeZaposlenog(msg, konekcijaNaBazu, out, in);
                         }else{
                             logServerThreada.logujDogadjaj(Level.WARNING, new DTONalog(), "Korisnik koji nije nadlezan za azuriranje zaposlenih je poslao zahtjev.\nKorisnik: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
                             out.writeObject(new String("NOK#Prijavljeni korisnik nema pravo promjene podataka zaposlenih."));
@@ -108,10 +106,31 @@ public class ServerThread extends Thread{
                     case ADD_MOVIE_HALL:
                         break;
                     case ADD_MOVIE:
+                        if(prijavljen[Korisnici.MENADZER.getMenadzer()]) {
+                            ServisZaFilmove.dodajFilm(out, in, konekcijaNaBazu, nalogTrenutnogKorisnika);
+                            logServerThreada.logujDogadjaj(Level.FINE, this, "Uspjesno dodat film.");
+                        }else{
+                            logServerThreada.logujDogadjaj(Level.WARNING, new DTONalog(), "Korisnik koji nije nadlezan za dodavanje filmova je poslao zahtjev.\nKorisnik: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
+                            out.writeObject(new String("NOK#Prijavljeni korisnik nema pravo da doda film."));
+                        }
                         break;
                     case UPDATE_MOVIE:
+                        if(prijavljen[Korisnici.MENADZER.getMenadzer()]) {
+                            ServisZaFilmove.azurirajFilm(out, in, konekcijaNaBazu, nalogTrenutnogKorisnika);
+                            logServerThreada.logujDogadjaj(Level.FINE, this, "Uspjesno azuriran film.");
+                        }else{
+                            logServerThreada.logujDogadjaj(Level.WARNING, new DTONalog(), "Korisnik koji nije nadlezan za dodavanje filmova je poslao zahtjev.\nKorisnik: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
+                            out.writeObject(new String("NOK#Prijavljeni korisnik nema pravo da azurira filmove."));
+                        }
                         break;
                     case GIVE_ME_MOVIE:
+                        if (prijavljen[Korisnici.MENADZER.getMenadzer()] || prijavljen[Korisnici.PRODAVACKARATA.getProdavacKarata()] || prijavljen[Korisnici.KLIJENT.getKlijent()]){
+                            ServisZaFilmove.ispisiFilmove(out,konekcijaNaBazu, nalogTrenutnogKorisnika);
+                        }else{
+                            logServerThreada.logujDogadjaj(Level.WARNING, new DTONalog(), "Korisnik koji nema pravo pregledati filmove.\nKorisnik: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
+                            out.writeObject(new String("NOK#Prijavljeni korisnik nema pravo da pregleda filmove."));
+
+                        }
                         break;
                     case ADD_OFFER:
                         break;

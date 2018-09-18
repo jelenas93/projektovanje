@@ -4,7 +4,7 @@ import projektovanje.bin.zaposleni.Zaposleni;
 
 import java.io.Serializable;
 
-public class DTOZaposleni implements Serializable, IDTO {
+public class DTOZaposleni implements IDTO {
 
     public static final long serialVersionUID=10024l;
     Zaposleni zaposleni;

@@ -20,3 +20,106 @@
 			listaZaposlenih.add((Zaposleni)x.getAdministrator);
 		}
 ===========================================================================================================================================		
+		Odsjecak koda koji vraca listu liste zaposlenih po njihovim pozicijama bez naloga -- za potrebe racunovodje
+		List<DTOAdministrator> listaAktivnihAdministratora;
+        List<DTOMenadzer> listaAktivnihMenadzera;
+        List<DTORacunovodja> listaAktivnihRacunovodja;
+        List<DTOSkladistar> listaAktivnihSkladistara;
+        List<DTOProdavacKarata> listaAktivnihProdavacaKarata;
+        List<DTOProdavacHraneIPica> listaAktivnihProdavacaHraneIPica;
+        List<DTOKinooperater> listaAktivnihKinooperatera;
+        List<List<? extends IDTO>> listaAktivnihZaposlenih = new ArrayList<>();
+
+        listaAktivnihAdministratora = (List<DTOAdministrator>)new DBDAOAdministrator().ispisiSveAktivneAdministratore(konekcijaNaBazu);
+        listaAktivnihAdministratora.stream().parallel().forEach(x->{
+            x.getAdministrator().setNalog(null);
+        });
+        listaAktivnihMenadzera = (List<DTOMenadzer>)new DBDAOMenadzer().ispisiSveAktivneMenadzere(konekcijaNaBazu);
+        listaAktivnihMenadzera.stream().parallel().forEach(x->{
+            x.getMenadzer().setNalog(null);
+        });
+        listaAktivnihRacunovodja = (List<DTORacunovodja>)new DBDAORacunovodja().ispisiSveAktivneRacunovodje(konekcijaNaBazu);
+        listaAktivnihRacunovodja.stream().parallel().forEach(x->{
+            x.getRacunovodja().setNalog(null);
+        });
+        listaAktivnihSkladistara = (List<DTOSkladistar>)new DBDAOSkladistar().ispisiSveAktivneSkladistare(konekcijaNaBazu);
+        listaAktivnihSkladistara.stream().parallel().forEach(x->{
+            x.getSkladistar().setNalog(null);
+        });
+        listaAktivnihProdavacaKarata = (List<DTOProdavacKarata>)new DBDAOProdavacKarata().ispisiSveAktivneProdavceKarata(konekcijaNaBazu);
+        listaAktivnihProdavacaKarata.stream().parallel().forEach(x->{
+            x.getProdavacKarata().setNalog(null);
+        });
+        listaAktivnihProdavacaHraneIPica = (List<DTOProdavacHraneIPica>)new DBDAOProdavacHraneIPica().ispisiSveAktivneProdavceHraneIPica(konekcijaNaBazu);
+        listaAktivnihProdavacaHraneIPica.stream().parallel().forEach(x->{
+            x.getProdavacHraneIPica().setNalog(null);
+        });
+        listaAktivnihKinooperatera = (List<DTOKinooperater>)new DBDAOKinooperater().ispisiSveAktivneKinooperatere(konekcijaNaBazu);
+        listaAktivnihKinooperatera.stream().parallel().forEach(x->{
+            x.getKinooperater().setNalog(null);
+        });
+
+        listaAktivnihZaposlenih.add(listaAktivnihAdministratora);
+        listaAktivnihZaposlenih.add(listaAktivnihMenadzera);
+        listaAktivnihZaposlenih.add(listaAktivnihRacunovodja);
+        listaAktivnihZaposlenih.add(listaAktivnihSkladistara);
+        listaAktivnihZaposlenih.add(listaAktivnihProdavacaKarata);
+        listaAktivnihZaposlenih.add(listaAktivnihProdavacaHraneIPica);
+        listaAktivnihZaposlenih.add(listaAktivnihKinooperatera);
+
+        out.writeObject(listaAktivnihZaposlenih);
+===============================================================================================================================================
+		Odsjecak koda koji vraca listu listi zaposlenih po njihovim pozicijama bez plate i hesha lozinke -- za potrebe admina
+		List<DTOAdministrator> listaAktivnihAdministratora;
+        List<DTOMenadzer> listaAktivnihMenadzera;
+        List<DTORacunovodja> listaAktivnihRacunovodja;
+        List<DTOSkladistar> listaAktivnihSkladistara;
+        List<DTOProdavacKarata> listaAktivnihProdavacaKarata;
+        List<DTOProdavacHraneIPica> listaAktivnihProdavacaHraneIPica;
+        List<DTOKinooperater> listaAktivnihKinooperatera;
+        List<List<? extends IDTO>> listaAktivnihZaposlenih = new ArrayList<>();
+
+        listaAktivnihAdministratora = (List<DTOAdministrator>)new DBDAOAdministrator().ispisiSveAktivneAdministratore(konekcijaNaBazu);
+        listaAktivnihAdministratora.stream().parallel().forEach(x->{
+            x.getAdministrator().setPlata(null);
+            x.getAdministrator().getNalog().setLozinkaHash(new String());
+        });
+        listaAktivnihMenadzera = (List<DTOMenadzer>)new DBDAOMenadzer().ispisiSveAktivneMenadzere(konekcijaNaBazu);
+        listaAktivnihMenadzera.stream().parallel().forEach(x->{
+            x.getMenadzer().setPlata(null);
+            x.getMenadzer().getNalog().setLozinkaHash(new String());
+        });
+        listaAktivnihRacunovodja = (List<DTORacunovodja>)new DBDAORacunovodja().ispisiSveAktivneRacunovodje(konekcijaNaBazu);
+        listaAktivnihRacunovodja.stream().parallel().forEach(x->{
+            x.getRacunovodja().setPlata(null);
+            x.getRacunovodja().getNalog().setLozinkaHash(new String());
+        });
+        listaAktivnihSkladistara = (List<DTOSkladistar>)new DBDAOSkladistar().ispisiSveAktivneSkladistare(konekcijaNaBazu);
+        listaAktivnihSkladistara.stream().parallel().forEach(x->{
+            x.getSkladistar().setPlata(null);
+            x.getSkladistar().getNalog().setLozinkaHash(new String());
+        });
+        listaAktivnihProdavacaKarata = (List<DTOProdavacKarata>)new DBDAOProdavacKarata().ispisiSveAktivneProdavceKarata(konekcijaNaBazu);
+        listaAktivnihProdavacaKarata.stream().parallel().forEach(x->{
+            x.getProdavacKarata().setPlata(null);
+            x.getProdavacKarata().getNalog().setLozinkaHash(new String());
+        });
+        listaAktivnihProdavacaHraneIPica = (List<DTOProdavacHraneIPica>)new DBDAOProdavacHraneIPica().ispisiSveAktivneProdavceHraneIPica(konekcijaNaBazu);
+        listaAktivnihProdavacaHraneIPica.stream().parallel().forEach(x->{
+            x.getProdavacHraneIPica().setPlata(null);
+            x.getProdavacHraneIPica().getNalog().setLozinkaHash(new String());
+        });
+        listaAktivnihKinooperatera = (List<DTOKinooperater>)new DBDAOKinooperater().ispisiSveAktivneKinooperatere(konekcijaNaBazu);
+        listaAktivnihKinooperatera.stream().parallel().forEach(x->{
+            x.getKinooperater().setPlata(null);
+            x.getKinooperater().getNalog().setLozinkaHash(new String());
+        });
+
+        listaAktivnihZaposlenih.add(listaAktivnihAdministratora);
+        listaAktivnihZaposlenih.add(listaAktivnihMenadzera);
+        listaAktivnihZaposlenih.add(listaAktivnihRacunovodja);
+        listaAktivnihZaposlenih.add(listaAktivnihSkladistara);
+        listaAktivnihZaposlenih.add(listaAktivnihProdavacaKarata);
+        listaAktivnihZaposlenih.add(listaAktivnihProdavacaHraneIPica);
+        listaAktivnihZaposlenih.add(listaAktivnihKinooperatera);
+===============================================================================================================================================

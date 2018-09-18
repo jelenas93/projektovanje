@@ -4,7 +4,7 @@ import projektovanje.bin.zaposleni.Racunovodja;
 
 import java.io.Serializable;
 
-public class DTORacunovodja implements Serializable, IDTO {
+public class DTORacunovodja implements IDTO {
     public static final long serialVersionUID=10016l;
     Racunovodja racunovodja;
 

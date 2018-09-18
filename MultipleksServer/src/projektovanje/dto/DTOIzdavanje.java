@@ -4,7 +4,7 @@ import projektovanje.bin.izdavanje.Izdavanje;
 
 import java.io.Serializable;
 
-public class DTOIzdavanje implements Serializable, IDTO {
+public class DTOIzdavanje implements IDTO {
     public static final long serialVersionUID=10003l;
     Izdavanje izdavanje;
 
