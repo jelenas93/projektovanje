@@ -4,9 +4,11 @@ import projektovanje.bin.film.Film;
 import projektovanje.bin.film.Ponuda;
 import projektovanje.bin.film.Zanr;
 import projektovanje.bin.oprema.Artikal;
+import projektovanje.bin.oprema.IOprema;
 import projektovanje.bin.oprema.Oprema;
 import projektovanje.bin.racun.Stavka;
 import projektovanje.bin.transakcije.Racun;
+import projektovanje.bin.transakcije.UlaznaFaktura;
 import projektovanje.bin.zaposleni.Zaposleni;
 import projektovanje.dbDAO.*;
 import projektovanje.dto.*;
@@ -28,13 +30,15 @@ public class MainTest {
         DBDAOOprema opremaDao = new DBDAOOprema();
         DBDAOPonuda ponudaDao = new DBDAOPonuda();
         DBDAOFilm filmDao = new DBDAOFilm();
+        DBDAORepertoar repDao = new DBDAORepertoar();
         Zanr za = new Zanr(1,"Kulovi");
         List<Zanr> zanrovi = new ArrayList<>();
         zanrovi.add(za);
-        Film f = new Film(1,z,"TestFilm2",54,"kulj film","www.trailers.com","2d",zanrovi);
+
+        /*Film f = new Film(1,z,"TestFilm2",54,"kulj film","www.trailers.com","2d",zanrovi);
         ArrayList<Film> filmovi = new ArrayList<>();
         filmDao.upisiUBazu(new DTOFilm(f),c);
-        filmovi.add(f);
+        filmovi.add(f);*/
         System.out.println("pokusavama procitati sve:");
        /* ArrayList<DTOFilm> stavkaIzBaze = (ArrayList<DTOFilm>) dao.citajIzBaze(c);
         stavkaIzBaze.forEach(x->System.out.println(x.getFilm()));*
@@ -44,9 +48,9 @@ public class MainTest {
        ponude.forEach(x-> System.out.println(x.getPonuda()));
         System.out.println("Pokusavam dodati u bazu");
         /*Oprema o = new Oprema(1,2,"Testna oprema",true,z);
-        opremaDao.upisiUBazu(new DTOOprema(o),c);*/
-        Ponuda p = new Ponuda(1,filmovi,new Date(),z);
-        ponudaDao.upisiUBazu(new DTOPonuda(p),c);
+        opremaDao.upisiUBazu(new DTOOprema(o),c);
+        //Ponuda p = new Ponuda(1,filmovi,new Date(),z);
+        //ponudaDao.upisiUBazu(new DTOPonuda(p),c);*/
         System.out.println("Dodao");
         System.out.println("pokusavam opet procitati sve:");
 
@@ -60,7 +64,7 @@ public class MainTest {
 
 
         System.out.println("Pokusavam update");
-        p.setZaposleni(new Zaposleni(2));
+       /* p.setZaposleni(new Zaposleni(2));
         ponudaDao.azurirajBazu(new DTOPonuda(p),c);
         /*opremaDao.azurirajBazu(new DTOOprema(o),c);*/
 
@@ -90,6 +94,28 @@ public class MainTest {
        /* DBDAOIzdavanje izdDAO = new DBDAOIzdavanje();
         List<DTOIzdavanje> dtoFilms = izdDAO.citajIzBaze(c);
         dtoFilms.forEach(x->System.out.println(x.getIzdavanje()));*/
-        System.out.println("all done");
+       /* System.out.println("all done");
+
+        List<DTORepertoar> dtoRepertoars = repDao.citajIzBaze(c);
+        dtoRepertoars.forEach(x->System.out.println(x.getRepertoar()));
+        System.out.println("It's now done");
+
+        List<DTOStavka> dtoStavke = (List<DTOStavka>) new DBDAOStavka().ispisi(c);
+        dtoStavke.forEach(x->System.out.println(x.getStavka()));
+       DBDAOUlaznaFaktura uf = new DBDAOUlaznaFaktura();
+       List<DTOUlaznaFaktura> l = (List<DTOUlaznaFaktura>) uf.citajIzBaze(c);
+       l.forEach(x->System.out.println(x.getUlaznaFaktura()));*/
+
+       Artikal art = new Artikal(1,"test art 1",15,44.5,"t1","001",z);
+       Oprema o = new Oprema(2,1,"T oprema",true,z);
+       List<IOprema> lst = new ArrayList<>();
+       lst.add(art);
+       lst.add(o);
+       System.out.println("Dodavanje nove fakture");
+       UlaznaFaktura uf = new UlaznaFaktura(2,z,"4","kes","kg",5.0,6.0,"Test kupac",new Date(),lst);
+       DBDAOUlaznaFaktura ufDao = new DBDAOUlaznaFaktura();
+       ufDao.upisiUBazu(new DTOUlaznaFaktura(uf),c);
+       System.out.println("ispisao");
+
     }
 }

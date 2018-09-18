@@ -4,6 +4,7 @@ import projektovanje.bin.nalog.Nalog;
 import projektovanje.bin.oprema.Artikal;
 import projektovanje.bin.plata.Plata;
 import projektovanje.bin.racun.Stavka;
+import projektovanje.dto.DTOArtikal;
 import projektovanje.dto.DTOStavka;
 import projektovanje.dto.IDTO;
 
@@ -30,9 +31,12 @@ public class DBDAOStavka implements IDBDAO {
         Statement s = konekcijaNaBazu.createStatement();
         ResultSet rs = s.executeQuery("select * from Stavka");
         ArrayList<DTOStavka> povratnaVrijednost = new ArrayList<>();
+        DBDAOArtikal artikalDao = new DBDAOArtikal();
         while (rs.next()){
+            Integer idArtikla = rs.getInt(4);
+            DTOArtikal dtoArtikal = (DTOArtikal) artikalDao.pretraziBazu(konekcijaNaBazu,String.valueOf(idArtikla));
             Stavka procitanaStavka = new Stavka(rs.getInt(1),rs.getInt(2),
-                    rs.getDouble(3),new Artikal(rs.getInt(4)));
+                    rs.getDouble(3),dtoArtikal.getArtikal());
             povratnaVrijednost.add(new DTOStavka(procitanaStavka));
         }
         return povratnaVrijednost;
@@ -67,7 +71,8 @@ public class DBDAOStavka implements IDBDAO {
             int kolicina = rezultat.getInt(2);
             Double ukupnaCijena = rezultat.getDouble(3);
             int idArtikla = rezultat.getInt(4);
-            povratnaVrijednost = new DTOStavka(new Stavka(id,kolicina,ukupnaCijena,new Artikal(idArtikla)));
+            DTOArtikal dtoArtikal =(DTOArtikal) new DBDAOArtikal().pretraziBazu(konekcijaNaBazu, String.valueOf(idArtikla));
+            povratnaVrijednost = new DTOStavka(new Stavka(id,kolicina,ukupnaCijena,dtoArtikal.getArtikal()));
         }
         return povratnaVrijednost;
     }
@@ -82,12 +87,14 @@ public class DBDAOStavka implements IDBDAO {
         PreparedStatement s = konekcijaNaBazu.prepareStatement("select * from Stavka where idRacuna = ?");
         s.setInt(1,idRacuna);
         ResultSet rezultat = s.executeQuery();
+        DBDAOArtikal artDao = new DBDAOArtikal();
         while(rezultat.next()){
             int id = rezultat.getInt(1);
             int kolicina = rezultat.getInt(2);
             Double ukupnaCijena = rezultat.getDouble(3);
             int idArtikla = rezultat.getInt(4);
-            povratnaVrijednost.add(new Stavka(id,kolicina,ukupnaCijena,new Artikal(idArtikla)));
+            DTOArtikal dtoArtikal =(DTOArtikal) artDao.pretraziBazu(konekcijaNaBazu,String.valueOf(idArtikla));
+            povratnaVrijednost.add(new Stavka(id,kolicina,ukupnaCijena,dtoArtikal.getArtikal()));
         }
         return povratnaVrijednost;
     }

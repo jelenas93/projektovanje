@@ -1,15 +1,16 @@
 package projektovanje.dbDAO;
 
+import projektovanje.bin.oprema.Artikal;
 import projektovanje.bin.oprema.IOprema;
+import projektovanje.bin.oprema.Oprema;
 import projektovanje.bin.plata.Plata;
 import projektovanje.bin.transakcije.UlaznaFaktura;
 import projektovanje.bin.zaposleni.Zaposleni;
-import projektovanje.dto.DTOUlaznaFaktura;
-import projektovanje.dto.DTOZaposleni;
-import projektovanje.dto.IDTO;
+import projektovanje.dto.*;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class DBDAOUlaznaFaktura implements IDBDAO {
@@ -27,6 +28,19 @@ public class DBDAOUlaznaFaktura implements IDBDAO {
         ps.setDouble(6,lokalnaUlaznaFaktura.getCijena());
         ps.setString(7,lokalnaUlaznaFaktura.getKupac());
         ps.setDate(8,new java.sql.Date(lokalnaUlaznaFaktura.getDatum().getTime()));
+        DBDAOFakturaArtikal faktArtDao = new DBDAOFakturaArtikal();
+        DBDAOFakturaOprema faktOprDao = new DBDAOFakturaOprema();
+        Iterator<? extends IOprema> it = lokalnaUlaznaFaktura.getKupljenaRoba().iterator();
+        while(it.hasNext()){
+            IOprema stavka = it.next();
+            if(stavka instanceof Artikal){
+                faktArtDao.upisiUBazu(lokalnaUlaznaFaktura.getIdFakute(),((Artikal) stavka).getIdArtikla(),konekcijaNaBazu);
+                System.out.println("U if");
+            } else{
+               faktOprDao.upisiUBazu(lokalnaUlaznaFaktura.getIdFakute(),((Oprema)stavka).getIdOpreme(),konekcijaNaBazu);
+               System.out.println("usao u else");
+            }
+        }
         ps.executeUpdate();
         return true;
     }
@@ -36,6 +50,9 @@ public class DBDAOUlaznaFaktura implements IDBDAO {
         ArrayList<DTOUlaznaFaktura> povratnaVrijednost = new ArrayList<>();
         Statement s = konekcijaNaBazu.createStatement();
         ResultSet rs = s.executeQuery("select * from ulaznaFaktura");
+        DBDAOZaposleni zaposleniDao = new DBDAOZaposleni();
+        DBDAOFakturaArtikal faktArtDao = new DBDAOFakturaArtikal();
+        DBDAOFakturaOprema faktOprDao = new DBDAOFakturaOprema();
         while (rs.next()){
             int idFakture = rs.getInt(1);
             int idZaposlenog = rs.getInt(2);
@@ -46,7 +63,13 @@ public class DBDAOUlaznaFaktura implements IDBDAO {
             Double cijena = rs.getDouble(7);
             String kupac = rs.getString(8);
             Date datum = rs.getDate(9);
-            UlaznaFaktura lokalnaUlaznaFaktura = new UlaznaFaktura(idFakture,new Zaposleni(idZaposlenog),brojRacuna,vrstaTransakcije,jedinicaMjere,kolicina,cijena,kupac,datum,null);
+            DTOZaposleni zaposleniDTO =(DTOZaposleni) zaposleniDao.pretraziBazu(konekcijaNaBazu,String.valueOf(idZaposlenog));
+            List<DTOArtikal> artikli = faktArtDao.pretraziSveArtikaleZaFakturu(idFakture,konekcijaNaBazu);
+            List<DTOOprema> oprema = faktOprDao.pretraziSvuOpremuZaFakturu(idFakture,konekcijaNaBazu);
+            List<IOprema> svaOprema = new ArrayList<>();
+            artikli.forEach(x->svaOprema.add(x.getArtikal()));
+            oprema.forEach(x->svaOprema.add(x.getOprema()));
+            UlaznaFaktura lokalnaUlaznaFaktura = new UlaznaFaktura(idFakture,zaposleniDTO.getZaposleni(),brojRacuna,vrstaTransakcije,jedinicaMjere,kolicina,cijena,kupac,datum,svaOprema);
             povratnaVrijednost.add(new DTOUlaznaFaktura(lokalnaUlaznaFaktura));
         }
         return povratnaVrijednost;
@@ -96,8 +119,14 @@ public class DBDAOUlaznaFaktura implements IDBDAO {
             Double cijena = rezultat.getDouble(7);
             String kupac = rezultat.getString(8);
             java.util.Date datum = new java.util.Date(rezultat.getDate(9).getTime());
-            povratnaVrijednost = new DTOUlaznaFaktura(new UlaznaFaktura(id,new Zaposleni(idZaposlenog),brojRacuna,
-                                    vrstaTransakcije,jedinicaMjere,kolicina,cijena,kupac,datum,null));
+            DTOZaposleni zaposleniDTO = (DTOZaposleni) new DBDAOZaposleni().pretraziBazu(konekcijaNaBazu,String.valueOf(idZaposlenog));
+            List<DTOArtikal> artikli = new DBDAOFakturaArtikal().pretraziSveArtikaleZaFakturu(id,konekcijaNaBazu);
+            List<DTOOprema> oprema = new DBDAOFakturaOprema().pretraziSvuOpremuZaFakturu(id,konekcijaNaBazu);
+            List<IOprema> svaOprema = new ArrayList<>();
+            artikli.forEach(x->svaOprema.add(x.getArtikal()));
+            oprema.forEach(x->svaOprema.add(x.getOprema()));
+            povratnaVrijednost = new DTOUlaznaFaktura(new UlaznaFaktura(id,zaposleniDTO.getZaposleni(),brojRacuna,
+                                    vrstaTransakcije,jedinicaMjere,kolicina,cijena,kupac,datum,svaOprema));
         }
         return povratnaVrijednost;
     }

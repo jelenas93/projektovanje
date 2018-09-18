@@ -6,6 +6,7 @@ import projektovanje.bin.zaposleni.Zaposleni;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 public class Repertoar implements Serializable {
@@ -21,9 +22,14 @@ public class Repertoar implements Serializable {
 
     @Override
     public String toString() {
+        String ret = "";
+        Iterator<Projekcija> it = projekcija.iterator();
+        while(it.hasNext()){
+            ret+=it.next().toString();
+        }
         return "Repertoar{" +
                 "idRepertoara=" + idRepertoara +
-                ", projekcija=" + projekcija +
+                ", projekcija=" + ret +
                 ", zaposleni=" + zaposleni +
                 ", datumOd=" + datumOd +
                 ", datumDo=" + datumDo +

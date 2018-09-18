@@ -16,6 +16,7 @@ public class DBDAOFilmPonuda {
         PreparedStatement ps = konekcijaNaBazu.prepareStatement("insert into filmPonuda values(?,?)");
         ps.setInt(1, idFilma);
         ps.setInt(2, idPonude);
+        ps.executeUpdate();
         return true;
     }
 
