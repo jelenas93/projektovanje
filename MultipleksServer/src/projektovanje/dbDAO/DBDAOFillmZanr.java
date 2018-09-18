@@ -17,6 +17,7 @@ public class DBDAOFillmZanr {
         PreparedStatement ps = konekcijaNaBazu.prepareStatement("insert into filmZanr values(?,?)");
         ps.setInt(1,idFilma);
         ps.setInt(2,idZanra);
+        ps.executeUpdate();
         return true;
     }
 

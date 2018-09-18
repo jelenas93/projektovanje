@@ -16,6 +16,7 @@ public class DBDAOFakturaOprema {
         PreparedStatement ps = konekcijaNaBazu.prepareStatement("insert into UlaznaFaktura_Oprema values(?,?)");
         ps.setInt(1, idOpreme);
         ps.setInt(2, idFakture);
+        ps.executeUpdate();
         return true;
     }
 

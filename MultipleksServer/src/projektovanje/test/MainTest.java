@@ -107,12 +107,12 @@ public class MainTest {
        l.forEach(x->System.out.println(x.getUlaznaFaktura()));*/
 
        Artikal art = new Artikal(1,"test art 1",15,44.5,"t1","001",z);
-       Oprema o = new Oprema(1,1,"T oprema",true,z);
+       Oprema o = new Oprema(2,1,"T oprema",true,z);
        List<IOprema> lst = new ArrayList<>();
        lst.add(art);
        lst.add(o);
        System.out.println("Dodavanje nove fakture");
-       UlaznaFaktura uf = new UlaznaFaktura(1,z,"4","kes","kg",5.0,6.0,"Test kupac",new Date(),lst);
+       UlaznaFaktura uf = new UlaznaFaktura(2,z,"4","kes","kg",5.0,6.0,"Test kupac",new Date(),lst);
        DBDAOUlaznaFaktura ufDao = new DBDAOUlaznaFaktura();
        ufDao.upisiUBazu(new DTOUlaznaFaktura(uf),c);
        System.out.println("ispisao");

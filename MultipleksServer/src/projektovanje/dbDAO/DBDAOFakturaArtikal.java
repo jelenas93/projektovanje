@@ -14,8 +14,10 @@ public class DBDAOFakturaArtikal {
 
     public Boolean upisiUBazu(Integer idFakture, Integer idArtikla, Connection konekcijaNaBazu) throws SQLException {
         PreparedStatement ps = konekcijaNaBazu.prepareStatement("insert into UlaznaFaktura_Artikal values(?,?)");
+        System.out.println("Usloo");
         ps.setInt(1, idArtikla);
         ps.setInt(2, idFakture);
+        ps.executeUpdate();
         return true;
     }
 
