@@ -4,19 +4,36 @@ import projektovanje.bin.zaposleni.Zaposleni;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 public class Ponuda implements Serializable {
     public static final long serialVersionUID=9002l;
 
     private Integer idPonude;
-    private Film film;
+    private List<Film> film;
     private Date datumPonude;
     private Zaposleni zaposleni;
 
     public Ponuda() {
     }
 
-    public Ponuda(Integer idPonude, Film film, Date datumPonude, Zaposleni zaposleni) {
+    @Override
+    public String toString() {
+        String filmovi = "";
+        Iterator<Film> it = film.iterator();
+        while(it.hasNext()){
+            filmovi+=it.next().toString();
+        }
+        return "Ponuda{" +
+                "idPonude=" + idPonude +
+                ", film=" + filmovi +
+                ", datumPonude=" + datumPonude +
+                ", zaposleni=" + zaposleni +
+                '}';
+    }
+
+    public Ponuda(Integer idPonude, List<Film> film, Date datumPonude, Zaposleni zaposleni) {
         this.idPonude = idPonude;
         this.film = film;
         this.datumPonude = datumPonude;
@@ -31,11 +48,11 @@ public class Ponuda implements Serializable {
         this.idPonude = idPonude;
     }
 
-    public Film getFilm() {
+    public List<Film> getFilm() {
         return film;
     }
 
-    public void setFilm(Film film) {
+    public void setFilm(List<Film> film) {
         this.film = film;
     }
 
