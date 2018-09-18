@@ -5,6 +5,7 @@ import projektovanje.bin.zaposleni.Skladistar;
 import java.io.Serializable;
 
 public class DTOSkladistar implements Serializable, IDTO {
+    public static final long serialVersionUID=10020l;
     Skladistar skladistar;
 
     public DTOSkladistar() {

@@ -10,6 +10,7 @@ import projektovanje.bin.zaposleni.Zaposleni;
 import java.io.Serializable;
 
 public class Izdavanje implements Serializable {
+    public static final long serialVersionUID=9004l;
     private Karta karta;
     private Sjediste sjediste;
     private Sala sala;

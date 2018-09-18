@@ -17,7 +17,7 @@ import java.util.List;
 public class ServisZaAdministratora {
 
     public static void prikazListeZaposlenih(String msg, Connection konekcijaNaBazu, ObjectOutputStream out) throws SQLException, IOException {
-        List<DTOAdministrator> listaAktivnihAdministratora;
+       /* List<DTOAdministrator> listaAktivnihAdministratora;
         List<DTOMenadzer> listaAktivnihMenadzera;
         List<DTORacunovodja> listaAktivnihRacunovodja;
         List<DTOSkladistar> listaAktivnihSkladistara;
@@ -69,8 +69,18 @@ public class ServisZaAdministratora {
         listaAktivnihZaposlenih.add(listaAktivnihProdavacaKarata);
         listaAktivnihZaposlenih.add(listaAktivnihProdavacaHraneIPica);
         listaAktivnihZaposlenih.add(listaAktivnihKinooperatera);
-
-        out.writeObject(listaAktivnihZaposlenih);
+*/
+       try {
+           List<DTOZaposleni> listaAktivnihZaposlenih = (List<DTOZaposleni>) new DBDAOZaposleni().procitajSveAktivneZaposlene(konekcijaNaBazu);
+           out.writeObject(listaAktivnihZaposlenih);
+           System.out.println("Ispisao konacno");
+           out.flush();
+       }catch(Exception e){
+           e.printStackTrace();
+       }
+       /*DTOZaposleni zaposleni = (DTOZaposleni) new DBDAOZaposleni().pretraziBazu(konekcijaNaBazu, "8");
+       out.writeObject(zaposleni);
+       out.flush();*/
     }
 
 
@@ -165,7 +175,7 @@ public class ServisZaAdministratora {
         out.writeObject(new String("OK"));
     }
 
-    public static void brisanjeZaposlenog(){
+    public static void brisanjeZaposlenog(String msg, Connection konekcijaNaBazu, ObjectOutputStream out){
 
     }
 }

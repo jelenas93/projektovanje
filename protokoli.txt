@@ -55,13 +55,13 @@ upis racuna u bazu: ADDBILL, odgovor WHICH_ONE, poruka objekat klase Racun
 
 azuriranje artikla: UPDATE_PRODUCT, odgovor WHICHONE, poruka: objekat klase Proizvod sa novim podacima
 dodavanje artikla: ADD_PRODUCT, odgovor WHICHONE, poruka: objekat klase Proizvod
-pregled svih artikala: LIST_PRODUCTS, odgovor List<Proizvod>
+pregled svih artikala: LIST_PRODUCTS, odgovor List<Artikal>
 
 pregled repertoara: LIST_REPERTOIRE, odgovor List<Repertoar>
 dodaj film na repertoar: ADD_MOVIE_TO_REPERTOIRE,odgovor: GIVE_ME_DATA,poruka: objekat klase Film, objekat klase Repertoar (2 poruke za redom)
 dodaj novi repertoar: ADD_REPERTOIRE, odgovor WHICHONE, poruka: objekat klase Repertoar
 
-prodaja karte: SELL_TICKET, objekat klase Karta (2 poruke zaredom)
-rezervacija karte: RESERVE_TICKET, objekat klase Karta (2 poruke zaredom)
-otkazi rezervaciju: CANCEL_RESERVATION, objekat klase Karta (2 poruke zaredom)
+prodaja karte: SELL_TICKET, odgovor WHICHONE , objekat klase Karta (2 poruke zaredom)
+rezervacija karte: RESERVE_TICKET, odgovor WHICHONE, objekat klase Karta (2 poruke zaredom)
+otkazi rezervaciju: CANCEL_RESERVATION, odgovor WHICHONE ,objekat klase Karta (2 poruke zaredom)
  

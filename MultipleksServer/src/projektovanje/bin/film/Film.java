@@ -7,6 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Film implements Serializable {
+    public static final long serialVersionUID=9001l;
+
     private Integer idFilma;
     private Zaposleni zaposleni;
     private List<Zanr> zanrovi;

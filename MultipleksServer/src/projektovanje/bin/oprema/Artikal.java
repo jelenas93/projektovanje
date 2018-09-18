@@ -3,6 +3,7 @@ package projektovanje.bin.oprema;
 import projektovanje.bin.zaposleni.Zaposleni;
 
 public class Artikal implements IOprema{
+    public static final long serialVersionUID=9025l;
     private Double jedinicnaCijena;
     private Integer idArtikla;
     private String naziv;

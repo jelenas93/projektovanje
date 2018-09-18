@@ -5,6 +5,7 @@ import projektovanje.bin.zaposleni.ProdavacHraneIPica;
 import java.io.Serializable;
 
 public class DTOProdavacHraneIPica implements Serializable, IDTO {
+    public static final long serialVersionUID=10012l;
     ProdavacHraneIPica prodavacHraneIPica;
 
     public DTOProdavacHraneIPica() {

@@ -4,6 +4,7 @@ import projektovanje.bin.nalog.Nalog;
 import projektovanje.bin.plata.Plata;
 
 public class Administrator extends Zaposleni{
+    public static final long serialVersionUID=9017l;
 
     public Integer getIdAdministratora() {
         return this.getIdZaposlenog();

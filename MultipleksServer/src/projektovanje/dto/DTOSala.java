@@ -5,6 +5,7 @@ import projektovanje.bin.sala.Sala;
 import java.io.Serializable;
 
 public class DTOSala implements Serializable, IDTO {
+    public static final long serialVersionUID=10018l;
     Sala sala;
 
     public DTOSala() {

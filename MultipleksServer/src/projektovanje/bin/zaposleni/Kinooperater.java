@@ -4,6 +4,7 @@ import projektovanje.bin.nalog.Nalog;
 import projektovanje.bin.plata.Plata;
 
 public class Kinooperater extends Zaposleni {
+    public static final long serialVersionUID=9018l;
 
     public Integer getIdKinooperatera() {
         return this.getIdZaposlenog();

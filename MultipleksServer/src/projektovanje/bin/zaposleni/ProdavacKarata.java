@@ -4,6 +4,7 @@ import projektovanje.bin.nalog.Nalog;
 import projektovanje.bin.plata.Plata;
 
 public class ProdavacKarata extends Zaposleni {
+    public static final long serialVersionUID=9021l;
 
     public ProdavacKarata() {
     }

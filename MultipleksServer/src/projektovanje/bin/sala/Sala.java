@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Sala  implements Serializable {
+    public static final long serialVersionUID=9013l;
     private Integer idSale;
     private Integer brojVrsta;
     private Integer brojKolona;
