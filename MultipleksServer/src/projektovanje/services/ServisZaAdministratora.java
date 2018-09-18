@@ -5,6 +5,7 @@ import projektovanje.bin.plata.Plata;
 import projektovanje.bin.zaposleni.*;
 import projektovanje.dbDAO.*;
 import projektovanje.dto.*;
+import projektovanje.ostalo.Logovanje;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -13,8 +14,14 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 public class ServisZaAdministratora {
+    private static Logovanje logServisaZaAdministratore;
+    static
+    {
+        logServisaZaAdministratore = new Logovanje(new ServisZaAdministratora());
+    }
 
     public static void prikazListeZaposlenih(String msg, Connection konekcijaNaBazu, ObjectOutputStream out) throws SQLException, IOException {
        /* List<DTOAdministrator> listaAktivnihAdministratora;
@@ -73,10 +80,9 @@ public class ServisZaAdministratora {
        try {
            List<DTOZaposleni> listaAktivnihZaposlenih = (List<DTOZaposleni>) new DBDAOZaposleni().procitajSveAktivneZaposlene(konekcijaNaBazu);
            out.writeObject(listaAktivnihZaposlenih);
-           System.out.println("Ispisao konacno");
            out.flush();
        }catch(Exception e){
-           e.printStackTrace();
+           logServisaZaAdministratore.logujDogadjaj(Level.WARNING, new ServisZaAdministratora(), e.getStackTrace().toString());
        }
        /*DTOZaposleni zaposleni = (DTOZaposleni) new DBDAOZaposleni().pretraziBazu(konekcijaNaBazu, "8");
        out.writeObject(zaposleni);
@@ -88,20 +94,24 @@ public class ServisZaAdministratora {
     public static void dodavanjeZaposlenog(String msg, Connection konekcijaNaBazu, ObjectOutputStream out) throws IOException, SQLException {
         String[] hlpNizStringova = msg.split("#");
         if(7 != hlpNizStringova.length){
+            logServisaZaAdministratore.logujDogadjaj(Level.FINE, new ServisZaAdministratora(), "Neispravan protokol. Poruka = " + msg);
             out.writeObject(new String("NOK Pogresan broj argumenata u protokolu. Provjeri dokumentaciju protokola."));
             return;
         }
         if((13 != hlpNizStringova[3].length()) && (hlpNizStringova[3].matches("[a-zA-Z]+") == true)){
+            logServisaZaAdministratore.logujDogadjaj(Level.FINE, new ServisZaAdministratora(), "Neispravan JMBG");
             out.writeObject(new String("NOK Neispravan JMBG."));
             return;
         }
         Nalog nalog = new Nalog(hlpNizStringova[4], hlpNizStringova[5]);
         Zaposleni noviZaposleni = new Zaposleni(1, Plata.nulaPlata,hlpNizStringova[1], hlpNizStringova[2], hlpNizStringova[3], true, nalog);
         if(provjeriNalog(nalog,konekcijaNaBazu)){
+            logServisaZaAdministratore.logujDogadjaj(Level.WARNING, new ServisZaAdministratora(), "Pokusaj dodavanja vec postojeceg naloga.");
             out.writeObject(new String("NOK Nalog vec postoji."));
             return;
         }
         if(!provjeriPoziciju(hlpNizStringova[6])){
+            logServisaZaAdministratore.logujDogadjaj(Level.WARNING, new ServisZaAdministratora(), "Pokusaj dodavanja ne postojece pozicije.");
             out.writeObject(new String("NOK Pozicija ne postoji."));
             return;
         }
@@ -130,6 +140,7 @@ public class ServisZaAdministratora {
             Skladistar noviSkladistar = new Skladistar(dtoUpravoUpisanZaposleni.getZaposleni());
             new DBDAOSkladistar().upisiUBazu(new DTOSkladistar(noviSkladistar), konekcijaNaBazu);
         }
+        logServisaZaAdministratore.logujDogadjaj(Level.FINEST, new ServisZaAdministratora(), "Uspjesno dodan novi zaposleni.");
         out.writeObject(new String("OK"));
     }
 
@@ -162,20 +173,30 @@ public class ServisZaAdministratora {
         return postoji;
     }
 
-    public static void azuriranjeZaposlenog(String msg, Connection konekcijaNaBazu, ObjectOutputStream out, ObjectInputStream in) throws IOException, ClassNotFoundException, SQLException {
+    public static void azuriranjeZaposlenog(String msg, Connection konekcijaNaBazu, ObjectOutputStream out, ObjectInputStream in, Nalog nalogTrenutnogKorisnika) throws IOException, ClassNotFoundException, SQLException {
         out.writeObject(new String("WHICHONE"));
         DTOZaposleni dtoZaposleni = (DTOZaposleni)in.readObject();
         Integer pomocniInteger = dtoZaposleni.getZaposleni().getIdZaposlenog();
         DTOZaposleni provjeraPostojanjaDatogZaposlenog = (DTOZaposleni)new DBDAOZaposleni().pretraziBazu(konekcijaNaBazu,pomocniInteger.toString());
         if(null == provjeraPostojanjaDatogZaposlenog.getZaposleni().getIdZaposlenog()){
+            logServisaZaAdministratore.logujDogadjaj(Level.WARNING, new ServisZaAdministratora(), "Pokusaj azuriranja ne postojeceg zposlenog.");
             out.writeObject(new String("NOK Zaposleni ne postoju u bazi."));
             return;
         }
         new DBDAOZaposleni().izmjeniInformacijeOZaposlenom(dtoZaposleni, konekcijaNaBazu);
+        logServisaZaAdministratore.logujDogadjaj(Level.FINEST, new ServisZaAdministratora(), "Uspjesno izmjenjene informacije o zaposlenom od strane administratora. " +
+                "\nAdministrator: " + nalogTrenutnogKorisnika.getKorisnickiNalog() + "" +
+                "\nIzmjenjeni Zaposleni");
         out.writeObject(new String("OK"));
     }
 
-    public static void brisanjeZaposlenog(String msg, Connection konekcijaNaBazu, ObjectOutputStream out){
-
+    public static void brisanjeZaposlenog(String msg, Connection konekcijaNaBazu, ObjectOutputStream out) throws IOException, SQLException {
+        if(2 != msg.trim().split("#").length){
+            logServisaZaAdministratore.logujDogadjaj(Level.WARNING, new ServisZaAdministratora(), "Greska u protokolu." + msg);
+            out.writeObject(new String("NOK#Neispravan protokol."));
+        }
+        new DBDAOZaposleni().dajOtkaz(msg.trim().split("#")[1], konekcijaNaBazu);
+        logServisaZaAdministratore.logujDogadjaj(Level.FINEST, new ServisZaAdministratora(), "Zaposleni sa nalogom: " + msg.trim().split("#")[1] + " je dobio otkaz.");
+        out.writeObject(new String("OK"));
     }
 }

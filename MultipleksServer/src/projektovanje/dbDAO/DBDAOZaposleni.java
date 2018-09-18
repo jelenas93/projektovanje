@@ -91,15 +91,13 @@ public class DBDAOZaposleni implements IDBDAO {
         return true;
     }
 
-    public Boolean dajOtkaz(IDTO noviZaposleni, Connection konekcijaNaBazu) throws SQLException {
-        DTOZaposleni lokalniDTOZaposleni = (DTOZaposleni) noviZaposleni;
-        Zaposleni lokalniZaposleni = lokalniDTOZaposleni.getZaposleni();
+    public Boolean dajOtkaz(String korisnickoIme, Connection konekcijaNaBazu) throws SQLException {
         PreparedStatement ps = konekcijaNaBazu.prepareStatement("update Zaposleni" +
                 "   set " +
                 "   aktivan = ?" +
-                "   where idZaposlenog = ?");
+                "   where korisnickoIme = ?");
         ps.setBoolean(1,false);
-        ps.setInt(2,lokalniZaposleni.getIdZaposlenog());
+        ps.setString(2,korisnickoIme);
         ps.executeUpdate();
         return true;
     }

@@ -2,8 +2,10 @@ package projektovanje.net;
 
 import projektovanje.bin.nalog.Nalog;
 import projektovanje.db.ConnectionPool;
+import projektovanje.dto.DTONalog;
 import projektovanje.enumPackage.Korisnici;
 import projektovanje.enumPackage.Protokoli;
+import projektovanje.ostalo.Logovanje;
 import projektovanje.services.*;
 
 import java.io.*;
@@ -11,6 +13,7 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.logging.Level;
 
 public class ServerThread extends Thread{
 
@@ -20,6 +23,7 @@ public class ServerThread extends Thread{
     Connection konekcijaNaBazu= null;
     Nalog nalogTrenutnogKorisnika;
     Boolean prijavljen[] = new Boolean[8];
+    Logovanje logServerThreada;
 
     public ServerThread(Socket klijent) throws IOException, SQLException {
         nalogTrenutnogKorisnika = new Nalog();
@@ -30,6 +34,7 @@ public class ServerThread extends Thread{
         klijentSoket = klijent;
         in = new ObjectInputStream(klijent.getInputStream());
         out = new ObjectOutputStream(klijent.getOutputStream());
+        logServerThreada = new Logovanje(this);
     }
 
 
@@ -45,9 +50,10 @@ public class ServerThread extends Thread{
                         ServisZaPrijavu.outPrijava(msg, konekcijaNaBazu, out, nalogTrenutnogKorisnika, prijavljen, in);
                         break;
                     case REGISTER:
-                        if(prijavljen[0]) {
+                        if(prijavljen[Korisnici.ADMINISTRATOR.getAdministrator()]) {
                             ServisZaRegistracijuKlijenta.obaviRegistraciju(msg, konekcijaNaBazu, out);
                         }else{
+                            logServerThreada.logujDogadjaj(Level.WARNING, new ServisZaPrijavu(), "Korisnik koji nema nadleznost za registraciju ovih korisnika pokusava dodati novi nalog.\nKorisnik: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
                             out.writeObject(new String("NOK#Prijavljeni korisnike nije nadlezan za registraciju zaposlenih."));
                         }
                         break;
@@ -55,36 +61,42 @@ public class ServerThread extends Thread{
                         ServisZaPromjenuLozike.promjeniLozinku(msg, konekcijaNaBazu, out, nalogTrenutnogKorisnika);
                         break;
                     case ADD_EMPLOYEE:
-                        if(prijavljen[0]) {
+                        if(prijavljen[Korisnici.ADMINISTRATOR.getAdministrator()]) {
                             ServisZaAdministratora.dodavanjeZaposlenog(msg, konekcijaNaBazu, out);
                         }else{
+                            logServerThreada.logujDogadjaj(Level.WARNING, new ServisZaAdministratora(), "Korisnik koji nije nadlezan za dodavanje novog zaposlenoj je pokusao to izvrsiti.\nKorisnik: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
                             out.writeObject(new String("NOK#Prijavljeni korisnike nije Adminstrator."));
                         }
                         break;
                     case LIST_EMPLOYEES:
-                        if(prijavljen[0]){
-                            System.out.println("Prijavljen admin");
+                        if(prijavljen[Korisnici.ADMINISTRATOR.getAdministrator()]){
                             ServisZaAdministratora.prikazListeZaposlenih(msg, konekcijaNaBazu, out);
-                            System.out.println("Vraceni zaposleni");
-                        }else if(prijavljen[5]){
+                            logServerThreada.logujDogadjaj(Level.FINEST, new ServisZaAdministratora(), "Uspjesno vracanje liste zaposlenih na zahtjev administratora.\n Administrator: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
+                        }else if(prijavljen[Korisnici.RACUNOVODJA.getRacunovodja()]){
                             ServisZaRacunovodju.prikazListeZaposlenih(msg, konekcijaNaBazu, out);
+                            logServerThreada.logujDogadjaj(Level.FINEST, new ServisZaRacunovodju(), "Uspjesno vracanje liste zaposlenih na zahtjev racunovodje.\n Racunovodja: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
                         }else{
+                            logServerThreada.logujDogadjaj(Level.WARNING, new DTONalog(), "Korisnik koji nije nadlezan za pregled zaposlenih je poslao zahtjev.\nKorisnik: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
                             out.writeObject(new String("NOK#Prijavljeni korisnik nema pravo pregleda zaposlenih."));
                         }
                         break;
                     case UPDATE_EMPLOYEE:
-                        if(prijavljen[0]){
-                            ServisZaAdministratora.azuriranjeZaposlenog(msg, konekcijaNaBazu, out, in);
-                        }else if(prijavljen[5]){
+                        if(prijavljen[Korisnici.ADMINISTRATOR.getAdministrator()]){
+                            ServisZaAdministratora.azuriranjeZaposlenog(msg, konekcijaNaBazu, out, in, nalogTrenutnogKorisnika);
+                        }else if(prijavljen[Korisnici.RACUNOVODJA.getRacunovodja()]){
                             ServisZaRacunovodju.azuriranjeZaposlenog(msg, konekcijaNaBazu, out, in);
                         }else{
+                            logServerThreada.logujDogadjaj(Level.WARNING, new DTONalog(), "Korisnik koji nije nadlezan za azuriranje zaposlenih je poslao zahtjev.\nKorisnik: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
                             out.writeObject(new String("NOK#Prijavljeni korisnik nema pravo promjene podataka zaposlenih."));
                         }
                         break;
                     case DELETE_EMPLOYEE:
-                        if(prijavljen[0]){
+                        if(prijavljen[Korisnici.ADMINISTRATOR.getAdministrator()]){
                             ServisZaAdministratora.brisanjeZaposlenog(msg, konekcijaNaBazu, out);
 
+                        }else{
+                            logServerThreada.logujDogadjaj(Level.WARNING, new DTONalog(), "Korisnik koji nije nadlezan za otpustanje zaposlenih je poslao zahtjev.\nKorisnik: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
+                            out.writeObject(new String("NOK#Prijavljeni korisnik nema pravo da otpusti zaposlene."));
                         }
                         break;
                     case NEW_PROJECTION:
@@ -154,26 +166,26 @@ public class ServerThread extends Thread{
                     case CANCEL_RESERVATION:
                         break;
                     default:
+                        logServerThreada.logujDogadjaj(Level.SEVERE, this, "Neispravan protokol. Poruka = " + msg);
                         out.writeObject(new String("NOK ProtokolError"));
-
                 }
             }catch(SocketException e){
-                System.out.println(e.getMessage());
+                logServerThreada.logujDogadjaj(Level.SEVERE, new SocketException(), e.getStackTrace().toString());
                 break;
             }catch (IOException e){
-                System.out.println(e.getMessage());
+                logServerThreada.logujDogadjaj(Level.SEVERE, new IOException(), e.getStackTrace().toString());
                 break;
             }catch (ClassNotFoundException e){
-                System.out.println(e.getMessage());
+                logServerThreada.logujDogadjaj(Level.SEVERE, new ClassNotFoundException(), e.getStackTrace().toString());
                 break;
             }catch (java.sql.SQLException e){
-                System.out.println(e.getMessage());
+                logServerThreada.logujDogadjaj(Level.SEVERE, new SQLException(), e.getStackTrace().toString());
                 break;
             }catch (Exception e){
-                System.out.println(e.getMessage());
+                logServerThreada.logujDogadjaj(Level.SEVERE, new Exception(), e.getStackTrace().toString());
                 break;
             }
-            System.out.println("I did nothing");
+            logServerThreada.logujDogadjaj(Level.FINEST, this, "Obradio zahtjev i ceka na sledeci.");
         }
         ConnectionPool.getInstance().checkIn(konekcijaNaBazu);
     }
