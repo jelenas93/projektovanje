@@ -6,3 +6,4 @@ maxConnections#20
 dbUsername#root
 dbPassword#marko123
 dbURL#jdbc:mysql://localhost:3306/multipleks
+loggerFajl#logger.log

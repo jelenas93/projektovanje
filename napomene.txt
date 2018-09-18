@@ -14,4 +14,9 @@
         List<DTOProdavacKarata> listaAktivnihProdavacaKarata = (List<DTOProdavacKarata>)listaZaposlenih.get(4);
         List<DTOProdavacHraneIPica> listaAktivnihProdavacaHraneIPica = (List<DTOProdavacHraneIPica>)listaZaposlenih.get(5);
         List<DTOKinooperater> listaAktivnihKinooperatera = (List<DTOKinooperater>)listaZaposlenih.get(6);
+		
+		List<Zaposleni> listaZaposlenih = new ArrayList<>();
+		for(DTOAdministrator x : listaAktivnihAdministratora){
+			listaZaposlenih.add((Zaposleni)x.getAdministrator);
+		}
 ===========================================================================================================================================		

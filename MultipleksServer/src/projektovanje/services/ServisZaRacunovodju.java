@@ -4,6 +4,7 @@ import projektovanje.bin.nalog.Nalog;
 import projektovanje.bin.plata.Plata;
 import projektovanje.dbDAO.*;
 import projektovanje.dto.*;
+import projektovanje.ostalo.Logovanje;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -14,10 +15,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 public class ServisZaRacunovodju {
+    private static Logovanje logServisaZaRacunovodju;
+    static
+    {
+        logServisaZaRacunovodju = new Logovanje(new ServisZaRacunovodju());
+    }
     public static void prikazListeZaposlenih(String msg, Connection konekcijaNaBazu, ObjectOutputStream out) throws IOException, SQLException {
-        List<DTOAdministrator> listaAktivnihAdministratora;
+        /*List<DTOAdministrator> listaAktivnihAdministratora;
         List<DTOMenadzer> listaAktivnihMenadzera;
         List<DTORacunovodja> listaAktivnihRacunovodja;
         List<DTOSkladistar> listaAktivnihSkladistara;
@@ -63,7 +70,15 @@ public class ServisZaRacunovodju {
         listaAktivnihZaposlenih.add(listaAktivnihProdavacaHraneIPica);
         listaAktivnihZaposlenih.add(listaAktivnihKinooperatera);
 
-        out.writeObject(listaAktivnihZaposlenih);
+        out.writeObject(listaAktivnihZaposlenih);*/
+
+        try {
+            List<DTOZaposleni> listaAktivnihZaposlenih = (List<DTOZaposleni>) new DBDAOZaposleni().procitajSveAktivneZaposlene(konekcijaNaBazu);
+            out.writeObject(listaAktivnihZaposlenih);
+            out.flush();
+        }catch(Exception e){
+            logServisaZaRacunovodju.logujDogadjaj(Level.WARNING, new ServisZaRacunovodju(), e.getStackTrace().toString());
+        }
     }
 
     public static void azuriranjeZaposlenog(String msg, Connection konekcijaNaBazu, ObjectOutputStream out, ObjectInputStream in) throws IOException, SQLException, ClassNotFoundException {

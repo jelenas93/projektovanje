@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2018-09-18T09:43:26</date>
+  <millis>1537260206519</millis>
+  <sequence>0</sequence>
+  <logger>class projektovanje.dto.DTOKarta</logger>
+  <level>FINE</level>
+  <class>projektovanje.ostalo.Logovanje</class>
+  <method>logujDogadjaj</method>
+  <thread>1</thread>
+  <message>Proba i testiranje logera</message>
+  <param>class projektovanje.dto.DTOKarta</param>
+</record>
+</log>
