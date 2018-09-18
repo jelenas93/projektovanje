@@ -10,7 +10,7 @@ public class Logovanje {
 	static 
 	{
 		try {
-			handler = new FileHandler(PropertyFileUtils.getValue("loggerFajl"));
+			handler = new FileHandler(PropertyFileUtils.getValue("loggerFajl"), true);
 		} catch (SecurityException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

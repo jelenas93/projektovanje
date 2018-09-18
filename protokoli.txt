@@ -34,7 +34,7 @@ pregled svih ponuda: LIST_OFFERS, odgovor: List<Ponuda>
 
 dodavanje plate: ADD_PAYMENT,odgovor: WHICHONE, poruka: objeka tipa plata
 azuriranje plate: UPDATE_PAYMENT, odgovor WHICHONE, poruka: objekat tipa Plata sa novim podacima
-pregled svih plata: LIST_PAYMENTS, odgovor List<Plata>
+pregled svih plata: LIST_PAYMENTS, odgovor List<DTOZaposleni>
 
 dodavanje opreme: ADD_EQUIPMENT, odgovor WHICHONE, poruka: objekat tipa Oprema
 azuriranje opreme: UPDATE_EQUIPMENT, odgovor WHICHONE, poruka:objekat tipa Oprema sa novim podacima

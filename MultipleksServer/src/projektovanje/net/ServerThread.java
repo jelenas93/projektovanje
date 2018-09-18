@@ -92,9 +92,9 @@ public class ServerThread extends Thread{
                         break;
                     case DELETE_EMPLOYEE:
                         if(prijavljen[Korisnici.ADMINISTRATOR.getAdministrator()]){
-                            ServisZaAdministratora.brisanjeZaposlenog(msg, konekcijaNaBazu, out);
-
+                            ServisZaAdministratora.brisanjeZaposlenog(msg, konekcijaNaBazu, out, nalogTrenutnogKorisnika);
                         }else{
+
                             logServerThreada.logujDogadjaj(Level.WARNING, new DTONalog(), "Korisnik koji nije nadlezan za otpustanje zaposlenih je poslao zahtjev.\nKorisnik: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
                             out.writeObject(new String("NOK#Prijavljeni korisnik nema pravo da otpusti zaposlene."));
                         }
