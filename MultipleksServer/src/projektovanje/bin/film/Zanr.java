@@ -3,6 +3,7 @@ package projektovanje.bin.film;
 import java.io.Serializable;
 
 public class Zanr implements Serializable {
+    public static final long serialVersionUID=9003l;
     private Integer idZanra;
     private String nazivZanra;
 

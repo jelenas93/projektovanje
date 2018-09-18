@@ -5,6 +5,7 @@ import projektovanje.bin.klijent.Klijent;
 import java.io.Serializable;
 
 public class DTOKlijent implements Serializable, IDTO {
+    public static final long serialVersionUID=10006l;
     Klijent klijent;
 
     public Klijent getKlijent() {

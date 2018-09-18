@@ -5,6 +5,7 @@ import projektovanje.bin.nalog.Nalog;
 import java.io.Serializable;
 
 public class Klijent implements Serializable{
+    public static final long serialVersionUID=9006l;
 	private Integer idKlijenta;
     private Nalog korisnickiNalog;
     private String ime;

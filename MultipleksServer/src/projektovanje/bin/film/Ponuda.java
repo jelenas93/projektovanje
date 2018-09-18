@@ -6,6 +6,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Ponuda implements Serializable {
+    public static final long serialVersionUID=9002l;
+
     private Integer idPonude;
     private Film film;
     private Date datumPonude;

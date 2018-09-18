@@ -5,6 +5,7 @@ import projektovanje.bin.oprema.*;
 import java.io.Serializable;
 
 public class Stavka implements Serializable {
+    public static final long serialVersionUID=9011l;
     private Integer idStavke;
     private Integer kolicina;
     private Double ukupaCijena;

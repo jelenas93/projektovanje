@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Karta implements Serializable {
+    public static final long serialVersionUID=9005l;
     private Integer idKarte;
     private Date datumIzdavanja;
     private Double cijena;

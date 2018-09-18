@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Plata implements Serializable {
+    public static final long serialVersionUID=9009l;
+
 
     private Integer IDPlate;
     private Double doprinosZaPenziono;

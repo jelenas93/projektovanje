@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Repertoar implements Serializable {
+    public static final long serialVersionUID=9012l;
     private Integer idRepertoara;
     private List<Projekcija> projekcija;
     private Zaposleni zaposleni;

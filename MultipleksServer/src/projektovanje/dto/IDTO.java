@@ -1,4 +1,7 @@
 package projektovanje.dto;
 
-public interface IDTO {
+import java.io.Serializable;
+
+public interface IDTO extends Serializable {
+    public static final long serialVersionUID=10025l;
 }

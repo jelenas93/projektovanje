@@ -3,6 +3,8 @@ package projektovanje.bin.nalog;
 import java.io.Serializable;
 
 public class Nalog implements Serializable {
+    public static final long serialVersionUID=9007l;
+
     private String korisnickiNalog;
     private String lozinkaHash;
 

@@ -7,6 +7,8 @@ import java.io.Serializable;
 
 
 public class Zaposleni implements Serializable {
+    public static final long serialVersionUID=9024l;
+
     private String ime;
     private String prezime;
     private String JMBG;

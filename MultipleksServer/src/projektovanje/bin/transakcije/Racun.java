@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Racun implements Serializable {
+    public static final long serialVersionUID=9015l;
     private Integer idRacuna;
     private List<Stavka> stavka;
     private Date datumIzdavanja;

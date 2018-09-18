@@ -22,6 +22,7 @@ public class ServerThread extends Thread{
     Boolean prijavljen[] = new Boolean[8];
 
     public ServerThread(Socket klijent) throws IOException, SQLException {
+        nalogTrenutnogKorisnika = new Nalog();
         for(Boolean x : prijavljen){
             x = false;
         }
@@ -38,15 +39,13 @@ public class ServerThread extends Thread{
             try{
                 String msg = new String();
                 msg = (String)in.readObject();
+                System.out.println(msg);
                 switch (Protokoli.valueOf(msg.split("#")[0])) {
                     case LOGIN:
                         ServisZaPrijavu.outPrijava(msg, konekcijaNaBazu, out, nalogTrenutnogKorisnika, prijavljen, in);
-                        if(prijavljen[Korisnici.RACUNOVODJA.getRacunovodja()]){
-                            //ServisZaRacunovodju.obradiNedodjeljenePlate(out, in, konekcijaNaBazu); mozda odradi, mozda ne
-                        }
                         break;
                     case REGISTER:
-                        if(prijavljen[Korisnici.ADMINISTRATOR.getAdministrator()]) {
+                        if(prijavljen[0]) {
                             ServisZaRegistracijuKlijenta.obaviRegistraciju(msg, konekcijaNaBazu, out);
                         }else{
                             out.writeObject(new String("NOK#Prijavljeni korisnike nije nadlezan za registraciju zaposlenih."));
@@ -56,31 +55,37 @@ public class ServerThread extends Thread{
                         ServisZaPromjenuLozike.promjeniLozinku(msg, konekcijaNaBazu, out, nalogTrenutnogKorisnika);
                         break;
                     case ADD_EMPLOYEE:
-                        if(prijavljen[Korisnici.ADMINISTRATOR.getAdministrator()]) {
+                        if(prijavljen[0]) {
                             ServisZaAdministratora.dodavanjeZaposlenog(msg, konekcijaNaBazu, out);
                         }else{
                             out.writeObject(new String("NOK#Prijavljeni korisnike nije Adminstrator."));
                         }
                         break;
                     case LIST_EMPLOYEES:
-                        if(prijavljen[Korisnici.ADMINISTRATOR.getAdministrator()]){
+                        if(prijavljen[0]){
+                            System.out.println("Prijavljen admin");
                             ServisZaAdministratora.prikazListeZaposlenih(msg, konekcijaNaBazu, out);
-                        }else if(prijavljen[Korisnici.RACUNOVODJA.getRacunovodja()]){
+                            System.out.println("Vraceni zaposleni");
+                        }else if(prijavljen[5]){
                             ServisZaRacunovodju.prikazListeZaposlenih(msg, konekcijaNaBazu, out);
                         }else{
                             out.writeObject(new String("NOK#Prijavljeni korisnik nema pravo pregleda zaposlenih."));
                         }
                         break;
                     case UPDATE_EMPLOYEE:
-                        if(prijavljen[Korisnici.ADMINISTRATOR.getAdministrator()]){
+                        if(prijavljen[0]){
                             ServisZaAdministratora.azuriranjeZaposlenog(msg, konekcijaNaBazu, out, in);
-                        }else if(prijavljen[Korisnici.RACUNOVODJA.getRacunovodja()]){
+                        }else if(prijavljen[5]){
                             ServisZaRacunovodju.azuriranjeZaposlenog(msg, konekcijaNaBazu, out, in);
                         }else{
                             out.writeObject(new String("NOK#Prijavljeni korisnik nema pravo promjene podataka zaposlenih."));
                         }
                         break;
                     case DELETE_EMPLOYEE:
+                        if(prijavljen[0]){
+                            ServisZaAdministratora.brisanjeZaposlenog(msg, konekcijaNaBazu, out);
+
+                        }
                         break;
                     case NEW_PROJECTION:
                         break;
@@ -153,19 +158,21 @@ public class ServerThread extends Thread{
 
                 }
             }catch(SocketException e){
-
+                System.out.println(e.getMessage());
                 break;
             }catch (IOException e){
-
+                System.out.println(e.getMessage());
                 break;
             }catch (ClassNotFoundException e){
-
+                System.out.println(e.getMessage());
                 break;
             }catch (java.sql.SQLException e){
-
+                System.out.println(e.getMessage());
+                break;
+            }catch (Exception e){
+                System.out.println(e.getMessage());
                 break;
             }
-
             System.out.println("I did nothing");
         }
         ConnectionPool.getInstance().checkIn(konekcijaNaBazu);

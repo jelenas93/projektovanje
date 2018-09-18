@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Projekcija implements Serializable {
+    public static final long serialVersionUID=9010l;
     private Integer idProjekcije;
     private Film film;
     private Date vrijeme;

@@ -5,6 +5,7 @@ import projektovanje.bin.zaposleni.Menadzer;
 import java.io.Serializable;
 
 public class DTOMenadzer implements Serializable, IDTO {
+    public static final long serialVersionUID=10007l;
     Menadzer menadzer;
 
     public DTOMenadzer() {

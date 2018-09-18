@@ -16,21 +16,37 @@ import static projektovanje.enumPackage.Korisnici.*;
 public class ServisZaPrijavu {
     private static Boolean prijavaNaServer(String message, Connection konekcijaNaBazu,  Nalog nalogTrenutnogKorisnika){
         Boolean uspjesno = false;
-        String[] listaArgumenata = message.split("#");
+        String[] listaArgumenata = message.trim().split("#");
         if(3 != listaArgumenata.length){
+            System.out.println("Nije dobra lista argumenata");
             uspjesno = false;
             return uspjesno;
         }
         try {
+            System.out.println("Usao u nabavljanje naloga iz baze. "+ listaArgumenata[0] + " " + listaArgumenata[1] + " " + listaArgumenata[2]);
             DTONalog nalogIzBaze = (DTONalog)new DBDAONalog().pretraziBazu(konekcijaNaBazu, listaArgumenata[1]);
-            if((null != nalogIzBaze) && (nalogIzBaze.getNalog().getKorisnickiNalog().equals(listaArgumenata[1])) && ((nalogIzBaze.getNalog().getLozinkaHash().equals(listaArgumenata[2])))){
-               nalogTrenutnogKorisnika.setKorisnickiNalog(nalogIzBaze.getNalog().getKorisnickiNalog());
-               nalogTrenutnogKorisnika.setLozinkaHash(nalogIzBaze.getNalog().getLozinkaHash());
-                uspjesno = true;
+            System.out.println("Da li je razlicito od null " + (null!= nalogIzBaze));
+            System.out.println("Da li je username jedanak " +(nalogIzBaze.getNalog().getKorisnickiNalog().equals(listaArgumenata[1])));
+            System.out.println("Da li je sifra jedanaka " + (nalogIzBaze.getNalog().getLozinkaHash().equals(listaArgumenata[2])));
+            if((null != nalogIzBaze) ) {
+                System.out.println("Proslo da nije null");
+                if (nalogIzBaze.getNalog().getKorisnickiNalog().equals(listaArgumenata[1])) {
+                    System.out.println("Proslo da je username jednak ");
+                    if ((nalogIzBaze.getNalog().getLozinkaHash().equals(listaArgumenata[2]))) {
+                        System.out.println("Proslo da je jednaka sifra ");
+                        nalogTrenutnogKorisnika.setKorisnickiNalog(listaArgumenata[1]);
+                        nalogTrenutnogKorisnika.setLozinkaHash(listaArgumenata[2]);
+                        System.out.println("Uspjesna provjera.");
+                        uspjesno = true;
+                    }
+                }
+
             }else{
+                System.out.println("Ne poklapaju se sifra i username");
                 uspjesno = false;
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
+            e.printStackTrace();
             uspjesno = false;
         } finally {
             return uspjesno;
@@ -39,13 +55,14 @@ public class ServisZaPrijavu {
 
     public static void outPrijava(String msg, Connection konekcijaNaBazu, ObjectOutputStream out, Nalog nalogTrenutnogKorisnika, Boolean[] prijavljen, ObjectInputStream in) throws IOException, SQLException, ClassNotFoundException {
         ServisZaPrijavu servisZaPrijavu = new ServisZaPrijavu();
+        System.out.println("Usao u prijavu");
         if(servisZaPrijavu.prijavaNaServer(msg,konekcijaNaBazu, nalogTrenutnogKorisnika)){
+            System.out.println("Usao u prvi if uslov");
             DTOKlijent dtoKlijent = (DTOKlijent) new DBDAOKlijent().pretraziKlijentaPoNalogu(konekcijaNaBazu,msg.split("#")[1]);
             if(null == dtoKlijent){
                 DTOZaposleni dtoZaposleni = (DTOZaposleni) new DBDAOZaposleni().pretraziZaposlenogPoNalogu(konekcijaNaBazu, msg.split("#")[1]);
                 if(null == dtoZaposleni){
                     out.writeObject(new String("NOK#Novi#Username ili Sifra nisu tacni."));
-                    out.writeObject(null);
                     return;
                 }else{
                     Integer pomInt = dtoZaposleni.getZaposleni().getIdZaposlenog();

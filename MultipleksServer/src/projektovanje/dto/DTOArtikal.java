@@ -5,6 +5,7 @@ import projektovanje.bin.oprema.Artikal;
 import java.io.Serializable;
 
 public class DTOArtikal implements Serializable, IDTO {
+    public static final long serialVersionUID=10001l;
     Artikal artikal;
 
     public Artikal getArtikal() {

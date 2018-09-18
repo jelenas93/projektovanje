@@ -4,6 +4,7 @@ import projektovanje.bin.nalog.Nalog;
 import projektovanje.bin.plata.Plata;
 
 public class Menadzer extends Zaposleni {
+    public static final long serialVersionUID=9019l;
 
     public Integer getIdMenadzera() {
         return this.getIdZaposlenog();

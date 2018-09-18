@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 public class UlaznaFaktura implements Serializable {
+    public static final long serialVersionUID=9016l;
     private Integer idFakute;
     private Zaposleni zaposleni;
     private String brojRacina;

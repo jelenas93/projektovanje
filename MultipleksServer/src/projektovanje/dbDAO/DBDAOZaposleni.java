@@ -162,19 +162,27 @@ public class DBDAOZaposleni implements IDBDAO {
     }
 
     public List<? extends IDTO> procitajSveAktivneZaposlene(Connection konekcijaNaBazu) throws SQLException {
-        List<DTOZaposleni> povratnaVrijednost = null;
-        PreparedStatement s = konekcijaNaBazu.prepareStatement("select * from zaposleni where aktivan = true");
+        List<DTOZaposleni> povratnaVrijednost = new ArrayList<>();
+
+        PreparedStatement s = konekcijaNaBazu.prepareStatement("select * from zaposleni where aktivan = ?");
+        s.setBoolean(1, true);
         ResultSet rezultat = s.executeQuery();
         while(rezultat.next()){
-            DTONalog nalogDTO = (DTONalog) new DBDAONalog().pretraziBazu(konekcijaNaBazu,rezultat.getString(7));
-            Integer hlpVar = rezultat.getInt(2);
-            DTOPlata plataDTO = (DTOPlata) new DBDAOPlata().pretraziBazu(konekcijaNaBazu, hlpVar.toString());
-            int id = rezultat.getInt(1);
-            String ime = rezultat.getString(3);
-            String prezime = rezultat.getString(4);
-            String JMBG = rezultat.getString(5);
-            Boolean aktivan = rezultat.getBoolean(6);
-            povratnaVrijednost.add(new DTOZaposleni(new Zaposleni(id,plataDTO.getPlata(),ime,prezime,JMBG,aktivan, nalogDTO.getNalog())));
+            try {
+                DTONalog nalogDTO = (DTONalog) new DBDAONalog().pretraziBazu(konekcijaNaBazu, rezultat.getString(7));
+                Integer hlpVar = rezultat.getInt(2);
+                DTOPlata plataDTO = (DTOPlata) new DBDAOPlata().pretraziBazu(konekcijaNaBazu, hlpVar.toString());
+                int id = rezultat.getInt(1);
+                String ime = rezultat.getString(3);
+                String prezime = rezultat.getString(4);
+                String JMBG = rezultat.getString(5);
+                Boolean aktivan = rezultat.getBoolean(6);
+                Zaposleni zaposleni = new Zaposleni(id, plataDTO.getPlata(), ime, prezime, JMBG, aktivan, nalogDTO.getNalog());
+                System.out.println(zaposleni);
+                povratnaVrijednost.add(new DTOZaposleni(zaposleni));
+            }catch(Exception e){
+                e.printStackTrace();
+            }
         }
         return povratnaVrijednost;
     }
