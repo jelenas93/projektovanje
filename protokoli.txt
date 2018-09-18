@@ -32,8 +32,8 @@ pregled filma: GIVE_ME_MOVIE#imeFilma, odgovor: List<Film>
 dodavanje ponude: ADD_OFFER, odgovor: WHICHONE, poruka: objekat tipa Ponuda
 pregled svih ponuda: LIST_OFFERS, odgovor: List<Ponuda>
 
-dodavanje plate: ADD_PAYMENT,odgovor: WHICHONE, poruka: objeka tipa plata
-azuriranje plate: UPDATE_PAYMENT, odgovor WHICHONE, poruka: objekat tipa Plata sa novim podacima
+dodavanje plate: ADD_PAYMENT,odgovor: WHICHONE, poruka: objeka tipa DTOZaposleni
+azuriranje plate: UPDATE_PAYMENT, odgovor WHICHONE, poruka: objekat tipa DTOZaposleni sa novim podacima
 pregled svih plata: LIST_PAYMENTS, odgovor List<DTOZaposleni>
 
 dodavanje opreme: ADD_EQUIPMENT, odgovor WHICHONE, poruka: objekat tipa Oprema
