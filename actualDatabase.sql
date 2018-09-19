@@ -317,3 +317,5 @@ alter table Klijent modify email varchar(150);
 alter table projekcija add column idRepertoara int;
 alter table projekcija add foreign key (idRepertoara) references Repertoar(idRepertoara);
 drop table repertoarProjekcija;
+alter table Karta drop foreign key korisnickoIme;
+alter table Karta add foreign key (korisnickoIme) references Nalog(korisnickoIme);
