@@ -4,7 +4,7 @@ import projektovanje.bin.repertoar.Repertoar;
 
 import java.io.Serializable;
 
-public class DTORepertoar implements Serializable, IDTO {
+public class DTORepertoar implements IDTO {
     public static final long serialVersionUID=10017l;
     Repertoar repertoar;
 

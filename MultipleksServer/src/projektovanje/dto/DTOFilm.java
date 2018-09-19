@@ -4,7 +4,7 @@ import projektovanje.bin.film.Film;
 
 import java.io.Serializable;
 
-public class DTOFilm implements Serializable, IDTO {
+public class DTOFilm implements IDTO {
     public static final long serialVersionUID=10002l;
     Film film;
 

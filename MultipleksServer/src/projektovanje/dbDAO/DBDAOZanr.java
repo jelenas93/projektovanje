@@ -60,6 +60,20 @@ public class DBDAOZanr implements IDBDAO {
         return povratnaVrijednost;
     }
 
+    public IDTO pretraziZanrPoImenu(Connection konekcijaNaBazu, String parametarPretrage) throws SQLException {
+        DTOZanr povratnaVrijednost = null;
+        //int idZanra = Integer.valueOf(parametarPretrage);
+        PreparedStatement s = konekcijaNaBazu.prepareStatement("select * from Zanr where nazivZanra = ?");
+        s.setString(1,parametarPretrage);
+        ResultSet rezultat = s.executeQuery();
+        if(rezultat.next()){
+            int id = rezultat.getInt(1);
+            String naziv = rezultat.getString(2);
+            povratnaVrijednost = new DTOZanr(new Zanr(id,naziv));
+        }
+        return povratnaVrijednost;
+    }
+
     @Override
     public List<? extends IDTO> ispisi(Connection konekcijaNaBazu) throws SQLException {
         return citajIzBaze(konekcijaNaBazu);

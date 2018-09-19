@@ -4,7 +4,7 @@ import projektovanje.bin.zaposleni.Administrator;
 
 import java.io.Serializable;
 
-public class DTOAdministrator implements Serializable, IDTO {
+public class DTOAdministrator implements IDTO {
     public static final long serialVersionUID=10000l;
     Administrator administrator;
 

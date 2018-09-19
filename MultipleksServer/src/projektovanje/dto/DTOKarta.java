@@ -4,7 +4,7 @@ import projektovanje.bin.karta.Karta;
 
 import java.io.Serializable;
 
-public class DTOKarta implements Serializable, IDTO {
+public class DTOKarta implements IDTO {
     public static final long serialVersionUID=10004l;
     Karta karta;
 

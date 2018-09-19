@@ -4,7 +4,7 @@ import projektovanje.bin.racun.Stavka;
 
 import java.io.Serializable;
 
-public class DTOStavka implements Serializable, IDTO {
+public class DTOStavka implements IDTO {
     public static final long serialVersionUID=10021l;
     Stavka stavka;
 

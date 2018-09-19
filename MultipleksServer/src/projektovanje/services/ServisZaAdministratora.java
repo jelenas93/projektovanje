@@ -12,7 +12,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -24,65 +23,16 @@ public class ServisZaAdministratora {
     }
 
     public static void prikazListeZaposlenih(String msg, Connection konekcijaNaBazu, ObjectOutputStream out) throws SQLException, IOException {
-       /* List<DTOAdministrator> listaAktivnihAdministratora;
-        List<DTOMenadzer> listaAktivnihMenadzera;
-        List<DTORacunovodja> listaAktivnihRacunovodja;
-        List<DTOSkladistar> listaAktivnihSkladistara;
-        List<DTOProdavacKarata> listaAktivnihProdavacaKarata;
-        List<DTOProdavacHraneIPica> listaAktivnihProdavacaHraneIPica;
-        List<DTOKinooperater> listaAktivnihKinooperatera;
-        List<List<? extends IDTO>> listaAktivnihZaposlenih = new ArrayList<>();
-
-        listaAktivnihAdministratora = (List<DTOAdministrator>)new DBDAOAdministrator().ispisiSveAktivneAdministratore(konekcijaNaBazu);
-        listaAktivnihAdministratora.stream().parallel().forEach(x->{
-            x.getAdministrator().setPlata(null);
-            x.getAdministrator().getNalog().setLozinkaHash(new String());
-        });
-        listaAktivnihMenadzera = (List<DTOMenadzer>)new DBDAOMenadzer().ispisiSveAktivneMenadzere(konekcijaNaBazu);
-        listaAktivnihMenadzera.stream().parallel().forEach(x->{
-            x.getMenadzer().setPlata(null);
-            x.getMenadzer().getNalog().setLozinkaHash(new String());
-        });
-        listaAktivnihRacunovodja = (List<DTORacunovodja>)new DBDAORacunovodja().ispisiSveAktivneRacunovodje(konekcijaNaBazu);
-        listaAktivnihRacunovodja.stream().parallel().forEach(x->{
-            x.getRacunovodja().setPlata(null);
-            x.getRacunovodja().getNalog().setLozinkaHash(new String());
-        });
-        listaAktivnihSkladistara = (List<DTOSkladistar>)new DBDAOSkladistar().ispisiSveAktivneSkladistare(konekcijaNaBazu);
-        listaAktivnihSkladistara.stream().parallel().forEach(x->{
-            x.getSkladistar().setPlata(null);
-            x.getSkladistar().getNalog().setLozinkaHash(new String());
-        });
-        listaAktivnihProdavacaKarata = (List<DTOProdavacKarata>)new DBDAOProdavacKarata().ispisiSveAktivneProdavceKarata(konekcijaNaBazu);
-        listaAktivnihProdavacaKarata.stream().parallel().forEach(x->{
-            x.getProdavacKarata().setPlata(null);
-            x.getProdavacKarata().getNalog().setLozinkaHash(new String());
-        });
-        listaAktivnihProdavacaHraneIPica = (List<DTOProdavacHraneIPica>)new DBDAOProdavacHraneIPica().ispisiSveAktivneProdavceHraneIPica(konekcijaNaBazu);
-        listaAktivnihProdavacaHraneIPica.stream().parallel().forEach(x->{
-            x.getProdavacHraneIPica().setPlata(null);
-            x.getProdavacHraneIPica().getNalog().setLozinkaHash(new String());
-        });
-        listaAktivnihKinooperatera = (List<DTOKinooperater>)new DBDAOKinooperater().ispisiSveAktivneKinooperatere(konekcijaNaBazu);
-        listaAktivnihKinooperatera.stream().parallel().forEach(x->{
-            x.getKinooperater().setPlata(null);
-            x.getKinooperater().getNalog().setLozinkaHash(new String());
-        });
-
-        listaAktivnihZaposlenih.add(listaAktivnihAdministratora);
-        listaAktivnihZaposlenih.add(listaAktivnihMenadzera);
-        listaAktivnihZaposlenih.add(listaAktivnihRacunovodja);
-        listaAktivnihZaposlenih.add(listaAktivnihSkladistara);
-        listaAktivnihZaposlenih.add(listaAktivnihProdavacaKarata);
-        listaAktivnihZaposlenih.add(listaAktivnihProdavacaHraneIPica);
-        listaAktivnihZaposlenih.add(listaAktivnihKinooperatera);
-*/
        try {
            List<DTOZaposleni> listaAktivnihZaposlenih = (List<DTOZaposleni>) new DBDAOZaposleni().procitajSveAktivneZaposlene(konekcijaNaBazu);
+           listaAktivnihZaposlenih.stream().parallel().forEach(x->{
+               x.getZaposleni().setPlata(null);
+               x.getZaposleni().getNalog().setLozinkaHash(null);
+           });
            out.writeObject(listaAktivnihZaposlenih);
            out.flush();
        }catch(Exception e){
-           logServisaZaAdministratore.logujDogadjaj(Level.WARNING, new ServisZaAdministratora(), e.getStackTrace().toString());
+           logServisaZaAdministratore.logujDogadjaj(Level.WARNING, new Exception(), e.getStackTrace().toString());
        }
        /*DTOZaposleni zaposleni = (DTOZaposleni) new DBDAOZaposleni().pretraziBazu(konekcijaNaBazu, "8");
        out.writeObject(zaposleni);
@@ -196,7 +146,8 @@ public class ServisZaAdministratora {
             out.writeObject(new String("NOK#Neispravan protokol."));
         }
         new DBDAOZaposleni().dajOtkaz(msg.trim().split("#")[1], konekcijaNaBazu);
-        logServisaZaAdministratore.logujDogadjaj(Level.FINEST, new ServisZaAdministratora(), "Zaposleni sa nalogom: " + msg.trim().split("#")[1] + " je dobio otkaz.");
+        logServisaZaAdministratore.logujDogadjaj(Level.FINEST, new ServisZaAdministratora(), "Zaposleni sa nalogom: " + msg.trim().split("#")[1] + " je dobio otkaz.\n" +"" +
+                "Administrator sa nalogom: " +  nalogTrenutnogKorisnika.getKorisnickiNalog() + "mu je dao otkaz.");
         out.writeObject(new String("OK"));
     }
 }

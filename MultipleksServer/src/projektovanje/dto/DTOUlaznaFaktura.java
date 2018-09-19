@@ -4,7 +4,7 @@ import projektovanje.bin.transakcije.UlaznaFaktura;
 
 import java.io.Serializable;
 
-public class DTOUlaznaFaktura implements Serializable, IDTO {
+public class DTOUlaznaFaktura implements IDTO {
     public static final long serialVersionUID=10022l;
     UlaznaFaktura ulaznaFaktura;
 

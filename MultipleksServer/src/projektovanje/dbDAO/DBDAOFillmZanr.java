@@ -46,4 +46,10 @@ public class DBDAOFillmZanr {
         }
         return povratnaVrijednost;
     }
+
+    public void ukloniSveZandroveVezaneZaFilm(Connection konekcijaNaBazu, int idFilma) throws SQLException {
+        PreparedStatement ps = konekcijaNaBazu.prepareStatement("delete from FilmZanr where idFilma = ?");
+        ps.setInt(1,idFilma);
+        ps.execute();
+    }
 }

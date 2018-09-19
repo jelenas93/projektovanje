@@ -24,61 +24,10 @@ public class ServisZaRacunovodju {
         logServisaZaRacunovodju = new Logovanje(new ServisZaRacunovodju());
     }
     public static void prikazListeZaposlenih(String msg, Connection konekcijaNaBazu, ObjectOutputStream out) throws IOException, SQLException {
-        /*List<DTOAdministrator> listaAktivnihAdministratora;
-        List<DTOMenadzer> listaAktivnihMenadzera;
-        List<DTORacunovodja> listaAktivnihRacunovodja;
-        List<DTOSkladistar> listaAktivnihSkladistara;
-        List<DTOProdavacKarata> listaAktivnihProdavacaKarata;
-        List<DTOProdavacHraneIPica> listaAktivnihProdavacaHraneIPica;
-        List<DTOKinooperater> listaAktivnihKinooperatera;
-        List<List<? extends IDTO>> listaAktivnihZaposlenih = new ArrayList<>();
-
-        listaAktivnihAdministratora = (List<DTOAdministrator>)new DBDAOAdministrator().ispisiSveAktivneAdministratore(konekcijaNaBazu);
-        listaAktivnihAdministratora.stream().parallel().forEach(x->{
-            x.getAdministrator().setNalog(null);
-        });
-        listaAktivnihMenadzera = (List<DTOMenadzer>)new DBDAOMenadzer().ispisiSveAktivneMenadzere(konekcijaNaBazu);
-        listaAktivnihMenadzera.stream().parallel().forEach(x->{
-            x.getMenadzer().setNalog(null);
-        });
-        listaAktivnihRacunovodja = (List<DTORacunovodja>)new DBDAORacunovodja().ispisiSveAktivneRacunovodje(konekcijaNaBazu);
-        listaAktivnihRacunovodja.stream().parallel().forEach(x->{
-            x.getRacunovodja().setNalog(null);
-        });
-        listaAktivnihSkladistara = (List<DTOSkladistar>)new DBDAOSkladistar().ispisiSveAktivneSkladistare(konekcijaNaBazu);
-        listaAktivnihSkladistara.stream().parallel().forEach(x->{
-            x.getSkladistar().setNalog(null);
-        });
-        listaAktivnihProdavacaKarata = (List<DTOProdavacKarata>)new DBDAOProdavacKarata().ispisiSveAktivneProdavceKarata(konekcijaNaBazu);
-        listaAktivnihProdavacaKarata.stream().parallel().forEach(x->{
-            x.getProdavacKarata().setNalog(null);
-        });
-        listaAktivnihProdavacaHraneIPica = (List<DTOProdavacHraneIPica>)new DBDAOProdavacHraneIPica().ispisiSveAktivneProdavceHraneIPica(konekcijaNaBazu);
-        listaAktivnihProdavacaHraneIPica.stream().parallel().forEach(x->{
-            x.getProdavacHraneIPica().setNalog(null);
-        });
-        listaAktivnihKinooperatera = (List<DTOKinooperater>)new DBDAOKinooperater().ispisiSveAktivneKinooperatere(konekcijaNaBazu);
-        listaAktivnihKinooperatera.stream().parallel().forEach(x->{
-            x.getKinooperater().setNalog(null);
-        });
-
-        listaAktivnihZaposlenih.add(listaAktivnihAdministratora);
-        listaAktivnihZaposlenih.add(listaAktivnihMenadzera);
-        listaAktivnihZaposlenih.add(listaAktivnihRacunovodja);
-        listaAktivnihZaposlenih.add(listaAktivnihSkladistara);
-        listaAktivnihZaposlenih.add(listaAktivnihProdavacaKarata);
-        listaAktivnihZaposlenih.add(listaAktivnihProdavacaHraneIPica);
-        listaAktivnihZaposlenih.add(listaAktivnihKinooperatera);
-
-        out.writeObject(listaAktivnihZaposlenih);*/
-
-        try {
-            List<DTOZaposleni> listaAktivnihZaposlenih = (List<DTOZaposleni>) new DBDAOZaposleni().procitajSveAktivneZaposlene(konekcijaNaBazu);
-            out.writeObject(listaAktivnihZaposlenih);
-            out.flush();
-        }catch(Exception e){
-            logServisaZaRacunovodju.logujDogadjaj(Level.WARNING, new ServisZaRacunovodju(), e.getStackTrace().toString());
-        }
+        List<DTOZaposleni> listaAktivnihZaposlenih = (List<DTOZaposleni>) new DBDAOZaposleni().procitajSveAktivneZaposlene(konekcijaNaBazu);
+        listaAktivnihZaposlenih.stream().parallel().forEach(x-> x.getZaposleni().setNalog(null));
+        out.writeObject(listaAktivnihZaposlenih);
+        out.flush();
     }
 
     public static void azuriranjeZaposlenog(String msg, Connection konekcijaNaBazu, ObjectOutputStream out, ObjectInputStream in) throws IOException, SQLException, ClassNotFoundException {

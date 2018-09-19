@@ -4,7 +4,7 @@ import projektovanje.bin.film.Ponuda;
 
 import java.io.Serializable;
 
-public class DTOPonuda implements Serializable, IDTO {
+public class DTOPonuda implements IDTO {
     public static final long serialVersionUID=10011l;
     Ponuda ponuda;
 
