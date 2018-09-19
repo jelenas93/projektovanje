@@ -212,6 +212,10 @@ public class ServerThread extends Thread{
                     case RESERVE_TICKET:
                         break;
                     case CANCEL_RESERVATION:
+                        if(prijavljen[Korisnici.KLIJENT.getKlijent()]|| prijavljen[Korisnici.PRODAVACKARATA.getProdavacKarata()]){
+                            ServisZaProdavcaKarata.otkazi(msg,konekcijaNaBazu,out,in);
+                        }
+
                         break;
                     default:
                         logServerThreada.logujDogadjaj(Level.SEVERE, this, "Neispravan protokol. Poruka = " + msg);
