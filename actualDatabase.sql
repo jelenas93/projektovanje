@@ -314,3 +314,6 @@ insert into Nalog values("admin","92668751");
 insert into Zaposleni values(default,1,'admin','admin', '0000000000000', true, 'admin');
 insert into Administrator values(last_insert_id());
 alter table Klijent modify email varchar(150);
+alter table projekcija add column idRepertoara int;
+alter table projekcija add foreign key (idRepertoara) references Repertoar(idRepertoara);
+drop table repertoarProjekcija;

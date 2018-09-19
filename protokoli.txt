@@ -27,7 +27,7 @@ dodavanje nove sale: ADD_MOVIE_HALL, odgovor: WHICHONE, poruka: objekat tipa sal
 
 dodavanje filma: ADD_MOVIE, odgovor WHICHONE, poruka: objekat tipa DTOFilm
 azuriranje filma: UPDATE_MOVIE, odgovor: WHICHONE, poruka: objekat tipa DTOFilm sa novim podacima, odgovor OK ili NOK+razlog
-pregled filma: GIVE_ME_MOVIE#imeFilma, odgovor: List<DTOFilm>
+pregled filma: GIVE_ME_MOVIE, odgovor: List<DTOFilm>
 
 dodavanje ponude: ADD_OFFER, odgovor: WHICHONE, poruka: objekat tipa DTOPonuda
 pregled svih ponuda: LIST_OFFERS, odgovor: List<DTOPonuda>

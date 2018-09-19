@@ -98,12 +98,42 @@ public class ServerThread extends Thread{
                         }
                         break;
                     case NEW_PROJECTION:
+                        if (prijavljen[Korisnici.MENADZER.getMenadzer()]){
+                            ServisZaProjekcije.dodajProjekciju(in,out,konekcijaNaBazu,nalogTrenutnogKorisnika);
+                            logServerThreada.logujDogadjaj(Level.FINE, this, "Uspjesno dodana nova projekcije na zahtjev korisnika: +" + nalogTrenutnogKorisnika.getKorisnickiNalog());
+                        }else{
+                            logServerThreada.logujDogadjaj(Level.WARNING, new DTONalog(), "Korisnik koji nema pravo pregledati filmove.\nKorisnik: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
+                            out.writeObject(new String("NOK#Prijavljeni korisnik nema pravo da pregleda projekcije."));
+                        }
                         break;
                     case UPDATE_PROJECTION:
+                        if (prijavljen[Korisnici.MENADZER.getMenadzer()]){
+                            ServisZaProjekcije.azurirajProjekciju(in,out,konekcijaNaBazu,nalogTrenutnogKorisnika);
+                            logServerThreada.logujDogadjaj(Level.FINE, this, "Uspjesno izlistane projekcije na zahtjev korisnika: +" + nalogTrenutnogKorisnika.getKorisnickiNalog());
+                        }else{
+                            logServerThreada.logujDogadjaj(Level.WARNING, new DTONalog(), "Korisnik koji nema pravo pregledati filmove.\nKorisnik: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
+                            out.writeObject(new String("NOK#Prijavljeni korisnik nema pravo da pregleda projekcije."));
+                        }
                         break;
                     case LIST_PROJECTIONS:
+                        if (prijavljen[Korisnici.MENADZER.getMenadzer()]){
+                            ServisZaProjekcije.izlistajProjekcije(out,konekcijaNaBazu,nalogTrenutnogKorisnika);
+                            logServerThreada.logujDogadjaj(Level.FINE, this, "Uspjesno izlistane projekcije na zahtjev korisnika: +" + nalogTrenutnogKorisnika.getKorisnickiNalog());
+
+                        }else{
+                            logServerThreada.logujDogadjaj(Level.WARNING, new DTONalog(), "Korisnik koji nema pravo pregledati filmove.\nKorisnik: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
+                            out.writeObject(new String("NOK#Prijavljeni korisnik nema pravo da pregleda projekcije."));
+                        }
                         break;
                     case ADD_MOVIE_HALL:
+                        if (prijavljen[Korisnici.MENADZER.getMenadzer()]){
+                            ServisZaSale.dodajSalu(in,out,konekcijaNaBazu,nalogTrenutnogKorisnika);
+                            logServerThreada.logujDogadjaj(Level.FINE, this, "Uspjesno izlistane projekcije na zahtjev korisnika: +" + nalogTrenutnogKorisnika.getKorisnickiNalog());
+
+                        }else{
+                            logServerThreada.logujDogadjaj(Level.WARNING, new DTONalog(), "Korisnik koji nema pravo pregledati filmove.\nKorisnik: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
+                            out.writeObject(new String("NOK#Prijavljeni korisnik nema pravo da pregleda projekcije."));
+                        }
                         break;
                     case ADD_MOVIE:
                         if(prijavljen[Korisnici.MENADZER.getMenadzer()]) {
@@ -124,12 +154,11 @@ public class ServerThread extends Thread{
                         }
                         break;
                     case GIVE_ME_MOVIE:
-                        if (prijavljen[Korisnici.MENADZER.getMenadzer()] || prijavljen[Korisnici.PRODAVACKARATA.getProdavacKarata()] || prijavljen[Korisnici.KLIJENT.getKlijent()]){
+                        if (prijavljen[Korisnici.MENADZER.getMenadzer()]){
                             ServisZaFilmove.ispisiFilmove(out,konekcijaNaBazu, nalogTrenutnogKorisnika);
                         }else{
                             logServerThreada.logujDogadjaj(Level.WARNING, new DTONalog(), "Korisnik koji nema pravo pregledati filmove.\nKorisnik: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
                             out.writeObject(new String("NOK#Prijavljeni korisnik nema pravo da pregleda filmove."));
-
                         }
                         break;
                     case ADD_OFFER:
@@ -209,16 +238,12 @@ public class ServerThread extends Thread{
                 break;
             }catch (IOException e){
                 logServerThreada.logujDogadjaj(Level.SEVERE, new IOException(), e.getStackTrace().toString());
-                break;
             }catch (ClassNotFoundException e){
                 logServerThreada.logujDogadjaj(Level.SEVERE, new ClassNotFoundException(), e.getStackTrace().toString());
-                break;
             }catch (java.sql.SQLException e){
                 logServerThreada.logujDogadjaj(Level.SEVERE, new SQLException(), e.getStackTrace().toString());
-                break;
             }catch (Exception e){
                 logServerThreada.logujDogadjaj(Level.SEVERE, new Exception(), e.getStackTrace().toString());
-                break;
             }
         }
         if(null != nalogTrenutnogKorisnika.getKorisnickiNalog()){
