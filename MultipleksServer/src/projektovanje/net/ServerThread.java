@@ -162,8 +162,20 @@ public class ServerThread extends Thread{
                         }
                         break;
                     case ADD_OFFER:
+                        if(prijavljen[Korisnici.MENADZER.getMenadzer()]){
+                            ServisZaPonude.dodajPonudeNaFilmove(in,out,konekcijaNaBazu,nalogTrenutnogKorisnika);
+                        }else{
+                            logServerThreada.logujDogadjaj(Level.WARNING, new DTONalog(), "Korisnik koji nema pravo dodavati ponude na filmove.\nKorisnik: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
+                            out.writeObject(new String("NOK#Prijavljeni korisnik nema pravo da dodaje ponude na filmove."));
+                        }
                         break;
                     case LIST_OFFERS:
+                        if(prijavljen[Korisnici.MENADZER.getMenadzer()]){
+                            ServisZaPonude.izlistajPonude(out,konekcijaNaBazu,nalogTrenutnogKorisnika);
+                        }else{
+                            logServerThreada.logujDogadjaj(Level.WARNING, new DTONalog(), "Korisnik koji nema pravo dodavati ponude na filmove.\nKorisnik: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
+                            out.writeObject(new String("NOK#Prijavljeni korisnik nema pravo da izlistava ponude na  filmove."));
+                        }
                         break;
                     case ADD_PAYMENT:
                         break;

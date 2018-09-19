@@ -29,7 +29,7 @@ public class Ponuda implements Serializable {
                 "idPonude=" + idPonude +
                 ", film=" + filmovi +
                 ", datumPonude=" + datumPonude +
-                ", zaposleni=" + zaposleni +
+                ", zaposleni=" + null +
                 '}';
     }
 

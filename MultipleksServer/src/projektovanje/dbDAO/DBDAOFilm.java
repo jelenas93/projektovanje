@@ -9,10 +9,31 @@ import projektovanje.dto.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DBDAOFilm implements IDBDAO {
+
+    public DTOFilm pretraziFilmovePoImenu(Connection konekcijaNaBazu, String imeFilma) throws SQLException {
+        DTOFilm povratniFilm = null;
+
+        PreparedStatement ps = konekcijaNaBazu.prepareStatement("select * from Film where naziv = ?");
+        ps.setString(1, imeFilma);
+        ResultSet rs = ps.executeQuery();
+        if(rs.next()){
+            Integer pomInt = rs.getInt(2);
+            DTOZaposleni zaposleni = (DTOZaposleni) new DBDAOZaposleni().pretraziBazu(konekcijaNaBazu,pomInt.toString());
+            List<DTOZanr> dtoZanrovi = new DBDAOFillmZanr().pretraziSveZanroveZaFilm(rs.getInt(1), konekcijaNaBazu);
+            List<Zanr> zanrovi = new ArrayList<>();
+            dtoZanrovi.forEach(x->zanrovi.add(x.getZanr()));
+            Film film = new Film(rs.getInt(1), zaposleni.getZaposleni(),rs.getString("naziv"),
+                    rs.getInt("trajanje"),rs.getString("opis"),rs.getString("link"),
+                    rs.getString("tipFilma"),zanrovi);
+            povratniFilm = new DTOFilm(film);
+        }
+        return povratniFilm;
+    }
 
     @Override
     public Boolean upisiUBazu(IDTO dtoFilm, Connection konekcijaNaBazu) throws java.sql.SQLException {
