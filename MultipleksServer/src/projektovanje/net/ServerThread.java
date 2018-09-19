@@ -185,12 +185,6 @@ public class ServerThread extends Thread{
                         break;
                     case LIST_INVOICES:
                         break;
-                    case ADD_TRANSACTION:
-                        break;
-                    case LIST_TRANSACTIONS:
-                        break;
-                    case LIST_TRANSACTIONS_TYPE:
-                        break;
                     case LIST_ALL_BILLS:
                         break;
                     case ADD_BILL:
