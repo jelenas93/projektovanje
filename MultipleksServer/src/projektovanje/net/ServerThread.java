@@ -181,10 +181,21 @@ public class ServerThread extends Thread{
                     case SELL_TICKET:
                         break;
                     case RESERVE_TICKET:
+                        if(prijavljen[Korisnici.KLIJENT.getKlijent()] || prijavljen[Korisnici.PRODAVACKARATA.getProdavacKarata()]){
+                            ServisZaProdavcaKarata.rezervacijaKarte(msg,konekcijaNaBazu,out,in);
+                            logServerThreada.logujDogadjaj(Level.FINE,this,"Uspjesno rezervisana karta");
+                        } else {
+                            out.writeObject(new String("NOK#Prijavljeni korisnik nema pravo da rezervise kartu"));
+                            logServerThreada.logujDogadjaj(Level.WARNING,new DTONalog(),"Korisnik koji nema pravo da rezervise kartu\n Korisnik: "+ nalogTrenutnogKorisnika.getKorisnickiNalog());
+                        }
                         break;
                     case CANCEL_RESERVATION:
                         if(prijavljen[Korisnici.KLIJENT.getKlijent()]|| prijavljen[Korisnici.PRODAVACKARATA.getProdavacKarata()]){
                             ServisZaProdavcaKarata.otkazi(msg,konekcijaNaBazu,out,in);
+                            logServerThreada.logujDogadjaj(Level.FINE,this,"Uspjesno otkazana rezervacija");
+                        } else {
+                            out.writeObject(new String("NOK#Prijavljeni korisnik nema pravo da otkaze rezervaciju"));
+                            logServerThreada.logujDogadjaj(Level.WARNING,new DTONalog(),"Kornisnik koji nema pravo da otkaze rezervaciju\n Korisnik: "+ nalogTrenutnogKorisnika.getKorisnickiNalog());
                         }
 
                         break;

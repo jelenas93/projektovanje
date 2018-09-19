@@ -23,7 +23,7 @@ public class DBDAOIzdavanje implements IDBDAO {
 
         DTOIzdavanje lokalniDtoIzdavanje = (DTOIzdavanje) dtoIzdavanje;
         PreparedStatement preparedStatement = konekcijaNaBazu.prepareStatement(
-                "insert into Izdavanje (?, ?, ?, ?, ?, ?)");
+                "insert into Izdavanje values (?, ?, ?, ?, ?, ?)");
         preparedStatement.setInt(1,lokalniDtoIzdavanje.getIzdavanje().getKarta().getIdKarte());
         preparedStatement.setInt(2, lokalniDtoIzdavanje.getIzdavanje().getSjediste().getIdSjedista());
         preparedStatement.setInt(3, lokalniDtoIzdavanje.getIzdavanje().getSala().getIdSale());
@@ -81,5 +81,13 @@ public class DBDAOIzdavanje implements IDBDAO {
     @Override
     public List<DTOIzdavanje> ispisi(Connection konekcijaNaBazu)throws java.sql.SQLException {
         return citajIzBaze(konekcijaNaBazu);
+    }
+
+    public Boolean ukloniIzdavanje (DTOIzdavanje izdavanje,Connection konekcijaNaBazu) throws SQLException {
+        PreparedStatement ps = konekcijaNaBazu.prepareStatement("delete from Izdavanje where idKarte = ?");
+        Integer idKarte = izdavanje.getIzdavanje().getKarta().getIdKarte();
+        ps.setInt(1,idKarte);
+        ps.executeUpdate();
+        return true;
     }
 }

@@ -16,19 +16,11 @@ public class DBDAOKarta implements IDBDAO {
     public Boolean upisiUBazu(IDTO dtoInstanca, Connection konekcijaNaBazu) throws java.sql.SQLException {
         PreparedStatement preparedStatement;
         DTOKarta lokalniDTO = (DTOKarta)dtoInstanca;
-        if(lokalniDTO.getKarta().getRezervisana())
-        {
-            preparedStatement = konekcijaNaBazu.prepareStatement("insert into Karta values(default, ?, ?, true, ?)");
-            preparedStatement.setDate(1, new java.sql.Date(lokalniDTO.getKarta().getDatumIzdavanja().getTime()));
-            preparedStatement.setDouble(2, lokalniDTO.getKarta().getCijena());
-            preparedStatement.setString(3, lokalniDTO.getKarta().getNalog().getKorisnickiNalog());
-        }else{
             preparedStatement = konekcijaNaBazu.prepareStatement("insert into Karta values(default, ?, ?, ?, ?)");
             preparedStatement.setDate(1, new java.sql.Date(lokalniDTO.getKarta().getDatumIzdavanja().getTime()));
             preparedStatement.setDouble(2, lokalniDTO.getKarta().getCijena());
-            preparedStatement.setBoolean(3,false);
-            preparedStatement.setNull(4, Types.VARCHAR);
-        }
+            preparedStatement.setBoolean(3,lokalniDTO.getKarta().getRezervisana());
+            preparedStatement.setString(4, lokalniDTO.getKarta().getNalog().getKorisnickiNalog());
         preparedStatement.executeUpdate();
 
         return true;

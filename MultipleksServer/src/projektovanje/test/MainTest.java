@@ -3,16 +3,26 @@ package projektovanje.test;
 import projektovanje.bin.film.Film;
 import projektovanje.bin.film.Ponuda;
 import projektovanje.bin.film.Zanr;
+import projektovanje.bin.izdavanje.Izdavanje;
+import projektovanje.bin.karta.Karta;
+import projektovanje.bin.nalog.Nalog;
 import projektovanje.bin.oprema.Artikal;
 import projektovanje.bin.oprema.IOprema;
 import projektovanje.bin.oprema.Oprema;
+import projektovanje.bin.projekcija.Projekcija;
 import projektovanje.bin.racun.Stavka;
+import projektovanje.bin.sala.Sjediste;
 import projektovanje.bin.transakcije.Racun;
 import projektovanje.bin.transakcije.UlaznaFaktura;
 import projektovanje.bin.zaposleni.Zaposleni;
 import projektovanje.dbDAO.*;
 import projektovanje.dto.*;
+import projektovanje.services.ServisZaProdavcaKarata;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.ArrayList;
@@ -24,6 +34,8 @@ public class MainTest {
     public static void main(String[] args)throws Exception{
         Connection c = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/multipleks", "root", "admin");
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("test.txt"));
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("test.txt"));
         Zaposleni z = new Zaposleni(1);
         DBDAOFilm dao = new DBDAOFilm();
         DBDAOArtikal artDao = new DBDAOArtikal();
@@ -35,87 +47,17 @@ public class MainTest {
         List<Zanr> zanrovi = new ArrayList<>();
         zanrovi.add(za);
 
-        /*Film f = new Film(1,z,"TestFilm2",54,"kulj film","www.trailers.com","2d",zanrovi);
-        ArrayList<Film> filmovi = new ArrayList<>();
-        filmDao.upisiUBazu(new DTOFilm(f),c);
-        filmovi.add(f);*/
-        System.out.println("pokusavama procitati sve:");
-       /* ArrayList<DTOFilm> stavkaIzBaze = (ArrayList<DTOFilm>) dao.citajIzBaze(c);
-        stavkaIzBaze.forEach(x->System.out.println(x.getFilm()));*
-       List<DTOOprema> dtoOprema = (List<DTOOprema>)opremaDao.ispisi(c);
-        dtoOprema.forEach(x-> System.out.println(x.getOprema()));*/
-       List<DTOPonuda> ponude = (List<DTOPonuda>) ponudaDao.ispisi(c);
-       ponude.forEach(x-> System.out.println(x.getPonuda()));
-        System.out.println("Pokusavam dodati u bazu");
-        /*Oprema o = new Oprema(1,2,"Testna oprema",true,z);
-        opremaDao.upisiUBazu(new DTOOprema(o),c);
-        //Ponuda p = new Ponuda(1,filmovi,new Date(),z);
-        //ponudaDao.upisiUBazu(new DTOPonuda(p),c);*/
-        System.out.println("Dodao");
-        System.out.println("pokusavam opet procitati sve:");
+        List<DTOProjekcija> p = (List<DTOProjekcija>) new DBDAOProjekcija().citajIzBaze(c);
+        List<DTOSjediste> sjedista = (List<DTOSjediste>) new DBDAOSjediste().ispisi(c);
+        Nalog nalog = new Nalog("Cijeli","Cijeli2");
+        Karta k = new Karta(4,new Date(),4.5,true,nalog,p.get(1).getProjekcija());
+        Izdavanje i = new Izdavanje(k,sjedista.get(1).getSjediste(),sjedista.get(1).getSjediste().getSala(),p.get(1).getProjekcija(),z);
+        oos.writeObject(new DTOIzdavanje(i));
+        ServisZaProdavcaKarata.rezervacijaKarte("msg",c,oos,ois);
+        System.out.println("Trebalo bi da je rezervisano mjesto");
+        String odgovor = (String)ois.readObject();
+        System.out.println(odgovor);
 
-        ponude = (List<DTOPonuda>) ponudaDao.ispisi(c);
-        ponude.forEach(x-> System.out.println(x.getPonuda()));
-
-        /*dtoOprema = (List<DTOOprema>)opremaDao.ispisi(c);
-        dtoOprema.forEach(x-> System.out.println(x.getOprema()));
-        stavkaIzBaze = (ArrayList<DTOFilm>) dao.citajIzBaze(c);
-        stavkaIzBaze.forEach(x->System.out.println(x.getFilm()));*/
-
-
-        System.out.println("Pokusavam update");
-       /* p.setZaposleni(new Zaposleni(2));
-        ponudaDao.azurirajBazu(new DTOPonuda(p),c);
-        /*opremaDao.azurirajBazu(new DTOOprema(o),c);*/
-
-        System.out.println("Update gotov opet citam");
-
-        /*stavkaIzBaze = (ArrayList<DTOFilm>) dao.citajIzBaze(c);
-        stavkaIzBaze.forEach(x->System.out.println(x.getFilm()));
-        dtoOprema = (List<DTOOprema>)opremaDao.ispisi(c);
-        dtoOprema.forEach(x-> System.out.println(x.getOprema()));*/
-        ponude = (List<DTOPonuda>) ponudaDao.ispisi(c);
-        ponude.forEach(x-> System.out.println(x.getPonuda()));
-
-        /*System.out.println("pokusavam citati artikle");
-        List<DTOArtikal> artikliIzBaze = artDao.citajIzBaze(c);
-        artikliIzBaze.forEach(x->System.out.println(x.getArtikal()));
-
-        DTOArtikal art = (DTOArtikal) artDao.pretraziBazu(c,"3");
-        System.out.println("Procitani artikal");
-        System.out.println(art.getArtikal());*/
-
-      /* System.out.println("Citam sve filmove");
-       DBDAOFilm filmDAO = new DBDAOFilm();
-        List<DTOFilm> dtoFilms = filmDAO.citajIzBaze(c);
-        dtoFilms.forEach(x-> System.out.println(x.getFilm()));*/
-
-      System.out.println("Citam sva izdavanja");
-       /* DBDAOIzdavanje izdDAO = new DBDAOIzdavanje();
-        List<DTOIzdavanje> dtoFilms = izdDAO.citajIzBaze(c);
-        dtoFilms.forEach(x->System.out.println(x.getIzdavanje()));*/
-       /* System.out.println("all done");
-
-        List<DTORepertoar> dtoRepertoars = repDao.citajIzBaze(c);
-        dtoRepertoars.forEach(x->System.out.println(x.getRepertoar()));
-        System.out.println("It's now done");
-
-        List<DTOStavka> dtoStavke = (List<DTOStavka>) new DBDAOStavka().ispisi(c);
-        dtoStavke.forEach(x->System.out.println(x.getStavka()));
-       DBDAOUlaznaFaktura uf = new DBDAOUlaznaFaktura();
-       List<DTOUlaznaFaktura> l = (List<DTOUlaznaFaktura>) uf.citajIzBaze(c);
-       l.forEach(x->System.out.println(x.getUlaznaFaktura()));*/
-
-       Artikal art = new Artikal(1,"test art 1",15,44.5,"t1","001",z);
-       Oprema o = new Oprema(2,1,"T oprema",true,z);
-       List<IOprema> lst = new ArrayList<>();
-       lst.add(art);
-       lst.add(o);
-       System.out.println("Dodavanje nove fakture");
-       UlaznaFaktura uf = new UlaznaFaktura(2,z,"4","kes","kg",5.0,6.0,"Test kupac",new Date(),lst);
-       DBDAOUlaznaFaktura ufDao = new DBDAOUlaznaFaktura();
-       ufDao.upisiUBazu(new DTOUlaznaFaktura(uf),c);
-       System.out.println("ispisao");
 
     }
 }
