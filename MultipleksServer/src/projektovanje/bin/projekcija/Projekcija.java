@@ -12,8 +12,13 @@ public class Projekcija implements Serializable {
     private Film film;
     private Date vrijeme;
     private Zaposleni zaposleni;
+    private Integer idRepertoara;
 
     public Projekcija() {
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
     @Override
@@ -26,11 +31,12 @@ public class Projekcija implements Serializable {
                 '}';
     }
 
-    public Projekcija(Integer idProjekcije, Film film, Date vrijeme, Zaposleni zaposleni) {
+    public Projekcija(Integer idProjekcije, Film film, Date vrijeme, Zaposleni zaposleni,Integer idRepertoara) {
         this.idProjekcije = idProjekcije;
         this.film = film;
         this.vrijeme = vrijeme;
         this.zaposleni = zaposleni;
+        this.idRepertoara = idRepertoara;
     }
 
     public Integer getIdProjekcije() {

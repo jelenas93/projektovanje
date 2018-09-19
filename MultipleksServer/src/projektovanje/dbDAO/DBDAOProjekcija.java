@@ -13,7 +13,7 @@ public class DBDAOProjekcija implements IDBDAO {
     public Boolean upisiUBazu(IDTO dtoProjekcija, Connection konekcijaNaBazu) throws SQLException {
         DTOProjekcija lokalniDtoProjekcija = (DTOProjekcija) dtoProjekcija;
         Projekcija lokalniProjekcija = lokalniDtoProjekcija.getProjekcija();
-        PreparedStatement preparedStatement = konekcijaNaBazu.prepareStatement("insert into Projekcija values(default, ?, ?, ?)");
+        PreparedStatement preparedStatement = konekcijaNaBazu.prepareStatement("insert into Projekcija values(default, ?, ?, ?,?)");
         preparedStatement.setInt(1, lokalniProjekcija.getFilm().getIdFilma());
         preparedStatement.setTimestamp(2, new Timestamp(lokalniProjekcija.getVrijeme().getTime()));
         preparedStatement.setInt(3, lokalniProjekcija.getZaposleni().getIdZaposlenog());
