@@ -16,6 +16,16 @@ public class Projekcija implements Serializable {
     public Projekcija() {
     }
 
+    @Override
+    public String toString() {
+        return "Projekcija{" +
+                "idProjekcije=" + idProjekcije +
+                ", film=" + film +
+                ", vrijeme=" + vrijeme +
+                ", zaposleni=" + zaposleni +
+                '}';
+    }
+
     public Projekcija(Integer idProjekcije, Film film, Date vrijeme, Zaposleni zaposleni) {
         this.idProjekcije = idProjekcije;
         this.film = film;
