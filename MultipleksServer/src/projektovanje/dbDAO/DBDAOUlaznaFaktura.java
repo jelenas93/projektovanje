@@ -28,19 +28,6 @@ public class DBDAOUlaznaFaktura implements IDBDAO {
         ps.setDouble(6,lokalnaUlaznaFaktura.getCijena());
         ps.setString(7,lokalnaUlaznaFaktura.getKupac());
         ps.setDate(8,new java.sql.Date(lokalnaUlaznaFaktura.getDatum().getTime()));
-        DBDAOFakturaArtikal faktArtDao = new DBDAOFakturaArtikal();
-        DBDAOFakturaOprema faktOprDao = new DBDAOFakturaOprema();
-        Iterator<? extends IOprema> it = lokalnaUlaznaFaktura.getKupljenaRoba().iterator();
-        while(it.hasNext()){
-            IOprema stavka = it.next();
-            if(stavka instanceof Artikal){
-                faktArtDao.upisiUBazu(lokalnaUlaznaFaktura.getIdFakute(),((Artikal) stavka).getIdArtikla(),konekcijaNaBazu);
-                System.out.println("U if");
-            } else{
-               faktOprDao.upisiUBazu(lokalnaUlaznaFaktura.getIdFakute(),((Oprema)stavka).getIdOpreme(),konekcijaNaBazu);
-               System.out.println("usao u else");
-            }
-        }
         ps.executeUpdate();
         return true;
     }

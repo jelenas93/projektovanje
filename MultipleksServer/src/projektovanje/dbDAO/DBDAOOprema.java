@@ -65,6 +65,25 @@ public class DBDAOOprema implements IDBDAO{
         return true;
     }
 
+    public List<DTOOprema> pretraziOpremuPoNazivu(Connection konekcijaNaBazu, String parametarPretrage) throws SQLException {
+        PreparedStatement ps = konekcijaNaBazu.prepareStatement("select * from Oprema where naziv = ?");
+        ps.setString(1,parametarPretrage);
+        ResultSet rs = ps.executeQuery();
+        List<DTOOprema> povratnaVrijednost = new ArrayList<>();
+        DBDAOZaposleni zaposleniDao = new DBDAOZaposleni();
+        while (rs.next()){
+            int idOpreme = rs.getInt(1);
+            int brojInventara = rs.getInt(2);
+            String naziv = rs.getString(3);
+            Boolean ispravne = rs.getBoolean(4);
+            Integer idZaposlenog = rs.getInt(5);
+            System.out.println(idZaposlenog);
+            DTOZaposleni zaposleni = (DTOZaposleni) zaposleniDao.pretraziBazu(konekcijaNaBazu,String.valueOf(idZaposlenog));
+            Oprema o = new Oprema(idOpreme,brojInventara,naziv,ispravne,zaposleni.getZaposleni());
+            povratnaVrijednost.add(new DTOOprema(o));
+        }
+        return povratnaVrijednost;
+    }
 
     @Override
     public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) throws SQLException {
