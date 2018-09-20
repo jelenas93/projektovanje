@@ -234,16 +234,33 @@ public class ServerThread extends Thread{
                         }
                         break;
                     case ADD_INVOICE:
-                        break;
-                    case UPDATE_INVOICE:
+                        if(prijavljen[Korisnici.RACUNOVODJA.getRacunovodja()]){
+                            ServisZaRacunovodju.dodajUlaznuFakturu(in,out,konekcijaNaBazu,nalogTrenutnogKorisnika);
+                        }else{
+                            logServerThreada.logujDogadjaj(Level.WARNING, new DTONalog(), "Korisnik koji nema pravo dodavati fakture je to pokusao.\nKorisnik: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
+                            out.writeObject(new String("NOK#Prijavljeni korisnik nema pravo da dodaje fakture."));
+                        }
                         break;
                     case LIST_INVOICES:
+                        if(prijavljen[Korisnici.RACUNOVODJA.getRacunovodja()]){
+                            ServisZaRacunovodju.ispisiUlazneFakture(out,konekcijaNaBazu,nalogTrenutnogKorisnika);
+                        }else{
+                            logServerThreada.logujDogadjaj(Level.WARNING, new DTONalog(), "Korisnik koji nema pravo izlistati fakture je to pokusao.\nKorisnik: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
+                            out.writeObject(new String("NOK#Prijavljeni korisnik nema pravo da izlistati fakture."));
+                        }
                         break;
                     case LIST_ALL_BILLS:
                         break;
                     case ADD_BILL:
                         break;
                     case UPDATE_PRODUCT:
+                        if(prijavljen[Korisnici.SKLADISTAR.getSkladistar()]){
+                            ServisZaArtikle.azurirajArtikal(konekcijaNaBazu,out,in);
+                            logServerThreada.logujDogadjaj(Level.FINE,this,"Azuriran artikal");
+                        } else{
+                            out.writeObject(new String("NOK#Trenutni korisnik ne moze azurirati artikle"));
+                            logServerThreada.logujDogadjaj(Level.WARNING,new DTONalog(),"Korisnik koji nema pravo pokusao je azurirati artikal\n Korisnik: "+nalogTrenutnogKorisnika.getKorisnickiNalog());
+                        }
                         break;
                     case ADD_PRODUCT:
                         if(prijavljen[Korisnici.SKLADISTAR.getSkladistar()]){
