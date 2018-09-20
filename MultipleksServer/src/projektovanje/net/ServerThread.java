@@ -204,8 +204,22 @@ public class ServerThread extends Thread{
                     case UPDATE_PRODUCT:
                         break;
                     case ADD_PRODUCT:
+                        if(prijavljen[Korisnici.SKLADISTAR.getSkladistar()]){
+                            ServisZaArtikle.dodajArtikal(msg,konekcijaNaBazu,out,in);
+                            logServerThreada.logujDogadjaj(Level.FINE,this,"Dodan novi artikal");
+                        } else{
+                            out.writeObject(new String("NOK#Trenutni korisnik ne moze dodati artikle"));
+                            logServerThreada.logujDogadjaj(Level.WARNING,new DTONalog(),"Korisnik koji nema pravo pokusao je dodati novi artikal\n Korisnik: "+nalogTrenutnogKorisnika.getKorisnickiNalog());
+                        }
                         break;
                     case LIST_PRODUCTS:
+                        if (prijavljen[Korisnici.PRODAVACHARANEIPICA.getProdavacKarata()] || prijavljen[Korisnici.SKLADISTAR.getSkladistar()]){
+                            ServisZaArtikle.pregledSvihArtikala(msg,konekcijaNaBazu,out,in);
+                            logServerThreada.logujDogadjaj(Level.FINE,this,"Poslani svi artikli");
+                        } else{
+                            out.writeObject(new String("NOK#Trenutni korisnik ne moze pregledati trenutni repertoar"));
+                            logServerThreada.logujDogadjaj(Level.WARNING,new DTONalog(),"Korisnik koji nema pravo pokusao je pregledati sve artikle\n Korisnik: "+nalogTrenutnogKorisnika.getKorisnickiNalog());
+                        }
                         break;
                     case GET_CURRENT_REPERTOIRE:
                         if(prijavljen[Korisnici.MENADZER.getMenadzer()]|| prijavljen[Korisnici.PRODAVACKARATA.getProdavacKarata()] || prijavljen[Korisnici.KLIJENT.getKlijent()]){
@@ -213,7 +227,7 @@ public class ServerThread extends Thread{
                             logServerThreada.logujDogadjaj(Level.FINE,this,"Poslan trenutni repertoar");
                         } else{
                             out.writeObject(new String("NOK#Trenutni korisnik ne moze pregledati trenutni repertoar"));
-                            logServerThreada.logujDogadjaj(Level.WARNING,this,"Korisnik koji nema pravo pokusa je pregledati trenutni repertoar\n Korisnik: "+nalogTrenutnogKorisnika.getKorisnickiNalog());
+                            logServerThreada.logujDogadjaj(Level.WARNING,new DTONalog(),"Korisnik koji nema pravo pokusao je pregledati trenutni repertoar\n Korisnik: "+nalogTrenutnogKorisnika.getKorisnickiNalog());
                         }
                         break;
                     case LIST_REPERTOIRE:
@@ -222,7 +236,7 @@ public class ServerThread extends Thread{
                             logServerThreada.logujDogadjaj(Level.FINE, this,"Poslani svi repertoari");
                         } else{
                             out.writeObject(new String("NOK#Trenutni korisnik ne moze pregledati repertoare"));
-                            logServerThreada.logujDogadjaj(Level.FINE, this,"Korisnik koji nema pravo pokusao pregledati repertoare\n Korisnik: "+nalogTrenutnogKorisnika.getKorisnickiNalog());
+                            logServerThreada.logujDogadjaj(Level.FINE, new DTONalog(),"Korisnik koji nema pravo pokusao pregledati repertoare\n Korisnik: "+nalogTrenutnogKorisnika.getKorisnickiNalog());
                         }
                         break;
                     case ADD_MOVIE_TO_REPERTOIRE:

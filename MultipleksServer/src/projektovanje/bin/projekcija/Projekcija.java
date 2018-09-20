@@ -70,4 +70,12 @@ public class Projekcija implements Serializable {
     public void setZaposleni(Zaposleni zaposleni) {
         this.zaposleni = zaposleni;
     }
+
+    public Integer getIdRepertoara() {
+        return idRepertoara;
+    }
+
+    public void setIdRepertoara(Integer idRepertoara) {
+        this.idRepertoara = idRepertoara;
+    }
 }

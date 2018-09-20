@@ -44,10 +44,18 @@ public class MainTest {
 
         List<DTOFilm> filmovi = (List<DTOFilm>) new DBDAOFilm().citajIzBaze(c);
         List<Projekcija> projekcije = new ArrayList<>();
-        filmovi.forEach(x->projekcije.add(new Projekcija(1,x.getFilm(),new Date(),zaposleniDto.getZaposleni())));
-        Repertoar repertoar = new Repertoar(1,projekcije,zaposleniDto.getZaposleni(),new Date(),new Date(System.currentTimeMillis()+10000));
-        oos.writeObject(new DTORepertoar(repertoar));
-        ServisZaRepertoar.dodavanjeRepertoara("msg",c,oos,ois);
+        filmovi.forEach(x->projekcije.add(new Projekcija(1,x.getFilm(),new Date(),zaposleniDto.getZaposleni(),5)));
+        Repertoar repertoar = new Repertoar(5,projekcije,zaposleniDto.getZaposleni(),new Date(),new Date(System.currentTimeMillis()+10000));
+        Projekcija p = new Projekcija(1,filmovi.get(2).getFilm(),new Date(),zaposleniDto.getZaposleni(),5);
+       // oos.writeObject(new DTOProjekcija(p));
+        //oos.writeObject(new DTORepertoar(repertoar));
+       // ServisZaRepertoar.dodavanjeRepertoara("msg",c,oos,ois);
+      //  ServisZaRepertoar.dodavanjeFilmaNaRepetoar("msg",c,oos,ois);
+        //String msg = (String)ois.readObject();
+        //System.out.println(msg);
+        ServisZaRepertoar.pregledSvihRepertoara("msg",c,oos,ois);
+        List<DTORepertoar> repertoari = (List<DTORepertoar>) ois.readObject();
+        repertoari.forEach(x-> System.out.println(x.getRepertoar()));
         System.out.println("Repertoar bi trebalo da je dodan");
     }
 }
