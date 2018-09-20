@@ -109,4 +109,19 @@ public class DBDAOArtikal implements IDBDAO {
     public List<DTOArtikal> ispisi(Connection konekcija) throws java.sql.SQLException{
         return citajIzBaze(konekcija);
     }
+
+    public Boolean smanjiKolicinuArtikla(Integer idArtikla,Integer novaKolicina,Connection konekcijaNaBazu) throws SQLException {
+        DTOArtikal artikal = (DTOArtikal) pretraziBazu(konekcijaNaBazu,String.valueOf(idArtikla));
+        PreparedStatement preparedStatement = konekcijaNaBazu.prepareStatement(
+                "update Artikal" +
+                        "   kolicinaNaStanju = ?," +
+                        "   where idArtikla = ?");
+
+        preparedStatement.setInt(1, novaKolicina);
+        preparedStatement.setInt(2, artikal.getArtikal().getIdArtikla());
+
+
+        preparedStatement.executeUpdate();
+        return true;
+    }
 }

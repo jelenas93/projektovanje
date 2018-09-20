@@ -216,19 +216,22 @@ public class ServerThread extends Thread{
                     case LIST_INVOICES:
                         break;
                     case LIST_ALL_BILLS:
+                        if(prijavljen[Korisnici.PRODAVACKARATA.getProdavacKarata()] || prijavljen[Korisnici.RACUNOVODJA.getRacunovodja()]){
+                            ServisZaRacune.slanjeSvihRacuna(msg,konekcijaNaBazu,out,in);
+                        }
                         break;
                     case ADD_BILL:
+                        if(prijavljen[Korisnici.PRODAVACHARANEIPICA.getProdavacHraneIPica()]){
+                            ServisZaRacune.dodajRacun(msg,konekcijaNaBazu,in,out);
+                            logServerThreada.logujDogadjaj(Level.FINE,this,"Uspjesno dodan racun");
+                        } else{
+                            out.writeObject(new String("NOK#Trenutni korisnik nema pravo dodavanja racuna"));
+                            logServerThreada.logujDogadjaj(Level.WARNING,new DTONalog(),"Korisnik koji nema pravo je pokusao dodati racun\n Korisnik:"+nalogTrenutnogKorisnika.getKorisnickiNalog());
+                        }
                         break;
                     case UPDATE_PRODUCT:
                         break;
                     case ADD_PRODUCT:
-                        if(prijavljen[Korisnici.SKLADISTAR.getSkladistar()]){
-                            ServisZaArtikle.dodajArtikal(msg,konekcijaNaBazu,out,in);
-                            logServerThreada.logujDogadjaj(Level.FINE,this,"Dodan novi artikal");
-                        } else{
-                            out.writeObject(new String("NOK#Trenutni korisnik ne moze dodati artikle"));
-                            logServerThreada.logujDogadjaj(Level.WARNING,new DTONalog(),"Korisnik koji nema pravo pokusao je dodati novi artikal\n Korisnik: "+nalogTrenutnogKorisnika.getKorisnickiNalog());
-                        }
                         break;
                     case LIST_PRODUCTS:
                         if (prijavljen[Korisnici.PRODAVACHARANEIPICA.getProdavacKarata()] || prijavljen[Korisnici.SKLADISTAR.getSkladistar()]){

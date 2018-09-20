@@ -18,10 +18,11 @@ public class DBDAOStavka implements IDBDAO {
     public Boolean upisiUBazu(IDTO dtoInstanca, Connection konekcijaNaBazu) throws SQLException {
         DTOStavka lokalnaDTOStavka = (DTOStavka) dtoInstanca;
         Stavka lokalnaStavka = lokalnaDTOStavka.getStavka();
-        PreparedStatement ps = konekcijaNaBazu.prepareStatement("insert into Stavka values (default,?,?,?)");
+        PreparedStatement ps = konekcijaNaBazu.prepareStatement("insert into Stavka values (default,?,?,?,?)");
         ps.setInt(1,lokalnaStavka.getKolicina());
         ps.setDouble(2,lokalnaStavka.getUkupaCijena());
         ps.setInt(3,lokalnaStavka.getArtikal().getIdArtikla());
+        ps.setInt(4,lokalnaStavka.getIdRacuna());
         ps.executeUpdate();
         return true;
     }
@@ -36,7 +37,7 @@ public class DBDAOStavka implements IDBDAO {
             Integer idArtikla = rs.getInt(4);
             DTOArtikal dtoArtikal = (DTOArtikal) artikalDao.pretraziBazu(konekcijaNaBazu,String.valueOf(idArtikla));
             Stavka procitanaStavka = new Stavka(rs.getInt(1),rs.getInt(2),
-                    rs.getDouble(3),dtoArtikal.getArtikal());
+                    rs.getDouble(3),dtoArtikal.getArtikal(),rs.getInt(5));
             povratnaVrijednost.add(new DTOStavka(procitanaStavka));
         }
         return povratnaVrijednost;
@@ -71,8 +72,9 @@ public class DBDAOStavka implements IDBDAO {
             int kolicina = rezultat.getInt(2);
             Double ukupnaCijena = rezultat.getDouble(3);
             int idArtikla = rezultat.getInt(4);
+            int idRacuna = rezultat.getInt(5);
             DTOArtikal dtoArtikal =(DTOArtikal) new DBDAOArtikal().pretraziBazu(konekcijaNaBazu, String.valueOf(idArtikla));
-            povratnaVrijednost = new DTOStavka(new Stavka(id,kolicina,ukupnaCijena,dtoArtikal.getArtikal()));
+            povratnaVrijednost = new DTOStavka(new Stavka(id,kolicina,ukupnaCijena,dtoArtikal.getArtikal(),idArtikla));
         }
         return povratnaVrijednost;
     }
@@ -94,7 +96,7 @@ public class DBDAOStavka implements IDBDAO {
             Double ukupnaCijena = rezultat.getDouble(3);
             int idArtikla = rezultat.getInt(4);
             DTOArtikal dtoArtikal =(DTOArtikal) artDao.pretraziBazu(konekcijaNaBazu,String.valueOf(idArtikla));
-            povratnaVrijednost.add(new Stavka(id,kolicina,ukupnaCijena,dtoArtikal.getArtikal()));
+            povratnaVrijednost.add(new Stavka(id,kolicina,ukupnaCijena,dtoArtikal.getArtikal(),idRacuna));
         }
         return povratnaVrijednost;
     }

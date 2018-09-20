@@ -10,6 +10,7 @@ public class Stavka implements Serializable {
     private Integer kolicina;
     private Double ukupaCijena;
     private Artikal artikal;
+    private Integer idRacuna;
 
     public Stavka() {
     }
@@ -24,11 +25,12 @@ public class Stavka implements Serializable {
                 '}';
     }
 
-    public Stavka(Integer idStavke, Integer kolicina, Double ukupaCijena, Artikal artikal) {
+    public Stavka(Integer idStavke, Integer kolicina, Double ukupaCijena, Artikal artikal,Integer idRacuna) {
         this.idStavke = idStavke;
         this.kolicina = kolicina;
         this.ukupaCijena = ukupaCijena;
         this.artikal = artikal;
+        this.idRacuna=idRacuna;
     }
 
     public Integer getIdStavke() {
@@ -61,5 +63,13 @@ public class Stavka implements Serializable {
 
     public void setArtikal(Artikal artikal) {
         this.artikal = artikal;
+    }
+
+    public Integer getIdRacuna() {
+        return idRacuna;
+    }
+
+    public void setIdRacuna(Integer idRacuna) {
+        this.idRacuna = idRacuna;
     }
 }
