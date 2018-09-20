@@ -225,13 +225,49 @@ public class ServerThread extends Thread{
                         break;
                     case LIST_PRODUCTS:
                         break;
+                    case GET_CURRENT_REPERTOIRE:
+                        if(prijavljen[Korisnici.MENADZER.getMenadzer()]|| prijavljen[Korisnici.PRODAVACKARATA.getProdavacKarata()] || prijavljen[Korisnici.KLIJENT.getKlijent()]){
+                            ServisZaRepertoar.pregledTrenutnogRepertoara(msg,konekcijaNaBazu,out,in);
+                            logServerThreada.logujDogadjaj(Level.FINE,this,"Poslan trenutni repertoar");
+                        } else{
+                            out.writeObject(new String("NOK#Trenutni korisnik ne moze pregledati trenutni repertoar"));
+                            logServerThreada.logujDogadjaj(Level.WARNING,this,"Korisnik koji nema pravo pokusa je pregledati trenutni repertoar\n Korisnik: "+nalogTrenutnogKorisnika.getKorisnickiNalog());
+                        }
+                        break;
                     case LIST_REPERTOIRE:
+                        if(prijavljen[Korisnici.MENADZER.getMenadzer()]|| prijavljen[Korisnici.PRODAVACKARATA.getProdavacKarata()] || prijavljen[Korisnici.KLIJENT.getKlijent()]){
+                            ServisZaRepertoar.pregledSvihRepertoara(msg,konekcijaNaBazu,out,in);
+                            logServerThreada.logujDogadjaj(Level.FINE, this,"Poslani svi repertoari");
+                        } else{
+                            out.writeObject(new String("NOK#Trenutni korisnik ne moze pregledati repertoare"));
+                            logServerThreada.logujDogadjaj(Level.FINE, this,"Korisnik koji nema pravo pokusao pregledati repertoare\n Korisnik: "+nalogTrenutnogKorisnika.getKorisnickiNalog());
+                        }
                         break;
                     case ADD_MOVIE_TO_REPERTOIRE:
+                        if(prijavljen[Korisnici.MENADZER.getMenadzer()]){
+                            ServisZaRepertoar.dodavanjeFilmaNaRepetoar(msg,konekcijaNaBazu,out,in);
+                            logServerThreada.logujDogadjaj(Level.FINE,this,"Uspjesno dodan novi film na repertoar");
+                        } else{
+                            out.writeObject(new String("NOK#Trenutni korisnik ne moze dodavati filmove na repertoar"));
+                            logServerThreada.logujDogadjaj(Level.WARNING,new DTONalog(),"Korisnik koji nema pravo pokusao dodati film na repertoar\n Korisnik:" + nalogTrenutnogKorisnika.getKorisnickiNalog());
+                        }
                         break;
                     case ADD_REPERTOIRE:
-                        break;
+                        if(prijavljen[Korisnici.MENADZER.getMenadzer()]){
+                            ServisZaRepertoar.dodavanjeRepertoara(msg,konekcijaNaBazu,out,in);
+                            logServerThreada.logujDogadjaj(Level.FINE,this,"Uspjesno dodan repertoar");
+                        } else{
+                            out.writeObject(new String("NOK# Prijavljeni korisnik nema pravo da dodaje repertoar"));
+                            logServerThreada.logujDogadjaj(Level.WARNING,new DTONalog(),"Korisnik koji nema pravo pokusao dodati repertoar\n Korisnik: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
+                        }
                     case SELL_TICKET:
+                        if(prijavljen[Korisnici.PRODAVACKARATA.getProdavacKarata()]){
+                            ServisZaProdavcaKarata.prodajaKarte(msg,konekcijaNaBazu,out,in);
+                            logServerThreada.logujDogadjaj(Level.FINE,this,"Uspjesno prodana karta");
+                        } else {
+                            out.writeObject(new String("NOK#Prijavljeni korisnik nema pravo da prodaje karte"));
+                            logServerThreada.logujDogadjaj(Level.WARNING,new DTONalog(),"Korisnik koji nema pravo pokusao prodati kartu\n Korisnik: "+ nalogTrenutnogKorisnika.getKorisnickiNalog());
+                        }
                         break;
                     case RESERVE_TICKET:
                         if(prijavljen[Korisnici.KLIJENT.getKlijent()] || prijavljen[Korisnici.PRODAVACKARATA.getProdavacKarata()]){
@@ -250,7 +286,6 @@ public class ServerThread extends Thread{
                             out.writeObject(new String("NOK#Prijavljeni korisnik nema pravo da otkaze rezervaciju"));
                             logServerThreada.logujDogadjaj(Level.WARNING,new DTONalog(),"Kornisnik koji nema pravo da otkaze rezervaciju\n Korisnik: "+ nalogTrenutnogKorisnika.getKorisnickiNalog());
                         }
-
                         break;
                     default:
                         logServerThreada.logujDogadjaj(Level.SEVERE, this, "Neispravan protokol. Poruka = " + msg);

@@ -25,39 +25,41 @@ ispis svih projekcija:LIST_PROJECTIONS, odgovor: List<Projekcija>
 
 dodavanje nove sale: ADD_MOVIE_HALL, odgovor: WHICHONE, poruka: objekat tipa sala
 
-dodavanje filma: ADD_MOVIE, odgovor WHICHONE, poruka: objekat tipa DTOFilm
-azuriranje filma: UPDATE_MOVIE, odgovor: WHICHONE, poruka: objekat tipa DTOFilm sa novim podacima, odgovor OK ili NOK+razlog
-pregled filma: GIVE_ME_MOVIE, odgovor: List<DTOFilm>
+dodavanje filma: ADD_MOVIE, odgovor WHICHONE, poruka: objekat tipa Film
+azuriranje filma: UPDATE_MOVIE, odgovor: WHICHONE, poruka: objekat tipa Film sa novim podacima, odgovor OK ili NOK+razlog
+pregled filma: GIVE_ME_MOVIE#imeFilma, odgovor: List<Film>
 
-dodavanje ponude: ADD_OFFER, odgovor: WHICHONE, poruka: objekat tipa DTOPonuda
-pregled svih ponuda: LIST_OFFERS, odgovor: List<DTOPonuda>
+dodavanje ponude: ADD_OFFER, odgovor: WHICHONE, poruka: objekat tipa Ponuda
+pregled svih ponuda: LIST_OFFERS, odgovor: List<Ponuda>
 
 dodavanje plate: ADD_PAYMENT,odgovor: WHICHONE, poruka: objeka tipa DTOZaposleni
 azuriranje plate: UPDATE_PAYMENT, odgovor WHICHONE, poruka: objekat tipa DTOZaposleni sa novim podacima u polju DTOZaposleni.Zaposleni.Plata
 pregled svih plata: LIST_PAYMENTS, odgovor List<DTOZaposleni>
 
-dodavanje opreme: ADD_EQUIPMENT, odgovor WHICHONE, poruka: objekat tipa DTOOprema
-azuriranje opreme: UPDATE_EQUIPMENT, odgovor WHICHONE, poruka:objekat tipa DTOOprema sa novim podacima
+dodavanje opreme: ADD_EQUIPMENT, odgovor WHICHONE, poruka: objekat tipa Oprema
+azuriranje opreme: UPDATE_EQUIPMENT, odgovor WHICHONE, poruka:objekat tipa Oprema sa novim podacima
 
-prikazi svu opremu: LIST_EQUIPMENT, odgovor List<DTOOprema>
-pretrazi opremu: GET_EQUIPMENT#NAME, odgovor List<DTOOprema>
+prikazi svu opremu: LIST_EQUIPMENT, odgovor List<Oprema>
+pretrazi opremu: GET_EQUIPMENT#NAME, odgovor List<Oprema>
 
-dodavanje fakture: ADD_INVOICE, odgovor WHICHONE, poruka: objekat tipa DTOUlaznaFaktura
-azuriranje fakture: UPDATE_INVOICE, odgovor WHICHONE, poruka:objekat tipa DTOUlaznaFaktura sa novim podacima
-pregledaj sve fakture: LIST_INVOICES, odgovor LIST<DTOUlaznaFaktura>
+dodavanje fakture: ADD_INVOICE, odgovor WHICHONE, poruka: objekat tipa Faktura
+azuriranje fakture: UPDATE_INVOICE, odgovor WHICHONE, poruka:objekat tipa Faktura sa novim podacima
+pregledaj sve fakture: LIST_INVOICES, odgovor LIST<Faktura>
 
-pregled svih racuna: LIST_ALL_BILLS, odgovor List<DTORacun>
-upis racuna u bazu: ADDBILL, odgovor WHICH_ONE, poruka objekat klase DTORacun
+pregled svih racuna: LIST_ALL_BILLS, odgovor List<Racun>
+upis racuna u bazu: ADDBILL, odgovor WHICH_ONE, poruka objekat klase Racun
 
-azuriranje artikla: UPDATE_PRODUCT, odgovor WHICHONE, poruka: objekat klase DTOProizvod sa novim podacima
-dodavanje artikla: ADD_PRODUCT, odgovor WHICHONE, poruka: objekat klase DTOProizvod
-pregled svih artikala: LIST_PRODUCTS, odgovor List<DTOArtikal>
+azuriranje artikla: UPDATE_PRODUCT, odgovor WHICHONE, poruka: objekat klase Proizvod sa novim podacima
+dodavanje artikla: ADD_PRODUCT, odgovor WHICHONE, poruka: objekat klase Proizvod
+pregled svih artikala: LIST_PRODUCTS, odgovor List<Artikal>
 
+pregled trenutnog repertoara: CURRENT_REPERTOIRE odgovor: objekat tipa DTORepertoar
 pregled repertoara: LIST_REPERTOIRE, odgovor List<DTORepertoar>
-dodaj film na repertoar: ADD_MOVIE_TO_REPERTOIRE,odgovor: GIVE_ME_DATA,poruka: objekat klase DTOProjekcija, odgovor GIVE_ ME_REPERTOAR ,objekat klase DTORepertoar (2 poruke za redom)
-dodaj novi repertoar: ADD_REPERTOIRE, odgovor WHICHONE, poruka: objekat klase DTORepertoar
+dodaj film na repertoar: ADD_MOVIE_TO_REPERTOIRE,odgovor: GIVE_ME_DATA,poruka: objekat klase DTOProjekcija, odgovor GIVE_ ME_REPERTOIRE ,objekat klase DTORepertoar (sa pravim ID), odgovor OK ili NOK#razlog
+dodaj novi repertoar: ADD_REPERTOIRE, odgovor WHICHONE, poruka: objekat klase Repertoar (repertoar koji je vec popunjen projekcijama),odgovor OK ili NOK#razlog
 
-prodaja karte: SELL_TICKET, odgovor WHICHONE , objekat klase DTOKarta (2 poruke zaredom)
-rezervacija karte: RESERVE_TICKET, odgovor WHICHONE, objekat klase DTOKarta (2 poruke zaredom)
-otkazi rezervaciju: CANCEL_RESERVATION, odgovor WHICHONE ,objekat klase DTOKarta (2 poruke zaredom)
+prodaja karte: SELL_TICKET, odgovor WHICHONE , objekat klase DTOIzdavanje, odgovor OK ili NOK;
+rezervacija karte: RESERVE_TICKET, odgovor WHICHONE, objekat klase DTOIzdavanje, odgovor OK ili NOK;
+otkazi rezervaciju: CANCEL_RESERVATION, odgovor WHICHONE ,objekat klase DTOIzdavanje,odgovor OK ili NOK;
+
  

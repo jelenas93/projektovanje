@@ -23,8 +23,20 @@ public class ServisZaProdavcaKarata {
 
     }
 
-    public static void prodajaKarte(){
-
+    public static void prodajaKarte(String msg, Connection konekcijaNaBazu, ObjectOutputStream out, ObjectInputStream in) throws IOException, ClassNotFoundException, SQLException {
+        String odgovor = new String("WHICHONE");
+        out.writeObject(odgovor);
+        DTOIzdavanje izdavanjeDTO = (DTOIzdavanje)in.readObject();
+        Izdavanje izdavanje = izdavanjeDTO.getIzdavanje();
+        Karta k = izdavanje.getKarta();
+        k.setRezervisana(false);
+        DBDAOKarta kartaDAO = new DBDAOKarta();
+        kartaDAO.upisiUBazu(new DTOKarta(k),konekcijaNaBazu);
+        int kartaId = kartaDAO.zadnjiUmetnutiId(konekcijaNaBazu);
+        izdavanje.getKarta().setIdKarte(kartaId);
+        new DBDAOIzdavanje().upisiUBazu(new DTOIzdavanje(izdavanje),konekcijaNaBazu);
+        odgovor = new String("OK");
+        out.writeObject(odgovor);
     }
 
     public static void rezervacijaKarte(String msg, Connection konekcijaNaBazu, ObjectOutputStream out, ObjectInputStream in) throws IOException, ClassNotFoundException, SQLException {

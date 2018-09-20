@@ -54,7 +54,6 @@ public class DBDAOKarta implements IDBDAO {
     public Boolean azurirajBazu(IDTO dtoKarta, Connection konekcijaNaBazu) throws SQLException {
         DTOKarta lokalnaKarta = (DTOKarta) dtoKarta;
         PreparedStatement preparedStatement;
-        if(lokalnaKarta.getKarta().getRezervisana()) {
             preparedStatement = konekcijaNaBazu.prepareStatement("" +
                     "update Karta" +
                     "   set datumIzdavanja = ?," +
@@ -64,23 +63,9 @@ public class DBDAOKarta implements IDBDAO {
                     "   where idKarte = ?");
             preparedStatement.setDate(1, new java.sql.Date(lokalnaKarta.getKarta().getDatumIzdavanja().getTime()));
             preparedStatement.setDouble(2, lokalnaKarta.getKarta().getCijena());
+            preparedStatement.setInt(5, lokalnaKarta.getKarta().getIdKarte());
             preparedStatement.setBoolean(3, lokalnaKarta.getKarta().getRezervisana());
             preparedStatement.setString(4, lokalnaKarta.getKarta().getNalog().getKorisnickiNalog());
-            preparedStatement.setInt(5, lokalnaKarta.getKarta().getIdKarte());
-        }else{
-            preparedStatement = konekcijaNaBazu.prepareStatement("" +
-                    "update Karta" +
-                    "   set datumIzdavanja = ?," +
-                    "       cijena = ?," +
-                    "       rezervisana = ?," +
-                    "       korisnickoIme = ?" +
-                    "   where idKarte = ?");
-            preparedStatement.setDate(1, new java.sql.Date(lokalnaKarta.getKarta().getDatumIzdavanja().getTime()));
-            preparedStatement.setDouble(2, lokalnaKarta.getKarta().getCijena());
-            preparedStatement.setInt(5, lokalnaKarta.getKarta().getIdKarte());
-            preparedStatement.setBoolean(3, false);
-            preparedStatement.setNull(4, Types.VARCHAR);
-        }
         preparedStatement.executeUpdate();
         return true;
     }
