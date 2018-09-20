@@ -73,7 +73,7 @@ public class ServerThread extends Thread{
                             ServisZaAdministratora.prikazListeZaposlenih(msg, konekcijaNaBazu, out);
                             logServerThreada.logujDogadjaj(Level.FINEST, new ServisZaAdministratora(), "Uspjesno vracanje liste zaposlenih na zahtjev administratora.\n Administrator: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
                         }else if(prijavljen[Korisnici.RACUNOVODJA.getRacunovodja()]){
-                            ServisZaRacunovodju.prikazListeZaposlenih(msg, konekcijaNaBazu, out);
+                            ServisZaRacunovodju.prikazListeZaposlenih(konekcijaNaBazu, out, nalogTrenutnogKorisnika);
                             logServerThreada.logujDogadjaj(Level.FINEST, new ServisZaRacunovodju(), "Uspjesno vracanje liste zaposlenih na zahtjev racunovodje.\n Racunovodja: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
                         }else{
                             logServerThreada.logujDogadjaj(Level.WARNING, new DTONalog(), "Korisnik koji nije nadlezan za pregled zaposlenih je poslao zahtjev.\nKorisnik: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
@@ -178,10 +178,28 @@ public class ServerThread extends Thread{
                         }
                         break;
                     case ADD_PAYMENT:
+                        if (prijavljen[Korisnici.RACUNOVODJA.getRacunovodja()]) {
+                            ServisZaRacunovodju.dodajPlatuZaposlenom(in,out,konekcijaNaBazu,nalogTrenutnogKorisnika);
+                        }else{
+                            logServerThreada.logujDogadjaj(Level.WARNING, new DTONalog(), "Korisnik koji nema pravo dodavati plate.\nKorisnik: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
+                            out.writeObject(new String("NOK#Prijavljeni korisnik nema pravo da dodaje novu platu."));
+                        }
                         break;
                     case UPDATE_PAYMENT:
+                        if (prijavljen[Korisnici.RACUNOVODJA.getRacunovodja()]) {
+                            ServisZaRacunovodju.azuriranjeZaposlenog(konekcijaNaBazu,out,in,nalogTrenutnogKorisnika);
+                        } else {
+                            logServerThreada.logujDogadjaj(Level.WARNING, new DTONalog(), "Korisnik koji nema pravo izmjeniti plate.\nKorisnik: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
+                            out.writeObject(new String("NOK#Prijavljeni korisnik nema pravo da izmjeni platu."));
+                        }
                         break;
                     case LIST_PAYMENTS:
+                        if (prijavljen[Korisnici.RACUNOVODJA.getRacunovodja()]) {
+                            ServisZaRacunovodju.prikazListeZaposlenih(konekcijaNaBazu,out,nalogTrenutnogKorisnika);
+                        } else {
+                            logServerThreada.logujDogadjaj(Level.WARNING, new DTONalog(), "Korisnik koji nema pravo izlistati plate.\nKorisnik: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
+                            out.writeObject(new String("NOK#Prijavljeni korisnik nema pravo da izlista plate."));
+                        }
                         break;
                     case ADD_EQUIPMENT:
                         break;

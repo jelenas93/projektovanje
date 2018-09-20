@@ -31,6 +31,16 @@ public class DBDAOZaposleni implements IDBDAO {
         return true;
     }
 
+    public void promjeniPlatu(Integer idZaposlenog, Integer idPlate, Connection konekcijaNaBazu) throws SQLException {
+        PreparedStatement ps = konekcijaNaBazu.prepareStatement("" +
+                "update Zaposleni" +
+                "   set idPlate = ?" +
+                "   where idZaposlenog = ?");
+        ps.setInt(1, idPlate);
+        ps.setInt(2, idZaposlenog);
+        ps.executeUpdate();
+    }
+
 
     @Override
     public List<DTOZaposleni> citajIzBaze(Connection konekcijaNaBazu) throws SQLException {
