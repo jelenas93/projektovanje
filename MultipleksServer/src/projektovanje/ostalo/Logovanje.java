@@ -28,7 +28,7 @@ public class Logovanje {
 		}
 	
 	synchronized public void logujDogadjaj(Level level,Object klasa, String dogadjaj) {
-		logger.log(level, dogadjaj, klasa.getClass());
+		logger.log(level, dogadjaj, klasa);
 	}
 
 	public Logovanje(){
