@@ -19,12 +19,14 @@ public class ServisZaRepertoar {
 
     public static void dodavanjeRepertoara(String msg, Connection konekcijaNaBazu, ObjectOutputStream out, ObjectInputStream in) throws IOException, ClassNotFoundException, SQLException {
         String odgovor = new String("WHICHONE");
+        out.writeObject(odgovor);
         DTORepertoar repertoar = (DTORepertoar) in.readObject();
         DBDAOProjekcija projekcijaDao = new DBDAOProjekcija();
         new DBDAORepertoar().upisiUBazu(repertoar,konekcijaNaBazu);
-
+        int idRepertoara = projekcijaDao.zadnjiUmetnutiId(konekcijaNaBazu);
         List<Projekcija> projekcije = repertoar.getRepertoar().getProjekcija();
         for (Projekcija projekcija : projekcije) {
+            projekcija.setIdRepertoara(idRepertoara);
             projekcijaDao.upisiUBazu(new DTOProjekcija(projekcija),konekcijaNaBazu);
         }
         odgovor = new String("OK");
@@ -32,15 +34,15 @@ public class ServisZaRepertoar {
     }
 
     public static void dodavanjeFilmaNaRepetoar(String msg, Connection konekcijaNaBazu, ObjectOutputStream out, ObjectInputStream in) throws IOException, ClassNotFoundException, SQLException {
-        String odgovor = new String("GIVE_ME_DATA");
-        out.writeObject(odgovor);
+        /*String odgovor = new String("GIVE_ME_DATA");
+        out.writeObject(odgovor);*/
         DTOProjekcija projekcija = (DTOProjekcija)in.readObject();
-        odgovor = new String("GIVE_ME_REPERTOIRE");
-        out.writeObject(odgovor);
+        /*odgovor = new String("GIVE_ME_REPERTOIRE");
+        out.writeObject(odgovor);*/
         DTORepertoar repertoar = (DTORepertoar) in.readObject();
         new DBDAORepertoar().azurirajBazu(repertoar,konekcijaNaBazu);
         new DBDAOProjekcija().upisiUBazu(projekcija,konekcijaNaBazu);
-        odgovor = new String("OK");
+       String odgovor = new String("OK");
         out.writeObject(odgovor);
     }
 
