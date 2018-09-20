@@ -273,6 +273,13 @@ public class ServerThread extends Thread{
                         }
                         break;
                     case ADD_PRODUCT:
+                        if(prijavljen[Korisnici.SKLADISTAR.getSkladistar()]){
+                            ServisZaArtikle.dodajArtikal(msg,konekcijaNaBazu,out,in);
+                            logServerThreada.logujDogadjaj(Level.FINE,this,"Dodan artikal");
+                        } else{
+                            out.writeObject(new String("NOK#Trenutni korisnik ne moze dodati artikle"));
+                            logServerThreada.logujDogadjaj(Level.WARNING,new DTONalog(),"Korisnik koji nema pravo pokusao je dodati artikal\n Korisnik: "+nalogTrenutnogKorisnika.getKorisnickiNalog());
+                        }
                         break;
                     case LIST_PRODUCTS:
                         if (prijavljen[Korisnici.PRODAVACHARANEIPICA.getProdavacKarata()] || prijavljen[Korisnici.SKLADISTAR.getSkladistar()]){
