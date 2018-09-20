@@ -42,21 +42,20 @@ azuriranje opreme: UPDATE_EQUIPMENT, odgovor WHICHONE, poruka:objekat tipa DTOOp
 prikazi svu opremu: LIST_EQUIPMENT, odgovor List<DTOOprema>
 pretrazi opremu: GET_EQUIPMENT#NAME, odgovor List<DTOOprema>
 
-dodavanje fakture: ADD_INVOICE, odgovor WHICHONE, poruka: objekat tipa Faktura
-azuriranje fakture: UPDATE_INVOICE, odgovor WHICHONE, poruka:objekat tipa Faktura sa novim podacima
-pregledaj sve fakture: LIST_INVOICES, odgovor LIST<Faktura>
+dodavanje fakture: ADD_INVOICE, odgovor WHICHONE, poruka: objekat tipa DTOUlaznaFakturaFaktura
+pregledaj sve fakture: LIST_INVOICES, odgovor LIST<DTOUlaznaFakturaFaktura>
 
-pregled svih racuna: LIST_ALL_BILLS, odgovor List<Racun>
-upis racuna u bazu: ADDBILL, odgovor WHICH_ONE, poruka objekat klase Racun
+pregled svih racuna: LIST_ALL_BILLS, odgovor List<DTORacun>
+upis racuna u bazu: ADDBILL, odgovor WHICH_ONE, poruka objekat klase DTORacun
 
-azuriranje artikla: UPDATE_PRODUCT, odgovor WHICHONE, poruka: objekat klase Proizvod sa novim podacima
-dodavanje artikla: ADD_PRODUCT, odgovor WHICHONE, poruka: objekat klase Proizvod
-pregled svih artikala: LIST_PRODUCTS, odgovor List<Artikal>
+azuriranje artikla: UPDATE_PRODUCT, odgovor WHICHONE, poruka: objekat klase DTOArtikal sa novim podacima
+dodavanje artikla: ADD_PRODUCT, odgovor WHICHONE, poruka: objekat klase DTOArtikal
+pregled svih artikala: LIST_PRODUCTS, odgovor List<DTOArtikal>
 
 pregled trenutnog repertoara: CURRENT_REPERTOIRE odgovor: objekat tipa DTORepertoar
 pregled repertoara: LIST_REPERTOIRE, odgovor List<DTORepertoar>
 dodaj film na repertoar: ADD_MOVIE_TO_REPERTOIRE,odgovor: GIVE_ME_DATA,poruka: objekat klase DTOProjekcija, odgovor GIVE_ ME_REPERTOIRE ,objekat klase DTORepertoar (sa pravim ID), odgovor OK ili NOK#razlog
-dodaj novi repertoar: ADD_REPERTOIRE, odgovor WHICHONE, poruka: objekat klase Repertoar (repertoar koji je vec popunjen projekcijama),odgovor OK ili NOK#razlog
+dodaj novi repertoar: ADD_REPERTOIRE, odgovor WHICHONE, poruka: objekat klase DTORepertoar (repertoar koji je vec popunjen projekcijama),odgovor OK ili NOK#razlog
 
 prodaja karte: SELL_TICKET, odgovor WHICHONE , objekat klase DTOIzdavanje, odgovor OK ili NOK;
 rezervacija karte: RESERVE_TICKET, odgovor WHICHONE, objekat klase DTOIzdavanje, odgovor OK ili NOK;

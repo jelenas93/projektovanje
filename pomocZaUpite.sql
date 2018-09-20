@@ -72,6 +72,10 @@ insert into Projekcija values (default,1,'2006-01-31',1);
 select * from Projekcija;
 insert into Projekcija values (default,1,'2006-01-21',2);
 
+update Plata
+set		datumDo = '2022-09-21'
+where idPlate < 3;
+
 #trazenje odredjenih projekcija
 
 select f.naziv,p.vrijemeFilma from Projekcija as p inner join Film as f;# where f.naziv = "Prvi film";
@@ -82,10 +86,13 @@ insert into repertoarProjekcija values (1,2);
 #izlistavanje svih projekcija sa repertoara 
 select f.naziv,p.idProjekcije,p.idFilma,p.VrijemeFilma from RepertoarProjekcija as rp inner join Projekcija as p inner join Film as f where rp.idProjekcije = p.idProjekcije and p.idFilma=f.idFilma;
 
-insert into Plata values(1,0,0,0,0,0,0,0,0,0,0,0,0,"00-00-00","00-00-00");
+
+insert into Plata values(2,0,0,0,0,0,0,0,0,0,0,0,0,"00-00-00","00-00-00");
 
 
-select * from Film;
+select * from Plata;
+
+insert into Administrator values(1);
 
 update Film set idZaposlenog = 9,
                             naziv = 'TerminatorSila',
@@ -97,30 +104,28 @@ update Film set idZaposlenog = 9,
 
 insert into nalog values ("Coa","Coa");
 
-select * from Oprema;
+insert into ProdavacHraneIPica values(6);
+delete from Plata where idPlate = 2;
+select * from Nalog;
 select * from Zaposleni;
+select * from Plata;
+select * from Administrator;
+select * from Klijent;
+insert into Administrator values(9);
 
-select * from Ponuda;
-select * from FilmPonuda;
-select * from Film;
+update Nalog
+set hashLozinke = "92668751"
+where korisnickoIme = "admin";
 
-insert into FilmPonuda values(3,1);
+insert into Racunovodja values(6);
+insert into Zaposleni values(default, 9, 'Ime', 'Prezime', '2589631470357', true, 'Obavezno');
 
-update Zaposleni 
-	set idPlate = 1
-    where idZaposlenog = 2;
-select * from repertoarProjekcija;
+select last_insert_id() from Zaposleni;
 
+update nalog 
+set hashLozinke = ""
+where korisnickoIme = "jelena";
 
-select * from Projekcija;
-select * from Repertoar;
+delete from Administrator where idZaposlenog = 9;
 
-delete from  repertoarProjekcija;
-
-update Projekcija
-set idRepertoara = 1;
-
-select * from Stavka;
-select * from Racun;
-update Stavka 
-set idRacuna = 1;
+select * from Nalog;
