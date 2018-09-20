@@ -202,12 +202,36 @@ public class ServerThread extends Thread{
                         }
                         break;
                     case ADD_EQUIPMENT:
+                        if(prijavljen[Korisnici.KINOOPERATER.getKinoopreater()]){
+                            ServisZaKinooperatere.dodajOpremu(in,out,konekcijaNaBazu,nalogTrenutnogKorisnika);
+                        }else{
+                            logServerThreada.logujDogadjaj(Level.WARNING, new DTONalog(), "Korisnik koji nema pravo dodavati opremu.\nKorisnik: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
+                            out.writeObject(new String("NOK#Prijavljeni korisnik nema pravo da dodaje opremu."));
+                        }
                         break;
                     case UPDATE_EQUIPMENT:
+                        if(prijavljen[Korisnici.KINOOPERATER.getKinoopreater()]){
+                            ServisZaKinooperatere.izmjeniOpremu(in,out,konekcijaNaBazu,nalogTrenutnogKorisnika);
+                        }else{
+                            logServerThreada.logujDogadjaj(Level.WARNING, new DTONalog(), "Korisnik koji nema pravo izmjenjivati podatke o opremi.\nKorisnik: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
+                            out.writeObject(new String("NOK#Prijavljeni korisnik nema pravo da izmjenjuje podatke o opremi."));
+                        }
                         break;
                     case LIST_EQUIPMENT:
+                        if(prijavljen[Korisnici.KINOOPERATER.getKinoopreater()]){
+                            ServisZaKinooperatere.izlistajOpremu(out,konekcijaNaBazu,nalogTrenutnogKorisnika);
+                        }else{
+                            logServerThreada.logujDogadjaj(Level.WARNING, new DTONalog(), "Korisnik koji nema pravo izlistati podatke o opremi.\nKorisnik: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
+                            out.writeObject(new String("NOK#Prijavljeni korisnik nema pravo da izlista podatke o opremi."));
+                        }
                         break;
                     case GET_EQUIPMENT:
+                        if(prijavljen[Korisnici.KINOOPERATER.getKinoopreater()]){
+                            ServisZaKinooperatere.izlistajOpremuPoImenu(msg,out,konekcijaNaBazu,nalogTrenutnogKorisnika);
+                        }else{
+                            logServerThreada.logujDogadjaj(Level.WARNING, new DTONalog(), "Korisnik koji nema pravo izlistati podatke o opremi.\nKorisnik: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
+                            out.writeObject(new String("NOK#Prijavljeni korisnik nema pravo da izlista podatke o opremi."));
+                        }
                         break;
                     case ADD_INVOICE:
                         break;

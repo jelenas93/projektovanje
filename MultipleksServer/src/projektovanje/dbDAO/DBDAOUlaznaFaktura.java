@@ -35,10 +35,8 @@ public class DBDAOUlaznaFaktura implements IDBDAO {
             IOprema stavka = it.next();
             if(stavka instanceof Artikal){
                 faktArtDao.upisiUBazu(lokalnaUlaznaFaktura.getIdFakute(),((Artikal) stavka).getIdArtikla(),konekcijaNaBazu);
-                System.out.println("U if");
             } else{
                faktOprDao.upisiUBazu(lokalnaUlaznaFaktura.getIdFakute(),((Oprema)stavka).getIdOpreme(),konekcijaNaBazu);
-               System.out.println("usao u else");
             }
         }
         ps.executeUpdate();

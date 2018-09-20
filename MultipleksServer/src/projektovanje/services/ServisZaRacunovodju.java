@@ -30,7 +30,7 @@ public class ServisZaRacunovodju {
     }
 
     public static void azuriranjeZaposlenog(Connection konekcijaNaBazu, ObjectOutputStream out, ObjectInputStream in, Nalog nalogTrenutnogKorisnika) throws IOException, SQLException, ClassNotFoundException {
-        //out.writeObject(new String("WHICHONE"));
+        out.writeObject(new String("WHICHONE"));
         DTOZaposleni dtoZaposleni = (DTOZaposleni)in.readObject();
         new DBDAOPlata().azurirajBazu(new DTOPlata(dtoZaposleni.getZaposleni().getPlata()), konekcijaNaBazu);
         logServisaZaRacunovodju.logujDogadjaj(Level.FINEST,new ServisZaRacunovodju(),"Racunovodja azurirao platu zaposlenom.\n" +
@@ -40,7 +40,7 @@ public class ServisZaRacunovodju {
 
 
     public static void dodajPlatuZaposlenom(ObjectInputStream in, ObjectOutputStream out, Connection konekcijaNaBazu, Nalog nalogTrenutnogKorisnika) throws IOException, ClassNotFoundException, SQLException {
-        //out.writeObject(new String("WHICHONE"));
+        out.writeObject(new String("WHICHONE"));
         DTOZaposleni dtoZaposleni = (DTOZaposleni)in.readObject();
         DBDAOPlata dbdaoPlata = new DBDAOPlata();
         dbdaoPlata.upisiUBazu(new DTOPlata(dtoZaposleni.getZaposleni().getPlata()), konekcijaNaBazu);

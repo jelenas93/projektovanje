@@ -25,7 +25,7 @@ public class ServisZaPonude {
         logServisaZaPonude = new Logovanje(new ServisZaPonude());
     }
     public static void dodajPonudeNaFilmove(ObjectInputStream in, ObjectOutputStream out, Connection konekcijaNaBazu, Nalog nalogTrenutnogKorisnika) throws IOException, ClassNotFoundException, SQLException {
-        out.writeObject(new String("WHICONE"));
+        out.writeObject(new String("WHICHONE"));
         DTOPonuda dtoPonuda = (DTOPonuda)in.readObject();
         DBDAOFilm dbdaoFilm = new DBDAOFilm();
         DBDAOPonuda dbdaoPonuda = new DBDAOPonuda();

@@ -45,24 +45,24 @@ public class ServisZaAdministratora {
         String[] hlpNizStringova = msg.split("#");
         if(7 != hlpNizStringova.length){
             logServisaZaAdministratore.logujDogadjaj(Level.FINE, new ServisZaAdministratora(), "Neispravan protokol. Poruka = " + msg);
-            out.writeObject(new String("NOK Pogresan broj argumenata u protokolu. Provjeri dokumentaciju protokola."));
+            out.writeObject(new String("NOK#Pogresan broj argumenata u protokolu. Provjeri dokumentaciju protokola."));
             return;
         }
         if((13 != hlpNizStringova[3].length()) && (hlpNizStringova[3].matches("[a-zA-Z]+") == true)){
             logServisaZaAdministratore.logujDogadjaj(Level.FINE, new ServisZaAdministratora(), "Neispravan JMBG");
-            out.writeObject(new String("NOK Neispravan JMBG."));
+            out.writeObject(new String("NOK#Neispravan JMBG."));
             return;
         }
         Nalog nalog = new Nalog(hlpNizStringova[4], hlpNizStringova[5]);
         Zaposleni noviZaposleni = new Zaposleni(1, Plata.nulaPlata,hlpNizStringova[1], hlpNizStringova[2], hlpNizStringova[3], true, nalog);
         if(provjeriNalog(nalog,konekcijaNaBazu)){
             logServisaZaAdministratore.logujDogadjaj(Level.WARNING, new ServisZaAdministratora(), "Pokusaj dodavanja vec postojeceg naloga.");
-            out.writeObject(new String("NOK Nalog vec postoji."));
+            out.writeObject(new String("NOK#Nalog vec postoji."));
             return;
         }
         if(!provjeriPoziciju(hlpNizStringova[6])){
             logServisaZaAdministratore.logujDogadjaj(Level.WARNING, new ServisZaAdministratora(), "Pokusaj dodavanja ne postojece pozicije.");
-            out.writeObject(new String("NOK Pozicija ne postoji."));
+            out.writeObject(new String("NOK#Pozicija ne postoji."));
             return;
         }
         new DBDAONalog().upisiUBazu(new DTONalog(nalog), konekcijaNaBazu);
@@ -130,7 +130,7 @@ public class ServisZaAdministratora {
         DTOZaposleni provjeraPostojanjaDatogZaposlenog = (DTOZaposleni)new DBDAOZaposleni().pretraziBazu(konekcijaNaBazu,pomocniInteger.toString());
         if(null == provjeraPostojanjaDatogZaposlenog.getZaposleni().getIdZaposlenog()){
             logServisaZaAdministratore.logujDogadjaj(Level.WARNING, new ServisZaAdministratora(), "Pokusaj azuriranja ne postojeceg zposlenog.");
-            out.writeObject(new String("NOK Zaposleni ne postoju u bazi."));
+            out.writeObject(new String("NOK#Zaposleni ne postoju u bazi."));
             return;
         }
         new DBDAOZaposleni().izmjeniInformacijeOZaposlenom(dtoZaposleni, konekcijaNaBazu);
