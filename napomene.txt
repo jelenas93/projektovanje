@@ -6,6 +6,7 @@
 -Razmotriti mogucnost dodavanja metode pretrazi bazu po imenu u dbDto.
 ===========================================================================================================================================
 		OVAKO PROCITAS LISTU ZAPOSLENIH DA BI IZBJEGAO KONFLIKTE IZMEDJU TIPOVA 
+		//pocetak koda za prihvatanje i vadjenje zaposlenih iz liste
         List<List<? extends IDTO>> listaZaposlenih = (List<List<? extends IDTO>>)in.readObject();
         List<DTOAdministrator> listaAktivnihAdministratora = (List<DTOAdministrator>)listaZaposlenih.get(0);
         List<DTOMenadzer> listaAktivnihMenadzera = (List<DTOMenadzer>)listaZaposlenih.get(1);
@@ -15,10 +16,61 @@
         List<DTOProdavacHraneIPica> listaAktivnihProdavacaHraneIPica = (List<DTOProdavacHraneIPica>)listaZaposlenih.get(5);
         List<DTOKinooperater> listaAktivnihKinooperatera = (List<DTOKinooperater>)listaZaposlenih.get(6);
 		
-		List<Zaposleni> listaZaposlenih = new ArrayList<>();
+		List<ZaposleniIPozicija> listaZaposlenihIPozicija = new ArrayList<>();
 		for(DTOAdministrator x : listaAktivnihAdministratora){
-			listaZaposlenih.add((Zaposleni)x.getAdministrator);
+			listaZaposlenih.add(new ZaposleniIPozicija((Zaposleni)x.getAdministrator(), "Administrator");
 		}
+		for(DTOMenadzer x : listaAktivnihMenadzera){
+			listaZaposlenih.add(new ZaposleniIPozicija((Zaposleni)x.getMenadzer(), "Menadzer");
+		}
+		for(DTORacunovodja x : listaAktivnihRacunovodja){
+			listaZaposlenih.add(new ZaposleniIPozicija((Zaposleni)x.getRacunovodja(), "Racunovodja");
+		}
+		for(DTOSkladistar x : listaAktivnihSkladistara){
+			listaZaposlenih.add(new ZaposleniIPozicija((Zaposleni)x.getSkladistar(), "Skladistar");
+		}
+		for(DTOProdavacKarata x : listaAktivnihProdavacaKarata){
+			listaZaposlenih.add(new ZaposleniIPozicija((Zaposleni)x.getProdavacKarata(), "ProdavacKarata");
+		}
+		for(DTOProdavacHraneIPica x : listaAktivnihProdavacaHraneIPica){
+			listaZaposlenih.add(new ZaposleniIPozicija((Zaposleni)x.getProdavacHraneIPica(), "ProdavacHraneIPica");
+		}
+		for(DTOKinooperater x : listaAktivnihKinooperatera){
+			listaZaposlenih.add(new ZaposleniIPozicija((Zaposleni)x.getKinooperater(), "Kinooperater");
+		}
+		//kraj koda za vadjenje zaposlenih iz liste
+		
+		
+		
+		//klasa za cuvanje zaposlenih i njihovih pozicija
+		public class ZaposleniIPozicija{
+			Zaposleni zaposleni;
+			String pozicija;
+			
+			public ZaposleniIPozicija(){}
+			
+			public ZaposleniIPozicija(Zaposleni zaposleni, String pozicija){
+				this.zaposleni = zaposleni;
+				this.pozicija = pozicija;
+			}
+			
+			public void setZaposleni(Zaposleni zaposleni){
+				this.zaposleni = zaposleni;
+			}
+			
+			public void setPozicija(String pozicija){
+				this.pozicija = pozicija;
+			}
+			
+			public Zaposleni getZaposleni(){
+				return this.zaposleni;
+			}
+			
+			public String getPozicija(){
+				return this.pozicija;
+			}
+		}
+		//mislim da je ovo sve sto je potrebno u klasi
 ===========================================================================================================================================		
 		Odsjecak koda koji vraca listu liste zaposlenih po njihovim pozicijama bez naloga -- za potrebe racunovodje
 		List<DTOAdministrator> listaAktivnihAdministratora;
