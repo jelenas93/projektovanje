@@ -282,7 +282,7 @@ public class ServerThread extends Thread{
                         }
                         break;
                     case LIST_PRODUCTS:
-                        if (prijavljen[Korisnici.PRODAVACHARANEIPICA.getProdavacKarata()] || prijavljen[Korisnici.SKLADISTAR.getSkladistar()]){
+                        if (prijavljen[Korisnici.PRODAVACHARANEIPICA.getProdavacHraneIPica()] || prijavljen[Korisnici.SKLADISTAR.getSkladistar()]){
                             ServisZaArtikle.pregledSvihArtikala(msg,konekcijaNaBazu,out,in);
                             logServerThreada.logujDogadjaj(Level.FINE,this,"Poslani svi artikli");
                         } else{
