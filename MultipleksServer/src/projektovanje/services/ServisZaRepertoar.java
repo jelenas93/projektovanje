@@ -34,15 +34,15 @@ public class ServisZaRepertoar {
     }
 
     public static void dodavanjeFilmaNaRepetoar(String msg, Connection konekcijaNaBazu, ObjectOutputStream out, ObjectInputStream in) throws IOException, ClassNotFoundException, SQLException {
-        /*String odgovor = new String("GIVE_ME_DATA");
-        out.writeObject(odgovor);*/
+        String odgovor = new String("GIVE_ME_DATA");
+        out.writeObject(odgovor);
         DTOProjekcija projekcija = (DTOProjekcija)in.readObject();
-        /*odgovor = new String("GIVE_ME_REPERTOIRE");
-        out.writeObject(odgovor);*/
+        odgovor = new String("GIVE_ME_REPERTOIRE");
+        out.writeObject(odgovor);
         DTORepertoar repertoar = (DTORepertoar) in.readObject();
         new DBDAORepertoar().azurirajBazu(repertoar,konekcijaNaBazu);
         new DBDAOProjekcija().upisiUBazu(projekcija,konekcijaNaBazu);
-       String odgovor = new String("OK");
+        odgovor = new String("OK");
         out.writeObject(odgovor);
     }
 
