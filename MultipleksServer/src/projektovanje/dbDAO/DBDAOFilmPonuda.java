@@ -3,6 +3,7 @@ package projektovanje.dbDAO;
 import projektovanje.dto.DTOFilm;
 import projektovanje.dto.DTOPonuda;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,7 +21,7 @@ public class DBDAOFilmPonuda {
         return true;
     }
 
-    public List<DTOPonuda> pretraziSvePonudeZaFilm(Integer idFilma, Connection konekcijaNaBazu) throws SQLException {
+    public List<DTOPonuda> pretraziSvePonudeZaFilm(Integer idFilma, Connection konekcijaNaBazu) throws SQLException, IOException {
         List<DTOPonuda> povratnaVrijednost = new ArrayList<>();
         PreparedStatement ps = konekcijaNaBazu.prepareStatement("select idPonude from filmPonuda where idFilma = ?");
         ps.setInt(1,idFilma);
@@ -33,7 +34,7 @@ public class DBDAOFilmPonuda {
         return povratnaVrijednost;
     }
 
-    public List<DTOFilm> pretraziSveFilmoveZaPonuda(Integer idPonude, Connection konekcijaNaBazu) throws SQLException {
+    public List<DTOFilm> pretraziSveFilmoveZaPonuda(Integer idPonude, Connection konekcijaNaBazu) throws SQLException, IOException {
         List<DTOFilm> povratnaVrijednost = new ArrayList<>();
         PreparedStatement ps = konekcijaNaBazu.prepareStatement("select idFilma from filmPonuda where idPonude = ?");
         ps.setInt(1,idPonude);

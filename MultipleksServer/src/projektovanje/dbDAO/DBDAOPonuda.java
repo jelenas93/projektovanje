@@ -6,6 +6,7 @@ import projektovanje.bin.oprema.Artikal;
 import projektovanje.bin.racun.Stavka;
 import projektovanje.dto.*;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,7 @@ public class DBDAOPonuda implements IDBDAO {
     }
 
     @Override
-    public List<DTOPonuda> citajIzBaze(Connection konekcijaNaBazu) throws SQLException {
+    public List<DTOPonuda> citajIzBaze(Connection konekcijaNaBazu) throws SQLException, IOException {
         Statement s = konekcijaNaBazu.createStatement();
         ResultSet rs = s.executeQuery("select * from Ponuda");
         ArrayList<DTOPonuda> povratnaVrijednost = new ArrayList<>();
@@ -67,7 +68,7 @@ public class DBDAOPonuda implements IDBDAO {
     }
 
     @Override
-    public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) throws SQLException {
+    public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) throws SQLException, IOException {
         DTOPonuda povratnaVrijednost = null;
         int idPonude = Integer.valueOf(parametarPretrage);
         PreparedStatement s = konekcijaNaBazu.prepareStatement("select * from Ponuda where idPonude = ?");
@@ -88,7 +89,7 @@ public class DBDAOPonuda implements IDBDAO {
     }
 
     @Override
-    public List<DTOPonuda> ispisi(Connection konekcijaNaBazu) throws SQLException {
+    public List<DTOPonuda> ispisi(Connection konekcijaNaBazu) throws SQLException, IOException {
         return citajIzBaze(konekcijaNaBazu);
     }
 }

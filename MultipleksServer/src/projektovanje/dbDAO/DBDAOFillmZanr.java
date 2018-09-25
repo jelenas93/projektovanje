@@ -4,6 +4,7 @@ import projektovanje.dto.DTOFilm;
 import projektovanje.dto.DTOZanr;
 import projektovanje.dto.IDTO;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -34,7 +35,7 @@ public class DBDAOFillmZanr {
         return povratnaVrijednost;
     }
 
-    public List<DTOFilm> pretraziSveFilmoveZaZanr(Integer idZanra, Connection konekcijaNaBazu) throws SQLException {
+    public List<DTOFilm> pretraziSveFilmoveZaZanr(Integer idZanra, Connection konekcijaNaBazu) throws SQLException, IOException {
         List<DTOFilm> povratnaVrijednost = new ArrayList<>();
         PreparedStatement ps = konekcijaNaBazu.prepareStatement("select idFilma from filmZanr where idZanra = ?");
         ps.setInt(1,idZanra);

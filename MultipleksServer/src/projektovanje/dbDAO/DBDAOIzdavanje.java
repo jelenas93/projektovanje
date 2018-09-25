@@ -9,6 +9,7 @@ import projektovanje.bin.sala.Sjediste;
 import projektovanje.bin.zaposleni.Zaposleni;
 import projektovanje.dto.*;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,7 +38,7 @@ public class DBDAOIzdavanje implements IDBDAO {
     }
 
     @Override
-    public List<DTOIzdavanje> citajIzBaze(Connection konekcijaNaBazu)throws java.sql.SQLException {
+    public List<DTOIzdavanje> citajIzBaze(Connection konekcijaNaBazu) throws java.sql.SQLException, IOException {
         List<DTOIzdavanje> listaIzdavanja = new ArrayList<>();
 
         PreparedStatement preparedStatement = konekcijaNaBazu.prepareStatement("select * from Izdavanje");
@@ -79,7 +80,7 @@ public class DBDAOIzdavanje implements IDBDAO {
     }
 
     @Override
-    public List<DTOIzdavanje> ispisi(Connection konekcijaNaBazu)throws java.sql.SQLException {
+    public List<DTOIzdavanje> ispisi(Connection konekcijaNaBazu) throws java.sql.SQLException, IOException {
         return citajIzBaze(konekcijaNaBazu);
     }
 

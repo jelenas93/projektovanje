@@ -4,6 +4,7 @@ import projektovanje.bin.projekcija.Projekcija;
 import projektovanje.bin.racun.Stavka;
 import projektovanje.dto.*;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ public class DBDAOProjekcija implements IDBDAO {
     }
 
     @Override
-    public List<DTOProjekcija> citajIzBaze(Connection konekcijaNaBazu) throws SQLException {
+    public List<DTOProjekcija> citajIzBaze(Connection konekcijaNaBazu) throws SQLException, IOException {
         Statement s = konekcijaNaBazu.createStatement();
         ResultSet rs = s.executeQuery("select * from Projekcija");
         ArrayList<DTOProjekcija> povratnaVrijednost = new ArrayList<>();
@@ -66,7 +67,7 @@ public class DBDAOProjekcija implements IDBDAO {
     }
 
     @Override
-    public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) throws SQLException {
+    public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) throws SQLException, IOException {
         DTOProjekcija povratnaVrijednost = null;
         int idProjekcije = Integer.valueOf(parametarPretrage);
         PreparedStatement s = konekcijaNaBazu.prepareStatement("select * from Projekcija where idProjekcije = ?");
@@ -88,11 +89,11 @@ public class DBDAOProjekcija implements IDBDAO {
     }
 
     @Override
-    public List<DTOProjekcija> ispisi(Connection konekcijaNaBazu) throws SQLException {
+    public List<DTOProjekcija> ispisi(Connection konekcijaNaBazu) throws SQLException, IOException {
         return citajIzBaze(konekcijaNaBazu);
     }
 
-    public List<DTOProjekcija> pretraziSveProjekcijeZaRepertoar(Integer idRepertoara, Connection konekcijaNaBazu) throws SQLException {
+    public List<DTOProjekcija> pretraziSveProjekcijeZaRepertoar(Integer idRepertoara, Connection konekcijaNaBazu) throws SQLException, IOException {
         List<DTOProjekcija> povratnaVrijednost = new ArrayList<>();
         PreparedStatement ps = konekcijaNaBazu.prepareStatement("select * from Projekcija where idRepertoara = ?");
         ps.setInt(1, idRepertoara);

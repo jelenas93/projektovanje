@@ -14,7 +14,7 @@ import java.util.List;
 public interface IDBDAO extends IDAO {
     public Boolean upisiUBazu(IDTO dtoInstanca, Connection konekcijaNaBazu)throws SQLException, IOException; //poradi na argumetima
     public List<? extends IDTO> citajIzBaze(Connection konekcijaNaBazu) throws SQLException, IOException; //poradi na argumentima
-    public Boolean azurirajBazu(IDTO list, Connection konekcijaNaBazu)throws SQLException; //poradi na argumentima
+    public Boolean azurirajBazu(IDTO list, Connection konekcijaNaBazu) throws SQLException, IOException; //poradi na argumentima
     public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) throws SQLException, IOException; //poradi na argumentima
     public default int zadnjiUmetnutiId(Connection konekcijaNaBazu) throws SQLException {
         PreparedStatement ps = konekcijaNaBazu.prepareStatement("select last_insert_id()");

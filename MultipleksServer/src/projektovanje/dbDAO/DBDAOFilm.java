@@ -92,7 +92,7 @@ public class DBDAOFilm implements IDBDAO {
     }
 
     @Override
-    public Boolean azurirajBazu(IDTO dtoFilm, Connection konekcijaNaBazu) throws java.sql.SQLException{
+    public Boolean azurirajBazu(IDTO dtoFilm, Connection konekcijaNaBazu) throws java.sql.SQLException, IOException {
         Boolean uspjesno = false;
         DTOFilm lokalniDtoFilm = (DTOFilm)dtoFilm;
 
@@ -103,7 +103,8 @@ public class DBDAOFilm implements IDBDAO {
                         "   trajanje = ?," +
                         "   opis = ?," +
                         "   link = ?," +
-                        "   tipFilma = ?" +
+                        "   tipFilma = ?," +
+                        "   posterFilma = ?" +
                         "   where idFilma = ?");
         preparedStatement.setInt(1, lokalniDtoFilm.getFilm().getZaposleni().getIdZaposlenog());
         preparedStatement.setString(2, lokalniDtoFilm.getFilm().getNaziv());
@@ -111,7 +112,11 @@ public class DBDAOFilm implements IDBDAO {
         preparedStatement.setString(4, lokalniDtoFilm.getFilm().getOpis());
         preparedStatement.setString(5, lokalniDtoFilm.getFilm().getLinkTrailera());
         preparedStatement.setString(6, lokalniDtoFilm.getFilm().getTipFilma());
-        preparedStatement.setInt(7, lokalniDtoFilm.getFilm().getIdFilma());
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(lokalniDtoFilm.getFilm().getPosterFilma(),"jpg",baos);
+        byte[] slikaUBajtovima = baos.toByteArray();
+        preparedStatement.setBytes(7,slikaUBajtovima);
+        preparedStatement.setInt(8, lokalniDtoFilm.getFilm().getIdFilma());
         preparedStatement.executeUpdate();
         uspjesno = true;
         return uspjesno;

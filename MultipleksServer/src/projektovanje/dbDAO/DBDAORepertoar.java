@@ -9,6 +9,7 @@ import projektovanje.dto.DTORepertoar;
 import projektovanje.dto.DTOZaposleni;
 import projektovanje.dto.IDTO;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class DBDAORepertoar implements IDBDAO {
     }
 
     @Override
-    public List<DTORepertoar> citajIzBaze(Connection konekcijaNaBazu) throws SQLException {
+    public List<DTORepertoar> citajIzBaze(Connection konekcijaNaBazu) throws SQLException, IOException {
         Statement s = konekcijaNaBazu.createStatement();
         ResultSet rs = s.executeQuery("select * from Repertoar");
         ArrayList<DTORepertoar> povratnaVrijednost = new ArrayList<>();
@@ -67,7 +68,7 @@ public class DBDAORepertoar implements IDBDAO {
     }
 
     @Override
-    public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) throws SQLException {
+    public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) throws SQLException, IOException {
         Integer idRepertoara = Integer.valueOf(parametarPretrage);
         DTORepertoar povratnaVrijednost = null;
         PreparedStatement s = konekcijaNaBazu.prepareStatement("select * from Repertoar where idRepertoara = ?");
@@ -89,11 +90,11 @@ public class DBDAORepertoar implements IDBDAO {
     }
 
     @Override
-    public List<DTORepertoar> ispisi(Connection konekcijaNaBazu) throws SQLException {
+    public List<DTORepertoar> ispisi(Connection konekcijaNaBazu) throws SQLException, IOException {
         return citajIzBaze(konekcijaNaBazu);
     }
 
-    public DTORepertoar dohvatiTrenutniRepertoar(Connection konekcijaNaBazu) throws SQLException {
+    public DTORepertoar dohvatiTrenutniRepertoar(Connection konekcijaNaBazu) throws SQLException, IOException {
         List<DTORepertoar> sviRepertoari = citajIzBaze(konekcijaNaBazu);
         java.util.Date trenutnoVrijeme = new java.util.Date();
         sviRepertoari.stream().filter(x-> x.getRepertoar().getDatumDo().after(trenutnoVrijeme) && x.getRepertoar().getDatumOd().before(trenutnoVrijeme));
