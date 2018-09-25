@@ -15,22 +15,22 @@ registracija: REGISTER#NAME#SURNAME#USERNAME#PASSWORD#EMAIL, odgovor OK ili NOK+
 promjena lozinke: CHANGE_PASSWORD#oldPassword#newPassword, odgovor OK ili NOK
 
 dodavanje zaposlenog: ADD_EMPLOYEE#NAME#SURNAME#JMBG#USERNAME#PASSWORD#POSITION, odgovor OK ili NOK+razlog
-prikaz liste zaposlenih: LIST_EMPLOYEES, odgovor: List<Zaposleni>
-azuriranje zaposlenog: UPDATE_EMPLOYEE, odgovor: WHICHONE poruka: objekat zaposleni sa novim podacima, odgovor POSITION kao string, String sa STARAPOZICIJA#NOVAPOZICIJA , odgovor OK ili NOK+razlog
+prikaz liste zaposlenih: LIST_EMPLOYEES, odgovor: List<DTOZaposleni>
+azuriranje zaposlenog: UPDATE_EMPLOYEE, odgovor: WHICHONE poruka: objekat DTOZaposleni sa novim podacima
 brisanje zaposlenog:DELETE_EMPLOYEE#korisnickoIme, odgovor: OK ili NOK+razlog
 
-dodavanje projekcije:NEW_PROJECTION, odgovor: WHICHONE, poruka: objekat tipa projekcija
-azuriranje projekcije:UPDATE_PROJECTION, odgovor: WHICHONE, poruka: objekat tipa projekcija sa novim podacima, odgovor OK ili NOK+razlog
-ispis svih projekcija:LIST_PROJECTIONS, odgovor: List<Projekcija>
+dodavanje projekcije:NEW_PROJECTION, odgovor: WHICHONE, poruka: objekat tipa DTOProjekcija
+azuriranje projekcije:UPDATE_PROJECTION, odgovor: WHICHONE, poruka: objekat tipa DTOProjekcija sa novim podacima, odgovor OK ili NOK+razlog
+ispis svih projekcija:LIST_PROJECTIONS, odgovor: List<DTOProjekcija>
 
-dodavanje nove sale: ADD_MOVIE_HALL, odgovor: WHICHONE, poruka: objekat tipa sala
+dodavanje nove sale: ADD_MOVIE_HALL, odgovor: WHICHONE, poruka: objekat tipa DTOSala
 
-dodavanje filma: ADD_MOVIE, odgovor WHICHONE, poruka: objekat tipa Film
-azuriranje filma: UPDATE_MOVIE, odgovor: WHICHONE, poruka: objekat tipa Film sa novim podacima, odgovor OK ili NOK+razlog
-pregled filma: GIVE_ME_MOVIE#imeFilma, odgovor: List<Film>
+dodavanje filma: ADD_MOVIE, odgovor WHICHONE, poruka: objekat tipa DTOFilm
+azuriranje filma: UPDATE_MOVIE, odgovor: WHICHONE, poruka: objekat tipa DTOFilm sa novim podacima, odgovor OK ili NOK+razlog
+pregled filma: GIVE_ME_MOVIE, odgovor: List<DTOFilm>
 
-dodavanje ponude: ADD_OFFER, odgovor: WHICHONE, poruka: objekat tipa Ponuda
-pregled svih ponuda: LIST_OFFERS, odgovor: List<Ponuda>
+dodavanje ponude: ADD_OFFER, odgovor: WHICHONE, poruka: objekat tipa DTOPonuda
+pregled svih ponuda: LIST_OFFERS, odgovor: List<DTOPonuda>
 
 dodavanje plate: ADD_PAYMENT,odgovor: WHICHONE, poruka: objeka tipa DTOZaposleni
 azuriranje plate: UPDATE_PAYMENT, odgovor WHICHONE, poruka: objekat tipa DTOZaposleni sa novim podacima u polju DTOZaposleni.Zaposleni.Plata
