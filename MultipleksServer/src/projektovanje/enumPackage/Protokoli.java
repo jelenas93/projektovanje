@@ -12,6 +12,7 @@ public enum Protokoli {
     UPDATE_PROJECTION,
     LIST_PROJECTIONS,
     ADD_MOVIE_HALL,
+    LIST_MOVIE_HALL,
     ADD_MOVIE,
     UPDATE_MOVIE,
     GIVE_ME_MOVIE,

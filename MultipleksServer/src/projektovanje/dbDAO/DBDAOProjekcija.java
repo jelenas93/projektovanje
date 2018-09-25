@@ -13,11 +13,12 @@ public class DBDAOProjekcija implements IDBDAO {
     public Boolean upisiUBazu(IDTO dtoProjekcija, Connection konekcijaNaBazu) throws SQLException {
         DTOProjekcija lokalniDtoProjekcija = (DTOProjekcija) dtoProjekcija;
         Projekcija lokalniProjekcija = lokalniDtoProjekcija.getProjekcija();
-        PreparedStatement preparedStatement = konekcijaNaBazu.prepareStatement("insert into Projekcija values(default, ?, ?, ?,?)");
+        PreparedStatement preparedStatement = konekcijaNaBazu.prepareStatement("insert into Projekcija values(default, ?, ?, ?, ?, ?)");
         preparedStatement.setInt(1, lokalniProjekcija.getFilm().getIdFilma());
         preparedStatement.setTimestamp(2, new Timestamp(lokalniProjekcija.getVrijeme().getTime()));
         preparedStatement.setInt(3, lokalniProjekcija.getZaposleni().getIdZaposlenog());
         preparedStatement.setInt(4,lokalniProjekcija.getIdRepertoara());
+        preparedStatement.setInt(5,lokalniProjekcija.getIdSale());
         preparedStatement.executeUpdate();
         return true;
     }
@@ -33,9 +34,10 @@ public class DBDAOProjekcija implements IDBDAO {
             java.util.Date vrijemeFilma = new java.util.Date(rs.getTimestamp(3).getTime());
             Integer idZaposlenog = rs.getInt(4);
             Integer idRepertoara = rs.getInt(5);
+            Integer idSale = rs.getInt(6);
             DTOZaposleni zaposleni = (DTOZaposleni) new DBDAOZaposleni().pretraziBazu(konekcijaNaBazu, String.valueOf(idZaposlenog));
             DTOFilm film = (DTOFilm) new DBDAOFilm().pretraziBazu(konekcijaNaBazu, String.valueOf(idFilma));
-            Projekcija procitaniProjekcija = new Projekcija(idProjekcija, film.getFilm(), vrijemeFilma, zaposleni.getZaposleni(),idRepertoara);
+            Projekcija procitaniProjekcija = new Projekcija(idProjekcija, film.getFilm(), vrijemeFilma, zaposleni.getZaposleni(),idRepertoara,idSale);
             povratnaVrijednost.add(new DTOProjekcija(procitaniProjekcija));
         }
         return povratnaVrijednost;
@@ -49,14 +51,16 @@ public class DBDAOProjekcija implements IDBDAO {
         PreparedStatement ps = konekcijaNaBazu.prepareStatement("update Projekcija" +
                 "   set idFilma = ?," +
                 "   vrijemeFilma = ?," +
-                "   idZaposlenog = ?" +
-                "   idRepertoara = ?" +
+                "   idZaposlenog = ?," +
+                "   idRepertoara = ?," +
+                "   idSale = ?" +
                 "   where idProjekcije = ?");
         ps.setInt(1, lokalnaProjekcija.getFilm().getIdFilma());
         ps.setTimestamp(2, new Timestamp(lokalnaProjekcija.getVrijeme().getTime()));
         ps.setInt(3, lokalnaProjekcija.getZaposleni().getIdZaposlenog());
         ps.setInt(4,lokalnaProjekcija.getIdRepertoara());
-        ps.setInt(5, lokalnaProjekcija.getIdProjekcije());
+        ps.setInt(5,lokalnaProjekcija.getIdSale());
+        ps.setInt(6, lokalnaProjekcija.getIdProjekcije());
         ps.executeUpdate();
         return true;
     }
@@ -74,9 +78,10 @@ public class DBDAOProjekcija implements IDBDAO {
             java.util.Date vrijeme = new java.util.Date(rezultat.getDate(3).getTime());
             int idZaposlenog = rezultat.getInt(4);
             int idRepertoara = rezultat.getInt(5);
+            int idSale = rezultat.getInt(6);
             DTOZaposleni zaposleni = (DTOZaposleni) new DBDAOZaposleni().pretraziBazu(konekcijaNaBazu, String.valueOf(idZaposlenog));
             DTOFilm film = (DTOFilm) new DBDAOFilm().pretraziBazu(konekcijaNaBazu, String.valueOf(idFilma));
-            Projekcija ret = new Projekcija(id, film.getFilm(), vrijeme, zaposleni.getZaposleni(),idRepertoara);
+            Projekcija ret = new Projekcija(id, film.getFilm(), vrijeme, zaposleni.getZaposleni(),idRepertoara,idSale);
             povratnaVrijednost = new DTOProjekcija(ret);
         }
         return povratnaVrijednost;

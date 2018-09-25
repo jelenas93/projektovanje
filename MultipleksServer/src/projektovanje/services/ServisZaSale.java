@@ -14,6 +14,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 
 public class ServisZaSale {
@@ -39,5 +40,13 @@ public class ServisZaSale {
                 "Uspjesno dodana nova sala u multipleks od strane menadzera sa korisnickim imenom:" +
                 "\nKorisnicko ime: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
         out.writeObject(new String("OK#Uspjesno kreirana sala."));
+    }
+
+    public static void prikaziSale(ObjectInputStream in, ObjectOutputStream out, Connection konekcijaNaBazu, Nalog nalogTrenutnogKorisnika) throws SQLException, IOException {
+        List<DTOSala> dtoSale = (List<DTOSala>)new DBDAOSala().ispisi(konekcijaNaBazu);
+        logServisaZaSale.logujDogadjaj(Level.FINE, new ServisZaSale(), "" +
+                "Uspjesno izlistane sale od strane menadzera sa korisnickim imenom:" +
+                "\nKorisnicko ime: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
+        out.writeObject(dtoSale);
     }
 }

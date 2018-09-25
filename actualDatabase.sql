@@ -19,16 +19,11 @@ doprinosZaPenziono decimal(10,2),
 doprinosZaZdravstveno decimal(10,2),
 doprinosZaDjecijuZastitu decimal(10,2),
 doprinosZaZaposljavanje decimal(10,2),
-stopaPoreza decimal(10,2),
-stopaZaPenziono decimal(10,2),
-stopaZaZdravstveno decimal(10,2),
-stopaZaDjecijuZastitu decimal(10,2),
-stopaZaZaposljavanje decimal(10,2),
-netoTekuciRad decimal(10,2),
-netoMinuliRad decimal(10,2),
-porezNaPlatu decimal(10,2),
 datumOd date not null,
-datumDo date
+datumDo date,
+bruto decimal(10,2),
+doprinosi decimal(10,2),
+isplataRadniku decimal(10,2)
 );
 
 alter table Plata add column bruto decimal(10,2);
@@ -318,4 +313,7 @@ alter table projekcija add column idRepertoara int;
 alter table projekcija add foreign key (idRepertoara) references Repertoar(idRepertoara);
 drop table repertoarProjekcija;
 alter table Karta add foreign key (korisnickoIme) references Nalog(korisnickoIme); 
-#ukloni foreign key kod kreiranja stvarne baze iz karte prema klijentu
+#ukloni foreign key kod kreiranja stvarne baze iz karte prema klijentu, ovako ce
+alter table projekcija add column idSale int;
+alter table projekcija add foreign key(idSale) references sala(idSale);
+alter table Film add column posterFilma blob;

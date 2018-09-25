@@ -7,6 +7,8 @@ import projektovanje.dto.DTOPlata;
 import projektovanje.dto.DTOZaposleni;
 import projektovanje.dto.IDTO;
 
+import javax.imageio.ImageIO;
+import java.io.ByteArrayOutputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

@@ -13,6 +13,7 @@ public class Projekcija implements Serializable {
     private Date vrijeme;
     private Zaposleni zaposleni;
     private Integer idRepertoara;
+    private Integer idSale;
 
     public Projekcija() {
     }
@@ -28,15 +29,25 @@ public class Projekcija implements Serializable {
                 ", film=" + film +
                 ", vrijeme=" + vrijeme +
                 ", zaposleni=" + zaposleni +
+                ", sala= " + idSale +
                 '}';
     }
 
-    public Projekcija(Integer idProjekcije, Film film, Date vrijeme, Zaposleni zaposleni,Integer idRepertoara) {
+    public Projekcija(Integer idProjekcije, Film film, Date vrijeme, Zaposleni zaposleni,Integer idRepertoara, Integer idSale) {
         this.idProjekcije = idProjekcije;
         this.film = film;
         this.vrijeme = vrijeme;
         this.zaposleni = zaposleni;
         this.idRepertoara = idRepertoara;
+        this.idSale = idSale;
+    }
+
+    public Integer getIdSale() {
+        return idSale;
+    }
+
+    public void setIdSale(Integer idSale) {
+        this.idSale = idSale;
     }
 
     public Integer getIdProjekcije() {

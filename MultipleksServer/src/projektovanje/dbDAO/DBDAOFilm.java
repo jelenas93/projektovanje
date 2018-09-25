@@ -6,6 +6,11 @@ import projektovanje.bin.zaposleni.Administrator;
 import projektovanje.bin.zaposleni.Zaposleni;
 import projektovanje.dto.*;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,7 +20,7 @@ import java.util.List;
 
 public class DBDAOFilm implements IDBDAO {
 
-    public DTOFilm pretraziFilmovePoImenu(Connection konekcijaNaBazu, String imeFilma) throws SQLException {
+    public DTOFilm pretraziFilmovePoImenu(Connection konekcijaNaBazu, String imeFilma) throws SQLException, IOException {
         DTOFilm povratniFilm = null;
 
         PreparedStatement ps = konekcijaNaBazu.prepareStatement("select * from Film where naziv = ?");
@@ -27,26 +32,33 @@ public class DBDAOFilm implements IDBDAO {
             List<DTOZanr> dtoZanrovi = new DBDAOFillmZanr().pretraziSveZanroveZaFilm(rs.getInt(1), konekcijaNaBazu);
             List<Zanr> zanrovi = new ArrayList<>();
             dtoZanrovi.forEach(x->zanrovi.add(x.getZanr()));
+            byte[] slikaUBajtovima = rs.getBytes("posterFilma");
+            ByteArrayInputStream bais = new ByteArrayInputStream(slikaUBajtovima);
+            BufferedImage posterFilma = ImageIO.read(bais);
             Film film = new Film(rs.getInt(1), zaposleni.getZaposleni(),rs.getString("naziv"),
                     rs.getInt("trajanje"),rs.getString("opis"),rs.getString("link"),
-                    rs.getString("tipFilma"),zanrovi);
+                    rs.getString("tipFilma"),zanrovi, posterFilma);
             povratniFilm = new DTOFilm(film);
         }
         return povratniFilm;
     }
 
     @Override
-    public Boolean upisiUBazu(IDTO dtoFilm, Connection konekcijaNaBazu) throws java.sql.SQLException {
+    public Boolean upisiUBazu(IDTO dtoFilm, Connection konekcijaNaBazu) throws java.sql.SQLException, IOException {
         Boolean uspjesno = false;
 
         DTOFilm LokalniDtoFilm = (DTOFilm) dtoFilm;
-        PreparedStatement preparedStatement = konekcijaNaBazu.prepareStatement("insert into Film values(default, ?, ?, ?, ?, ?, ?)");
+        PreparedStatement preparedStatement = konekcijaNaBazu.prepareStatement("insert into Film values(default, ?, ?, ?, ?, ?, ?, ?)");
         preparedStatement.setInt(1,LokalniDtoFilm.getFilm().getZaposleni().getIdZaposlenog());
         preparedStatement.setString(2,LokalniDtoFilm.getFilm().getNaziv());
         preparedStatement.setInt(3,LokalniDtoFilm.getFilm().getTrajanje());
         preparedStatement.setString(4, LokalniDtoFilm.getFilm().getOpis());
         preparedStatement.setString(5, LokalniDtoFilm.getFilm().getLinkTrailera());
         preparedStatement.setString(6, LokalniDtoFilm.getFilm().getTipFilma());
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(LokalniDtoFilm.getFilm().getPosterFilma(),"jpg",baos);
+        byte[] slikaUBajtovima = baos.toByteArray();
+        preparedStatement.setBytes(7,slikaUBajtovima);
         preparedStatement.executeUpdate();
 
         uspjesno = true;
@@ -54,7 +66,7 @@ public class DBDAOFilm implements IDBDAO {
     }
 
     @Override
-    public List<DTOFilm> citajIzBaze(Connection konekcijaNaBazu) throws java.sql.SQLException{
+    public List<DTOFilm> citajIzBaze(Connection konekcijaNaBazu) throws java.sql.SQLException, IOException {
         List<DTOFilm> listaFilmova = new ArrayList<>();
 
         PreparedStatement preparedStatement = konekcijaNaBazu.prepareStatement("select * from Film");
@@ -66,8 +78,12 @@ public class DBDAOFilm implements IDBDAO {
             List<DTOZanr> dtoZanrovi = new DBDAOFillmZanr().pretraziSveZanroveZaFilm(idFilma, konekcijaNaBazu);
             List<Zanr> zanrovi = new ArrayList<>();
             dtoZanrovi.forEach(x->zanrovi.add(x.getZanr()));
+            byte[] slikaUBajtovima = resultSet.getBytes("posterFilma");
+            ByteArrayInputStream bais = new ByteArrayInputStream(slikaUBajtovima);
+            BufferedImage posterFilma = ImageIO.read(bais);
             Film film = new Film(idFilma, zaposleni.getZaposleni(), resultSet.getString(3), resultSet.getInt(4)
-                    ,  resultSet.getString(5), resultSet.getString(6) , resultSet.getString(7),zanrovi);
+                    ,  resultSet.getString(5), resultSet.getString(6) , resultSet.getString(7)
+                    ,zanrovi, posterFilma);
             DTOFilm dtoFilm = new DTOFilm(film);
             listaFilmova.add(dtoFilm);
         }
@@ -102,7 +118,7 @@ public class DBDAOFilm implements IDBDAO {
     }
 
     @Override
-    public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) throws java.sql.SQLException{
+    public IDTO pretraziBazu(Connection konekcijaNaBazu, String parametarPretrage) throws java.sql.SQLException, IOException {
         DTOFilm lokalniFilm;
         PreparedStatement preparedStatement = konekcijaNaBazu.prepareStatement("select * from Film where idFilma = ?");
         preparedStatement.setInt(1, Integer.parseInt(parametarPretrage));
@@ -123,6 +139,10 @@ public class DBDAOFilm implements IDBDAO {
             List<Zanr> zanrovi = new ArrayList<>();
             dtoZanrovi.forEach(x-> zanrovi.add(x.getZanr()));
             film.setZanrovi(zanrovi);
+            byte[] slikaUBajtovima = resultSet.getBytes("posterFilma");
+            ByteArrayInputStream bais = new ByteArrayInputStream(slikaUBajtovima);
+            BufferedImage posterFilma = ImageIO.read(bais);
+            film.setPosterFilma(posterFilma);
             lokalniFilm = new DTOFilm(film);
         }else{
             lokalniFilm = null;
@@ -131,7 +151,7 @@ public class DBDAOFilm implements IDBDAO {
     }
 
     @Override
-    public List<DTOFilm> ispisi(Connection konekcijaNaBazu)throws java.sql.SQLException {
+    public List<DTOFilm> ispisi(Connection konekcijaNaBazu) throws java.sql.SQLException, IOException {
         return citajIzBaze(konekcijaNaBazu);
     }
 }

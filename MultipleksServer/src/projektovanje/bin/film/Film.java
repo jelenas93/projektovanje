@@ -2,6 +2,7 @@ package projektovanje.bin.film;
 
 import projektovanje.bin.zaposleni.Zaposleni;
 
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
@@ -17,11 +18,12 @@ public class Film implements Serializable {
     private String opis;
     private String linkTrailera;
     private String tipFilma; //2D ili 3D
+    private BufferedImage posterFilma;
 
     public Film() {
     }
 
-    public Film(Integer idFilma, Zaposleni zaposleni, String naziv, Integer trajanje,  String opis, String linkTrailera, String tipFilma, List<Zanr> zanrovi ) {
+    public Film(Integer idFilma, Zaposleni zaposleni, String naziv, Integer trajanje,  String opis, String linkTrailera, String tipFilma, List<Zanr> zanrovi, BufferedImage posterFilma ) {
         this.idFilma = idFilma;
         this.zaposleni = zaposleni;
         this.trajanje = trajanje;
@@ -30,6 +32,7 @@ public class Film implements Serializable {
         this.linkTrailera = linkTrailera;
         this.tipFilma = tipFilma;
         this.zanrovi = zanrovi;
+        this.posterFilma = posterFilma;
     }
 
     @Override
@@ -48,6 +51,14 @@ public class Film implements Serializable {
                 ", linkTrailera='" + linkTrailera + '\'' +
                 ", tipFilma='" + tipFilma + '\'' +
                 '}';
+    }
+
+    public BufferedImage getPosterFilma() {
+        return posterFilma;
+    }
+
+    public void setPosterFilma(BufferedImage posterFilma) {
+        this.posterFilma = posterFilma;
     }
 
     public Zaposleni getZaposleni() {

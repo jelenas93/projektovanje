@@ -128,11 +128,19 @@ public class ServerThread extends Thread{
                     case ADD_MOVIE_HALL:
                         if (prijavljen[Korisnici.MENADZER.getMenadzer()]){
                             ServisZaSale.dodajSalu(in,out,konekcijaNaBazu,nalogTrenutnogKorisnika);
-                            logServerThreada.logujDogadjaj(Level.FINE, this, "Uspjesno izlistane projekcije na zahtjev korisnika: +" + nalogTrenutnogKorisnika.getKorisnickiNalog());
-
+                            logServerThreada.logujDogadjaj(Level.FINE, this, "Uspjesno dodane sale na zahtjev korisnika: +" + nalogTrenutnogKorisnika.getKorisnickiNalog());
                         }else{
-                            logServerThreada.logujDogadjaj(Level.WARNING, new DTONalog(), "Korisnik koji nema pravo pregledati filmove.\nKorisnik: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
-                            out.writeObject(new String("NOK#Prijavljeni korisnik nema pravo da pregleda projekcije."));
+                            logServerThreada.logujDogadjaj(Level.WARNING, new DTONalog(), "Korisnik nema pravo dodavati sale.\nKorisnik: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
+                            out.writeObject(new String("NOK#Prijavljeni korisnik nema pravo da dodaje sale."));
+                        }
+                        break;
+                    case LIST_MOVIE_HALL:
+                        if (prijavljen[Korisnici.MENADZER.getMenadzer()]){
+                            ServisZaSale.prikaziSale(in,out,konekcijaNaBazu,nalogTrenutnogKorisnika);
+                            logServerThreada.logujDogadjaj(Level.FINE, this, "Uspjesno izlistane sale na zahtjev korisnika: +" + nalogTrenutnogKorisnika.getKorisnickiNalog());
+                        }else{
+                            logServerThreada.logujDogadjaj(Level.WARNING, new DTONalog(), "Korisnik koji nema pravo pregledati sale.\nKorisnik: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
+                            out.writeObject(new String("NOK#Prijavljeni korisnik nema pravo da pregleda sale."));
                         }
                         break;
                     case ADD_MOVIE:

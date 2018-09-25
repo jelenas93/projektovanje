@@ -16,23 +16,17 @@ public class DBDAOPlata implements IDBDAO {
     @Override
     public Boolean upisiUBazu(IDTO dtoInstanca, Connection konekcijaNaBazu) throws SQLException {
         PreparedStatement preparedStatement = konekcijaNaBazu.prepareStatement("" +
-                "insert into Plata values(default, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                "insert into Plata values(default, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         DTOPlata lokalnaVarijabla = (DTOPlata)dtoInstanca;
         preparedStatement.setDouble(1, lokalnaVarijabla.getPlata().getDoprinosZaPenziono());
         preparedStatement.setDouble(2, lokalnaVarijabla.getPlata().getDoprinosZaZdravstveno());
         preparedStatement.setDouble(3, lokalnaVarijabla.getPlata().getDoprinosZaDjecijuZastitu());
         preparedStatement.setDouble(4, lokalnaVarijabla.getPlata().getDoprinosZaZaposljavanje());
-        preparedStatement.setDouble(5, lokalnaVarijabla.getPlata().getStopaPoreza());
-        preparedStatement.setDouble(6, lokalnaVarijabla.getPlata().getStopaZaPenziono());
-        preparedStatement.setDouble(7, lokalnaVarijabla.getPlata().getStopaZaZdravstveno());
-        preparedStatement.setDouble(8, lokalnaVarijabla.getPlata().getStopaZaDjecijuZastitu());
-        preparedStatement.setDouble(9, lokalnaVarijabla.getPlata().getStopaZaZaposljavanje());
-        preparedStatement.setDouble(10, lokalnaVarijabla.getPlata().getNetoTekuciRad());
-        preparedStatement.setDouble(11, lokalnaVarijabla.getPlata().getNetoMinuliRad());
-        preparedStatement.setDouble(12, lokalnaVarijabla.getPlata().getPorezNaPlatu());
-        preparedStatement.setDate(13, new java.sql.Date(lokalnaVarijabla.getPlata().getDatumOd().getTime()));
-        preparedStatement.setDate(14,  new java.sql.Date(lokalnaVarijabla.getPlata().getDatumDo().getTime()));
-        preparedStatement.setDouble(15, lokalnaVarijabla.getPlata().getBruto());
+        preparedStatement.setDate(5, new java.sql.Date(lokalnaVarijabla.getPlata().getDatumOd().getTime()));
+        preparedStatement.setDate(6,  new java.sql.Date(lokalnaVarijabla.getPlata().getDatumDo().getTime()));
+        preparedStatement.setDouble(7, lokalnaVarijabla.getPlata().getBruto());
+        preparedStatement.setDouble(8, lokalnaVarijabla.getPlata().getDoprinosi());
+        preparedStatement.setDouble(9, lokalnaVarijabla.getPlata().getIsplataRadniku());
         preparedStatement.executeUpdate();
         return true;
     }
@@ -45,13 +39,11 @@ public class DBDAOPlata implements IDBDAO {
         ResultSet resultSet = preparedStatement.executeQuery();
         while(resultSet.next()){
             Plata plata = new Plata(
-                    resultSet.getInt(1), resultSet.getDouble(2), resultSet.getDouble(3),
-                    resultSet.getDouble(4), resultSet.getDouble(5), resultSet.getDouble(6),
-                    resultSet.getDouble(7), resultSet.getDouble(8), resultSet.getDouble(9),
-                    resultSet.getDouble(10), resultSet.getDouble(11), resultSet.getDouble(12),
-                    resultSet.getDouble(16), resultSet.getDouble(13),
-                    new java.util.Date(resultSet.getDate(14).getTime()),
-                    new java.util.Date(resultSet.getDate(15).getTime()));
+                    resultSet.getInt("idSale"), resultSet.getDouble("bruto"),
+                    resultSet.getDouble("doprinosi"), resultSet.getDouble("doprinosZaPenziono"), resultSet.getDouble("doprinosZaZdravstveno"),
+                    resultSet.getDouble("doprinosZaDjecijuZastitu"), resultSet.getDouble("doprinosZaZaposljavanje"), resultSet.getDouble("isplataRadniku"),
+                   new java.util.Date(resultSet.getDate("datumOd").getTime()),
+                    new java.util.Date(resultSet.getDate("datumDo").getTime()));
             listaPlata.add(new DTOPlata(plata));
         }
 
@@ -68,35 +60,22 @@ public class DBDAOPlata implements IDBDAO {
                         "       doprinosZaZdravstveno = ?," +
                         "       doprinosZaDjecijuZastitu = ?," +
                         "       doprinosZaZaposljavanje = ?," +
-                        "       stopaPoreza = ?," +
-                        "       stopaZaPenziono = ?," +
-                        "       stopaZaZdravstveno = ?," +
-                        "       stopaZaDjecijuZastitu = ?," +
-                        "       stopaZaZaposljavanje = ?," +
-                        "       netoTekuciRad = ?," +
-                        "       netoMinuliRad = ?," +
-                        "       porezNaPlatu = ?," +
                         "       datumOd = ?," +
                         "       datumDo = ?," +
-                        "       bruto = ?" +
+                        "       bruto = ?," +
+                        "       doprinosi = ?," +
+                        "       isplataRadniku = ?" +
                         "   where idPlate = ?");
 
-        preparedStatement.setDouble(1, lokalnaVarijabla.getPlata().getStopaZaPenziono());
+        preparedStatement.setDouble(1,lokalnaVarijabla.getPlata().getDoprinosZaPenziono());
         preparedStatement.setDouble(2,lokalnaVarijabla.getPlata().getDoprinosZaZdravstveno());
         preparedStatement.setDouble(3,lokalnaVarijabla.getPlata().getDoprinosZaDjecijuZastitu());
         preparedStatement.setDouble(4,lokalnaVarijabla.getPlata().getDoprinosZaZaposljavanje());
-        preparedStatement.setDouble(5,lokalnaVarijabla.getPlata().getStopaZaPenziono());
-        preparedStatement.setDouble(6,lokalnaVarijabla.getPlata().getStopaZaZdravstveno());
-        preparedStatement.setDouble(7,lokalnaVarijabla.getPlata().getStopaZaZdravstveno());
-        preparedStatement.setDouble(8,lokalnaVarijabla.getPlata().getStopaZaDjecijuZastitu());
-        preparedStatement.setDouble(9,lokalnaVarijabla.getPlata().getStopaZaZaposljavanje());
-        preparedStatement.setDouble(10,lokalnaVarijabla.getPlata().getNetoTekuciRad());
-        preparedStatement.setDouble(11,lokalnaVarijabla.getPlata().getNetoMinuliRad());
-        preparedStatement.setDouble(12,lokalnaVarijabla.getPlata().getPorezNaPlatu());
-        preparedStatement.setDate(13,new java.sql.Date(lokalnaVarijabla.getPlata().getDatumOd().getTime()));
-        preparedStatement.setDate(14,new java.sql.Date(lokalnaVarijabla.getPlata().getDatumDo().getTime()));
-        preparedStatement.setDouble(15,lokalnaVarijabla.getPlata().getBruto());
-        preparedStatement.setDouble(16,lokalnaVarijabla.getPlata().getIDPlate());
+        preparedStatement.setDate(5,new java.sql.Date(lokalnaVarijabla.getPlata().getDatumOd().getTime()));
+        preparedStatement.setDate(6,new java.sql.Date(lokalnaVarijabla.getPlata().getDatumDo().getTime()));
+        preparedStatement.setDouble(7,lokalnaVarijabla.getPlata().getBruto());
+        preparedStatement.setDouble(8,lokalnaVarijabla.getPlata().getDoprinosi());
+        preparedStatement.setInt(9,lokalnaVarijabla.getPlata().getIDPlate());
         preparedStatement.executeUpdate();
         return true;
     }
@@ -109,13 +88,11 @@ public class DBDAOPlata implements IDBDAO {
         ResultSet resultSet = preparedStatement.executeQuery();
         if(resultSet.next()){
             Plata plata = new Plata(
-                    resultSet.getInt(1), resultSet.getDouble(2), resultSet.getDouble(3),
-                    resultSet.getDouble(4), resultSet.getDouble(5), resultSet.getDouble(6),
-                    resultSet.getDouble(7), resultSet.getDouble(8), resultSet.getDouble(9),
-                    resultSet.getDouble(10), resultSet.getDouble(11), resultSet.getDouble(12),
-                    resultSet.getDouble(16), resultSet.getDouble(13),
-                    new java.util.Date(resultSet.getDate(14).getTime()),
-                    new java.util.Date(resultSet.getDate(15).getTime()));
+                    resultSet.getInt("idSale"), resultSet.getDouble("bruto"),
+                    resultSet.getDouble("doprinosi"), resultSet.getDouble("doprinosZaPenziono"), resultSet.getDouble("doprinosZaZdravstveno"),
+                    resultSet.getDouble("doprinosZaDjecijuZastitu"), resultSet.getDouble("doprinosZaZaposljavanje"), resultSet.getDouble("isplataRadniku"),
+                    new java.util.Date(resultSet.getDate("datumOd").getTime()),
+                    new java.util.Date(resultSet.getDate("datumDo").getTime()));
             localPlata = new DTOPlata(plata);
         }else{
             localPlata = null;
@@ -129,13 +106,4 @@ public class DBDAOPlata implements IDBDAO {
         return citajIzBaze(konekcijaNaBazu);
     }
 
-    public DTOPlata dobaviZadnjuUmetnutuPlatu(Connection konekcijaNaBazu) throws SQLException {
-        DTOPlata dtoPlata = null;
-        PreparedStatement ps = konekcijaNaBazu.prepareCall("select last_insert_id() from Plata into @?");
-        int lastId = 1;
-        ps.setInt(1, lastId);
-        ps.executeQuery();
-
-        return dtoPlata;
-    }
 }
