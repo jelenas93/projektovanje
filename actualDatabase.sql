@@ -26,8 +26,6 @@ doprinosi decimal(10,2),
 isplataRadniku decimal(10,2)
 );
 
-alter table Plata add column bruto decimal(10,2);
-
 create table Nalog
 (
 korisnickoIme varchar(20) primary key,
@@ -304,7 +302,7 @@ alter table Racun drop column idStavke;
 alter table Stavka add column idRacuna int;
 alter table Stavka add foreign key(idRacuna) references Racun(idRacuna);
 
-insert into Plata values(default,0,0,0,0,0,0,0,0,0,0,0,0,'1970-01-01','1970-01-01',0);
+insert into Plata values(default,0,0,0,0,'1970-01-01','1970-01-01',0,0,0);
 insert into Nalog values("admin","92668751");
 insert into Zaposleni values(default,1,'admin','admin', '0000000000000', true, 'admin');
 insert into Administrator values(last_insert_id());

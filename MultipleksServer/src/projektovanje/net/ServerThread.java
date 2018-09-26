@@ -27,8 +27,8 @@ public class ServerThread extends Thread{
 
     public ServerThread(Socket klijent) throws IOException, SQLException {
         nalogTrenutnogKorisnika = new Nalog();
-        for(Boolean x : prijavljen){
-            x = false;
+        for(int i = 0; i < 8; i++){
+            prijavljen[i] = false;
         }
         konekcijaNaBazu = ConnectionPool.getInstance().checkOut();
         klijentSoket = klijent;
@@ -366,16 +366,16 @@ public class ServerThread extends Thread{
                 }
                 logServerThreada.logujDogadjaj(Level.FINEST, this, "Obradio zahtjev i ceka na sledeci.");
             }catch(SocketException e){
-                logServerThreada.logujDogadjaj(Level.SEVERE, new SocketException(), e.getStackTrace().toString());
+                logServerThreada.logujException("Prekinuta konekcija", e);
                 break;
             }catch (IOException e){
-                logServerThreada.logujDogadjaj(Level.SEVERE, new IOException(), e.getStackTrace().toString());
+                logServerThreada.logujException("Greska prilikom upisa ili citanja.", e);
             }catch (ClassNotFoundException e){
-                logServerThreada.logujDogadjaj(Level.SEVERE, new ClassNotFoundException(), e.getStackTrace().toString());
+                logServerThreada.logujException("Greska prilikom primanja klase, najvjerovatnije pogresan UID serijalizovane klase ili pogresna klasa", e);
             }catch (java.sql.SQLException e){
-                logServerThreada.logujDogadjaj(Level.SEVERE, new SQLException(), e.getStackTrace().toString());
+                logServerThreada.logujException("Greska u SQL sintaksi ili koristenje pogresne tabele ili BAZE.", e);
             }catch (Exception e){
-                logServerThreada.logujDogadjaj(Level.SEVERE, new Exception(), e.getStackTrace().toString());
+                logServerThreada.logujException("Nedefinisan exception.", e);
             }
         }
         if(null != nalogTrenutnogKorisnika.getKorisnickiNalog()){

@@ -23,7 +23,7 @@ import java.util.Date;
         private Double bruto;
         private Double isplataRadniku;
 
-        public static final Plata nulaPlata = new Plata();
+        public static final Plata nulaPlata = new Plata(1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,new Date(0),new Date(0));
 
         public Plata() {
         }

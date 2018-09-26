@@ -31,6 +31,10 @@ public class Logovanje {
 		logger.log(level, dogadjaj, klasa);
 	}
 
+	synchronized public void logujException(String dogadjaj, Throwable ex){
+		logger.log(Level.SEVERE,dogadjaj, ex);
+	}
+
 	public Logovanje(){
 
 	}
