@@ -16,6 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DBDAOFilm implements IDBDAO {
@@ -32,12 +33,9 @@ public class DBDAOFilm implements IDBDAO {
             List<DTOZanr> dtoZanrovi = new DBDAOFillmZanr().pretraziSveZanroveZaFilm(rs.getInt(1), konekcijaNaBazu);
             List<Zanr> zanrovi = new ArrayList<>();
             dtoZanrovi.forEach(x->zanrovi.add(x.getZanr()));
-            byte[] slikaUBajtovima = rs.getBytes("posterFilma");
-            ByteArrayInputStream bais = new ByteArrayInputStream(slikaUBajtovima);
-            BufferedImage posterFilma = ImageIO.read(bais);
             Film film = new Film(rs.getInt(1), zaposleni.getZaposleni(),rs.getString("naziv"),
                     rs.getInt("trajanje"),rs.getString("opis"),rs.getString("link"),
-                    rs.getString("tipFilma"),zanrovi, posterFilma);
+                    rs.getString("tipFilma"),zanrovi, rs.getString("posterFilma"));
             povratniFilm = new DTOFilm(film);
         }
         return povratniFilm;
@@ -55,10 +53,7 @@ public class DBDAOFilm implements IDBDAO {
         preparedStatement.setString(4, LokalniDtoFilm.getFilm().getOpis());
         preparedStatement.setString(5, LokalniDtoFilm.getFilm().getLinkTrailera());
         preparedStatement.setString(6, LokalniDtoFilm.getFilm().getTipFilma());
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write(LokalniDtoFilm.getFilm().getPosterFilma(),"jpg",baos);
-        byte[] slikaUBajtovima = baos.toByteArray();
-        preparedStatement.setBytes(7,slikaUBajtovima);
+        preparedStatement.setString(7, LokalniDtoFilm.getFilm().getPosterFilma());
         preparedStatement.executeUpdate();
 
         uspjesno = true;
@@ -78,12 +73,9 @@ public class DBDAOFilm implements IDBDAO {
             List<DTOZanr> dtoZanrovi = new DBDAOFillmZanr().pretraziSveZanroveZaFilm(idFilma, konekcijaNaBazu);
             List<Zanr> zanrovi = new ArrayList<>();
             dtoZanrovi.forEach(x->zanrovi.add(x.getZanr()));
-            byte[] slikaUBajtovima = resultSet.getBytes("posterFilma");
-            ByteArrayInputStream bais = new ByteArrayInputStream(slikaUBajtovima);
-            BufferedImage posterFilma = ImageIO.read(bais);
             Film film = new Film(idFilma, zaposleni.getZaposleni(), resultSet.getString(3), resultSet.getInt(4)
                     ,  resultSet.getString(5), resultSet.getString(6) , resultSet.getString(7)
-                    ,zanrovi, posterFilma);
+                    ,zanrovi, resultSet.getString("posterFilma"));
             DTOFilm dtoFilm = new DTOFilm(film);
             listaFilmova.add(dtoFilm);
         }
@@ -112,10 +104,7 @@ public class DBDAOFilm implements IDBDAO {
         preparedStatement.setString(4, lokalniDtoFilm.getFilm().getOpis());
         preparedStatement.setString(5, lokalniDtoFilm.getFilm().getLinkTrailera());
         preparedStatement.setString(6, lokalniDtoFilm.getFilm().getTipFilma());
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write(lokalniDtoFilm.getFilm().getPosterFilma(),"jpg",baos);
-        byte[] slikaUBajtovima = baos.toByteArray();
-        preparedStatement.setBytes(7,slikaUBajtovima);
+        preparedStatement.setString(7, lokalniDtoFilm.getFilm().getPosterFilma());
         preparedStatement.setInt(8, lokalniDtoFilm.getFilm().getIdFilma());
         preparedStatement.executeUpdate();
         uspjesno = true;
@@ -144,10 +133,7 @@ public class DBDAOFilm implements IDBDAO {
             List<Zanr> zanrovi = new ArrayList<>();
             dtoZanrovi.forEach(x-> zanrovi.add(x.getZanr()));
             film.setZanrovi(zanrovi);
-            byte[] slikaUBajtovima = resultSet.getBytes("posterFilma");
-            ByteArrayInputStream bais = new ByteArrayInputStream(slikaUBajtovima);
-            BufferedImage posterFilma = ImageIO.read(bais);
-            film.setPosterFilma(posterFilma);
+            film.setPosterFilma(resultSet.getString("posterFilma"));
             lokalniFilm = new DTOFilm(film);
         }else{
             lokalniFilm = null;

@@ -88,7 +88,7 @@ public class DBDAOPlata implements IDBDAO {
         ResultSet resultSet = preparedStatement.executeQuery();
         if(resultSet.next()){
             Plata plata = new Plata(
-                    resultSet.getInt("idSale"), resultSet.getDouble("bruto"),
+                    resultSet.getInt("idPlate"), resultSet.getDouble("bruto"),
                     resultSet.getDouble("doprinosi"), resultSet.getDouble("doprinosZaPenziono"), resultSet.getDouble("doprinosZaZdravstveno"),
                     resultSet.getDouble("doprinosZaDjecijuZastitu"), resultSet.getDouble("doprinosZaZaposljavanje"), resultSet.getDouble("isplataRadniku"),
                     new java.util.Date(resultSet.getDate("datumOd").getTime()),

@@ -24,7 +24,7 @@ public class ConnectionPool {
 
 	private static ConnectionPool instance;
 
-	public static ConnectionPool getInstance() {
+	synchronized public static ConnectionPool getInstance() {
 		if (instance == null)
 			instance = new ConnectionPool();
 		return instance;

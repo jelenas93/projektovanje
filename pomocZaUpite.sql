@@ -108,7 +108,7 @@ insert into ProdavacHraneIPica values(6);
 delete from Plata where idPlate = 2;
 select * from Nalog;
 select * from Zaposleni;
-select * from Plata;
+select * from Oprema;
 select * from Administrator;
 select * from Klijent;
 insert into Administrator values(9);
@@ -128,4 +128,34 @@ where korisnickoIme = "jelena";
 
 delete from Administrator where idZaposlenog = 9;
 
-select * from Nalog;
+select * from Film;
+insert into Karta values(default,'1970-01-01 00:00:00', 4.5, false, "Cijeli");
+
+select * from filmponuda;
+select * from Ponuda;
+
+delete from filmzanr where idFilma = 3 or idFilma = 5 or idFilma = 6;
+delete from Film where idFilma = 3 or idFilma = 5 or idFilma = 6;
+
+select * from Sala;
+select * from Sjediste;
+select * from ulaznafaktura;
+select * from ulaznafaktura_oprema;
+select * from projekcija;
+select * from repertoar;
+
+update projekcija 
+set idRepertoara = 1,
+	idSale = 2;
+    
+alter table Plata add column brutoMinuliRad decimal(10,2);
+alter table plata add column doprinosi decimal(10,2);
+alter table plata add column isplataRadniku decimal(10,2);
+update plata set brutoMinuliRad = 1;
+update plata set doprinosi = 1;
+update plata set isplataRadniku = 1;
+alter table plata drop column brutoMinuliRad;
+
+select * from Film;
+
+update Film set posterFilma = 1;
