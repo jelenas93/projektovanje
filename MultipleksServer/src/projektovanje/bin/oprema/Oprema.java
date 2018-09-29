@@ -9,16 +9,26 @@ public class Oprema implements IOprema{
     private String naziv;
     private Boolean ispravnost;
     private Zaposleni zaposleni;
+    private Integer identifikator;
 
     public Oprema() {
     }
 
-    public Oprema(Integer idOpreme, Integer brojInventara, String naziv, Boolean ispravnost, Zaposleni zaposleni) {
+    public Oprema(Integer idOpreme, Integer brojInventara, String naziv, Boolean ispravnost, Zaposleni zaposleni, Integer identifikator) {
         this.idOpreme = idOpreme;
         this.brojInventara = brojInventara;
         this.naziv = naziv;
         this.ispravnost = ispravnost;
         this.zaposleni = zaposleni;
+        this.identifikator = identifikator;
+    }
+
+    public Integer getIdentifikator() {
+        return identifikator;
+    }
+
+    public void setIdentifikator(Integer identifikator) {
+        this.identifikator = identifikator;
     }
 
     public Integer getIdOpreme() {

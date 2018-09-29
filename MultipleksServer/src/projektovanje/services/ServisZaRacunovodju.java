@@ -58,25 +58,35 @@ public class ServisZaRacunovodju {
 
     public static void dodajUlaznuFakturu(ObjectInputStream in, ObjectOutputStream out, Connection konekcijaNaBazu, Nalog nalogTrenutnogKorisnika) throws IOException, ClassNotFoundException, SQLException {
         out.writeObject(new String("WHICHONE"));
-        DTOUlaznaFaktura lokalnaUlaznaFaktura = (DTOUlaznaFaktura)in.readObject();
-        new DBDAOUlaznaFaktura().upisiUBazu(lokalnaUlaznaFaktura,konekcijaNaBazu);
-        int poslednjiIDUlazneFakture = new DBDAOUlaznaFaktura().zadnjiUmetnutiId(konekcijaNaBazu);
-        DBDAOFakturaArtikal faktArtDao = new DBDAOFakturaArtikal();
-        DBDAOFakturaOprema faktOprDao = new DBDAOFakturaOprema();
-        DBDAOOprema dbdaoOprema = new DBDAOOprema();
-        DBDAOArtikal dbdaoArtikal = new DBDAOArtikal();
-        int poslednjiUneseniID;
-        Iterator<? extends IOprema> it = lokalnaUlaznaFaktura.getUlaznaFaktura().getKupljenaRoba().iterator();
-        while(it.hasNext()){
-            IOprema stavka = it.next();
-            if(stavka instanceof Artikal){
-                dbdaoArtikal.upisiUBazu(new DTOArtikal((Artikal)stavka),konekcijaNaBazu);
-                poslednjiUneseniID = dbdaoArtikal.zadnjiUmetnutiId(konekcijaNaBazu);
-                faktArtDao.upisiUBazu(poslednjiIDUlazneFakture,poslednjiUneseniID,konekcijaNaBazu);
-            } else{
-                dbdaoOprema.upisiUBazu(new DTOOprema((Oprema) stavka),konekcijaNaBazu);
-                poslednjiUneseniID = dbdaoOprema.zadnjiUmetnutiId(konekcijaNaBazu);
-                faktOprDao.upisiUBazu(poslednjiIDUlazneFakture,poslednjiUneseniID,konekcijaNaBazu);
+        List<DTOUlaznaFaktura> lokalnaDTOUlaznaFaktura = (List<DTOUlaznaFaktura>)in.readObject();
+        for(DTOUlaznaFaktura dtoUlaznaFaktura : lokalnaDTOUlaznaFaktura) {
+            new DBDAOUlaznaFaktura().upisiUBazu(dtoUlaznaFaktura, konekcijaNaBazu);
+            DTOArtikal dtoArtikal = null;
+            DTOOprema dtoOprema = (DTOOprema) new DBDAOOprema().pretraziOpremuPoIdentifikatoru(konekcijaNaBazu, dtoUlaznaFaktura.getUlaznaFaktura().getIdentifikator());
+            Boolean azurirano = false;
+            if (null != dtoOprema) {
+                dtoOprema.getOprema().setBrojInventara(dtoOprema.getOprema().getBrojInventara() + dtoUlaznaFaktura.getUlaznaFaktura().getKolicina());
+                dtoOprema.getOprema().getZaposleni().setIdZaposlenog(dtoUlaznaFaktura.getUlaznaFaktura().getZaposleni().getIdZaposlenog());
+                new DBDAOOprema().azurirajBazu(dtoOprema, konekcijaNaBazu);
+                azurirano = true;
+            }
+            if (true != azurirano) {
+                dtoArtikal = (DTOArtikal) new DBDAOArtikal().pretraziArtikalPoIdentifikatoru(konekcijaNaBazu, dtoUlaznaFaktura.getUlaznaFaktura().getIdentifikator());
+                if (null != dtoArtikal) {
+                    dtoArtikal.getArtikal().setKolicinaNaStanju(dtoArtikal.getArtikal().getKolicinaNaStanju() + dtoUlaznaFaktura.getUlaznaFaktura().getKolicina());
+                    dtoArtikal.getArtikal().getZaposleni().setIdZaposlenog(dtoUlaznaFaktura.getUlaznaFaktura().getZaposleni().getIdZaposlenog());
+                    new DBDAOArtikal().azurirajBazu(dtoArtikal, konekcijaNaBazu);
+                    azurirano = true;
+                }
+            }
+            if (true != azurirano) {
+                if (dtoUlaznaFaktura.getUlaznaFaktura().getRoba() instanceof Artikal) {
+                    dtoArtikal = new DTOArtikal((Artikal) dtoUlaznaFaktura.getUlaznaFaktura().getRoba());
+                    new DBDAOArtikal().upisiUBazu(dtoArtikal, konekcijaNaBazu);
+                } else if (dtoUlaznaFaktura.getUlaznaFaktura().getRoba() instanceof Oprema) {
+                    dtoOprema = new DTOOprema((Oprema) dtoUlaznaFaktura.getUlaznaFaktura().getRoba());
+                    new DBDAOOprema().upisiUBazu(dtoOprema, konekcijaNaBazu);
+                }
             }
         }
         logServisaZaRacunovodju.logujDogadjaj(Level.FINEST,new ServisZaRacunovodju(),"Racunovodja dodao ulaznu fakturu.\n" +

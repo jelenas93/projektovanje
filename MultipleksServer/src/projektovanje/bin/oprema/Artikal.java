@@ -11,6 +11,7 @@ public class Artikal implements IOprema{
     private String tip;
     private String barKod;
     private Zaposleni zaposleni;
+    private Integer identifikator;
 
     public Artikal() {
     }
@@ -19,7 +20,7 @@ public class Artikal implements IOprema{
         idArtikla = id;
     }
 
-    public Artikal(Integer idArtikla, String naziv, Integer kolicinaNaStanju, Double jedinicnaCijena,  String tip, String barKod, Zaposleni zaposleni) {
+    public Artikal(Integer idArtikla, String naziv, Integer kolicinaNaStanju, Double jedinicnaCijena,  String tip, String barKod, Zaposleni zaposleni, Integer identifikator) {
         this.jedinicnaCijena = jedinicnaCijena;
         this.idArtikla = idArtikla;
         this.naziv = naziv;
@@ -27,6 +28,15 @@ public class Artikal implements IOprema{
         this.tip = tip;
         this.barKod = barKod;
         this.zaposleni = zaposleni;
+        this.identifikator = identifikator;
+    }
+
+    public Integer getIdentifikator() {
+        return identifikator;
+    }
+
+    public void setIdentifikator(Integer identifikator) {
+        this.identifikator = identifikator;
     }
 
     public Double getJedinicnaCijena() {

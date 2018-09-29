@@ -12,29 +12,111 @@ public class UlaznaFaktura implements Serializable {
     public static final long serialVersionUID=9016l;
     private Integer idFakute;
     private Zaposleni zaposleni;
-    private String brojRacina;
-    private String vrstaTransakcije;
-    private Double kolicina;
+    private Integer kolicina;
     private String jedinicaMjere;
-    private Double cijena;
-    private String kupac;
-    private Date datum;
-    private List<? extends IOprema> kupljenaRoba;
+    private Integer identifikator;
+    private String nazivRobe;
+    private Double prodajnaVrijednost;
+    private Double prodajnaCijena;
+    private IOprema roba;
+    private Date datumFakture;
+    private Integer brojFakture;
+    private String dobavljac;
+    private String barKod;
 
-    public UlaznaFaktura(Integer idFakute, Zaposleni zaposleni, String brojRacina, String vrstaTransakcije, String jedinicaMjere,Double kolicina, Double cijena, String kupac, Date datum, List<? extends IOprema> kupljenaRoba) {
+
+    public UlaznaFaktura(Integer idFakute, Zaposleni zaposleni, String jedinicaMjere,Integer kolicina,
+                         Integer identifikator, String naziv, Double prodajnaVrijednost,
+                         Double prodajnaCijena, IOprema roba,
+                         Integer brojFakture, Date datumFakture, String dobavljac, String barKod) {
         this.idFakute = idFakute;
         this.zaposleni = zaposleni;
-        this.brojRacina = brojRacina;
-        this.vrstaTransakcije = vrstaTransakcije;
         this.kolicina = kolicina;
         this.jedinicaMjere = jedinicaMjere;
-        this.cijena = cijena;
-        this.kupac = kupac;
-        this.datum = datum;
-        this.kupljenaRoba = kupljenaRoba;
+        this.identifikator = identifikator;
+        this.nazivRobe = naziv;
+        this.prodajnaVrijednost = prodajnaVrijednost;
+        this.prodajnaCijena = prodajnaCijena;
+        this.roba = roba;
+        this.brojFakture = brojFakture;
+        this.datumFakture = datumFakture;
+        this.dobavljac = dobavljac;
+        this.barKod = barKod;
+    }
+
+    public IOprema getRoba() {
+        return roba;
+    }
+
+    public Date getDatumFakture() {
+        return datumFakture;
+    }
+
+    public void setDatumFakture(Date datumFakture) {
+        this.datumFakture = datumFakture;
+    }
+
+    public Integer getBrojFakture() {
+        return brojFakture;
+    }
+
+    public void setBrojFakture(Integer brojFakture) {
+        this.brojFakture = brojFakture;
+    }
+
+    public String getDobavljac() {
+        return dobavljac;
+    }
+
+    public void setDobavljac(String dobavljac) {
+        this.dobavljac = dobavljac;
+    }
+
+    public String getBarKod() {
+        return barKod;
+    }
+
+    public void setBarKod(String barKod) {
+        this.barKod = barKod;
+    }
+
+    public void setRoba(IOprema roba) {
+        this.roba = roba;
     }
 
     public UlaznaFaktura() {
+    }
+
+    public Integer getIdentifikator() {
+        return identifikator;
+    }
+
+    public void setIdentifikator(Integer identifikator) {
+        this.identifikator = identifikator;
+    }
+
+    public String getNazivRobe() {
+        return nazivRobe;
+    }
+
+    public void setNazivRobe(String nazivRobe) {
+        this.nazivRobe = nazivRobe;
+    }
+
+    public Double getProdajnaVrijednost() {
+        return prodajnaVrijednost;
+    }
+
+    public void setProdajnaVrijednost(Double prodajnaVrijednost) {
+        this.prodajnaVrijednost = prodajnaVrijednost;
+    }
+
+    public Double getProdajnaCijena() {
+        return prodajnaCijena;
+    }
+
+    public void setProdajnaCijena(Double prodajnaCijena) {
+        this.prodajnaCijena = prodajnaCijena;
     }
 
     public Integer getIdFakute() {
@@ -53,27 +135,11 @@ public class UlaznaFaktura implements Serializable {
         this.zaposleni = zaposleni;
     }
 
-    public String getBrojRacina() {
-        return brojRacina;
-    }
-
-    public void setBrojRacina(String brojRacina) {
-        this.brojRacina = brojRacina;
-    }
-
-    public String getVrstaTransakcije() {
-        return vrstaTransakcije;
-    }
-
-    public void setVrstaTransakcije(String vrstaTransakcije) {
-        this.vrstaTransakcije = vrstaTransakcije;
-    }
-
-    public Double getKolicina() {
+    public Integer getKolicina() {
         return kolicina;
     }
 
-    public void setKolicina(Double kolicina) {
+    public void setKolicina(Integer kolicina) {
         this.kolicina = kolicina;
     }
 
@@ -85,56 +151,13 @@ public class UlaznaFaktura implements Serializable {
         this.jedinicaMjere = jedinicaMjere;
     }
 
-    public Double getCijena() {
-        return cijena;
-    }
-
-    public void setCijena(Double cijena) {
-        this.cijena = cijena;
-    }
-
-    public String getKupac() {
-        return kupac;
-    }
-
-    public void setKupac(String kupac) {
-        this.kupac = kupac;
-    }
-
-    public Date getDatum() {
-        return datum;
-    }
-
-    public void setDatum(Date datum) {
-        this.datum = datum;
-    }
-
-    public List<? extends IOprema> getKupljenaRoba() {
-        return kupljenaRoba;
-    }
-
-    public void setKupljenaRoba(List<? extends IOprema> kupljenaRoba) {
-        this.kupljenaRoba = kupljenaRoba;
-    }
-
     @Override
     public String toString() {
-        String ret = "";
-        Iterator<? extends IOprema> it = kupljenaRoba.iterator();
-        while(it.hasNext()){
-            ret+=it.next().toString();
-        }
         return "UlaznaFaktura{" +
                 "idFakute=" + idFakute +
                 ", zaposleni=" + zaposleni.toString() +
-                ", brojRacina='" + brojRacina + '\'' +
-                ", vrstaTransakcije='" + vrstaTransakcije + '\'' +
                 ", kolicina=" + kolicina +
                 ", jedinicaMjere='" + jedinicaMjere + '\'' +
-                ", cijena=" + cijena +
-                ", kupac='" + kupac + '\'' +
-                ", datum=" + datum +
-                ", roba = "+ ret +
                 '}';
     }
 }

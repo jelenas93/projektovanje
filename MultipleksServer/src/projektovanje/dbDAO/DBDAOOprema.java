@@ -17,11 +17,12 @@ public class DBDAOOprema implements IDBDAO{
 
         DTOOprema lokalniDTOOprema = (DTOOprema) dtoInstanca;
         Oprema lokalniOprema = lokalniDTOOprema.getOprema();
-        PreparedStatement ps = konekcijaNaBazu.prepareStatement("insert into Oprema values (default,?,?,?,?)");
+        PreparedStatement ps = konekcijaNaBazu.prepareStatement("insert into Oprema values (default,?,?,?,?,?)");
         ps.setInt(1,lokalniOprema.getBrojInventara());
         ps.setString(2,lokalniOprema.getNaziv());
         ps.setBoolean(3,lokalniOprema.getIspravnost());
         ps.setInt(4,lokalniOprema.getZaposleni().getIdZaposlenog());
+        ps.setInt(5, lokalniOprema.getIdentifikator());
         ps.executeUpdate();
         return true;
     }
@@ -38,9 +39,9 @@ public class DBDAOOprema implements IDBDAO{
             String naziv = rs.getString(3);
             Boolean ispravne = rs.getBoolean(4);
             Integer idZaposlenog = rs.getInt(5);
-            System.out.println(idZaposlenog);
+            Integer identifikator = rs.getInt(6);
             DTOZaposleni zaposleni = (DTOZaposleni) zaposleniDao.pretraziBazu(konekcijaNaBazu,String.valueOf(idZaposlenog));
-            Oprema o = new Oprema(idOpreme,brojInventara,naziv,ispravne,zaposleni.getZaposleni());
+            Oprema o = new Oprema(idOpreme,brojInventara,naziv,ispravne,zaposleni.getZaposleni(), identifikator);
             povratnaVrijednost.add(new DTOOprema(o));
         }
         return povratnaVrijednost;
@@ -54,13 +55,15 @@ public class DBDAOOprema implements IDBDAO{
                 "   set brojInventara = ?," +
                 "   naziv = ?," +
                 "   ispravnost = ?," +
-                "   idZaposlenog = ?" +
+                "   idZaposlenog = ?," +
+                "   identifikator = ?" +
                 "   where idOpreme = ?");
         ps.setInt(1,lokalniOprema.getBrojInventara());
         ps.setString(2,lokalniOprema.getNaziv());
         ps.setBoolean(3,lokalniOprema.getIspravnost());
         ps.setInt(4,lokalniOprema.getZaposleni().getIdZaposlenog());
-        ps.setInt(5,lokalniOprema.getIdOpreme());
+        ps.setInt(5, lokalniOprema.getIdentifikator());
+        ps.setInt(6,lokalniOprema.getIdOpreme());
         ps.executeUpdate();
         return true;
     }
@@ -77,9 +80,8 @@ public class DBDAOOprema implements IDBDAO{
             String naziv = rs.getString(3);
             Boolean ispravne = rs.getBoolean(4);
             Integer idZaposlenog = rs.getInt(5);
-            System.out.println(idZaposlenog);
             DTOZaposleni zaposleni = (DTOZaposleni) zaposleniDao.pretraziBazu(konekcijaNaBazu,String.valueOf(idZaposlenog));
-            Oprema o = new Oprema(idOpreme,brojInventara,naziv,ispravne,zaposleni.getZaposleni());
+            Oprema o = new Oprema(idOpreme,brojInventara,naziv,ispravne,zaposleni.getZaposleni(), rs.getInt(6));
             povratnaVrijednost.add(new DTOOprema(o));
         }
         return povratnaVrijednost;
@@ -100,7 +102,7 @@ public class DBDAOOprema implements IDBDAO{
             Boolean ispravnost = rezultat.getBoolean(4);
             int idZaposlenog = rezultat.getInt(5);
             DTOZaposleni zaposleni = (DTOZaposleni) new DBDAOZaposleni().pretraziBazu(konekcijaNaBazu,String.valueOf(idZaposlenog));
-            Oprema ret = new Oprema(id,brojInventara,naziv,ispravnost,zaposleni.getZaposleni());
+            Oprema ret = new Oprema(id,brojInventara,naziv,ispravnost,zaposleni.getZaposleni(), rezultat.getInt(6));
             povratnaVrijednost = new DTOOprema(ret);
         }
         return povratnaVrijednost;
@@ -110,4 +112,21 @@ public class DBDAOOprema implements IDBDAO{
     public List<DTOOprema> ispisi(Connection konekcijaNaBazu) throws SQLException {
         return citajIzBaze(konekcijaNaBazu);
     }
+
+    public DTOOprema pretraziOpremuPoIdentifikatoru(Connection konekcijaNaBazu, Integer identifikator) throws SQLException {
+        DTOOprema dtoOprema = null;
+        PreparedStatement ps = konekcijaNaBazu.prepareStatement("select * from oprema where identifikator = ?");
+        ps.setInt(1,identifikator);
+        ResultSet rs = ps.executeQuery();
+        if(rs.next())
+        {
+            Integer pomInt = rs.getInt(5);
+            DTOZaposleni dtoZaposleni = (DTOZaposleni)new DBDAOZaposleni().pretraziBazu(konekcijaNaBazu,pomInt.toString());
+            Oprema oprema = new Oprema(rs.getInt(1), rs.getInt(2), rs.getString(3),
+                    rs.getBoolean(4), dtoZaposleni.getZaposleni(), rs.getInt(6));
+            dtoOprema = new DTOOprema(oprema);
+        }
+        return dtoOprema;
+    }
+
 }

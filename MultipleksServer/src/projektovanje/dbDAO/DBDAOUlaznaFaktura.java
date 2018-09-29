@@ -19,15 +19,18 @@ public class DBDAOUlaznaFaktura implements IDBDAO {
     public Boolean upisiUBazu(IDTO ulaznaFaktura, Connection konekcijaNaBazu) throws SQLException {
         DTOUlaznaFaktura lokalniDTOUlaznaFaktura = (DTOUlaznaFaktura) ulaznaFaktura;
         UlaznaFaktura lokalnaUlaznaFaktura = lokalniDTOUlaznaFaktura.getUlaznaFaktura();
-        PreparedStatement ps = konekcijaNaBazu.prepareStatement("insert into UlaznaFaktura values (default,?,?,?,?,?,?,?,?)");
+        PreparedStatement ps = konekcijaNaBazu.prepareStatement("insert into UlaznaFaktura values (default,?,?,?,?,?,?,?,?,?,?,?)");
         ps.setInt(1,lokalnaUlaznaFaktura.getZaposleni().getIdZaposlenog());
-        ps.setString(2,lokalnaUlaznaFaktura.getBrojRacina());
-        ps.setString(3,lokalnaUlaznaFaktura.getVrstaTransakcije());
-        ps.setString(4,lokalnaUlaznaFaktura.getJedinicaMjere());
-        ps.setDouble(5,lokalnaUlaznaFaktura.getKolicina());
-        ps.setDouble(6,lokalnaUlaznaFaktura.getCijena());
-        ps.setString(7,lokalnaUlaznaFaktura.getKupac());
-        ps.setDate(8,new java.sql.Date(lokalnaUlaznaFaktura.getDatum().getTime()));
+        ps.setString(2,lokalnaUlaznaFaktura.getJedinicaMjere());
+        ps.setInt(3,lokalnaUlaznaFaktura.getKolicina());
+        ps.setInt(4,lokalnaUlaznaFaktura.getIdentifikator());
+        ps.setString(5,lokalnaUlaznaFaktura.getNazivRobe());
+        ps.setDouble(6,lokalnaUlaznaFaktura.getProdajnaVrijednost());
+        ps.setDouble(7,lokalnaUlaznaFaktura.getProdajnaCijena());
+        ps.setInt(8,lokalnaUlaznaFaktura.getBrojFakture());
+        ps.setDate(9,new java.sql.Date(lokalnaUlaznaFaktura.getDatumFakture().getTime()));
+        ps.setString(10, lokalnaUlaznaFaktura.getDobavljac());
+        ps.setString(11, lokalnaUlaznaFaktura.getBarKod());
         ps.executeUpdate();
         return true;
     }
@@ -43,20 +46,19 @@ public class DBDAOUlaznaFaktura implements IDBDAO {
         while (rs.next()){
             int idFakture = rs.getInt(1);
             int idZaposlenog = rs.getInt(2);
-            String brojRacuna = rs.getString(3);
-            String vrstaTransakcije = rs.getString(4);
-            String jedinicaMjere = rs.getString(5);
-            Double kolicina = rs.getDouble(6);
-            Double cijena = rs.getDouble(7);
-            String kupac = rs.getString(8);
-            Date datum = rs.getDate(9);
+            String jedinicaMjere = rs.getString(3);
+            Integer kolicina = rs.getInt(4);
+            Integer identifikator = rs.getInt(5);
+            String nazivRobe = rs.getString(6);
+            Double prodajnaVrijednost = rs.getDouble(7);
+            Double prodajnaCijena = rs.getDouble(8);
+            Integer brojFakture = rs.getInt(9);
+            java.util.Date datumFakture = new java.util.Date(rs.getDate(10).getTime());
+            String dobavljac = rs.getString(11);
+            String barKod = rs.getString(12);
             DTOZaposleni zaposleniDTO =(DTOZaposleni) zaposleniDao.pretraziBazu(konekcijaNaBazu,String.valueOf(idZaposlenog));
-            List<DTOArtikal> artikli = faktArtDao.pretraziSveArtikaleZaFakturu(idFakture,konekcijaNaBazu);
-            List<DTOOprema> oprema = faktOprDao.pretraziSvuOpremuZaFakturu(idFakture,konekcijaNaBazu);
-            List<IOprema> svaOprema = new ArrayList<>();
-            artikli.forEach(x->svaOprema.add(x.getArtikal()));
-            oprema.forEach(x->svaOprema.add(x.getOprema()));
-            UlaznaFaktura lokalnaUlaznaFaktura = new UlaznaFaktura(idFakture,zaposleniDTO.getZaposleni(),brojRacuna,vrstaTransakcije,jedinicaMjere,kolicina,cijena,kupac,datum,svaOprema);
+            UlaznaFaktura lokalnaUlaznaFaktura = new UlaznaFaktura(idFakture,zaposleniDTO.getZaposleni(),jedinicaMjere,kolicina,
+                    identifikator,nazivRobe,prodajnaVrijednost,prodajnaCijena, null, brojFakture, datumFakture, dobavljac, barKod);
             povratnaVrijednost.add(new DTOUlaznaFaktura(lokalnaUlaznaFaktura));
         }
         return povratnaVrijednost;
@@ -68,23 +70,30 @@ public class DBDAOUlaznaFaktura implements IDBDAO {
         UlaznaFaktura lokalnaFaktura = lokalnaDTOUlaznaFaktura.getUlaznaFaktura();
         PreparedStatement ps = konekcijaNaBazu.prepareStatement("update UlaznaFaktura" +
                 "   set idZaposlenog = ?," +
-                "   brojRacuna = ?," +
-                "   vrstaTransakcije = ?," +
                 "   jedinicaMjere = ?," +
                 "   kolicina = ?," +
-                "   cijena = ?," +
-                "   kupac = ?," +
-                "   datum = ?" +
+                "   identifikator = ?," +
+                "   nazivRobe = ?," +
+                "   prodajnaVrijednost = ?," +
+                "   prodajnaCijena = ?," +
+                "   brojFakture = ?," +
+                "   datumFakture = ?," +
+                "   dobavljac = ?," +
+                "   barKod = ?" +
                 "   where idFakture = ?");
         ps.setInt(1,lokalnaFaktura.getZaposleni().getIdZaposlenog());
-        ps.setString(2,lokalnaFaktura.getBrojRacina());
-        ps.setString(3,lokalnaFaktura.getVrstaTransakcije());
-        ps.setString(4,lokalnaFaktura.getJedinicaMjere());
-        ps.setDouble(5,lokalnaFaktura.getKolicina());
-        ps.setDouble(6,lokalnaFaktura.getCijena());
-        ps.setString(7,lokalnaFaktura.getKupac());
-        ps.setDate(8,new java.sql.Date(lokalnaFaktura.getDatum().getTime()));
-        ps.setInt(9,lokalnaFaktura.getIdFakute());
+        ps.setString(2,lokalnaFaktura.getJedinicaMjere());
+        ps.setInt(3,lokalnaFaktura.getKolicina());
+        ps.setInt(4,lokalnaFaktura.getIdentifikator());
+        ps.setString(5,lokalnaFaktura.getNazivRobe());
+        ps.setDouble(6,lokalnaFaktura.getProdajnaVrijednost());
+        ps.setDouble(7,lokalnaFaktura.getProdajnaCijena());
+        ps.setInt(8, lokalnaFaktura.getBrojFakture());
+        ps.setDate(9,new java.sql.Date(lokalnaFaktura.getDatumFakture().getTime()));
+        ps.setString(10, lokalnaFaktura.getDobavljac());
+        ps.setString(11, lokalnaFaktura.getBarKod());
+        ps.setInt(12,lokalnaFaktura.getIdFakute());
+
         ps.executeUpdate();
         return true;
     }
@@ -95,25 +104,24 @@ public class DBDAOUlaznaFaktura implements IDBDAO {
         Integer idFakture = Integer.valueOf(parametarPretrage);
         PreparedStatement s = konekcijaNaBazu.prepareStatement("select * from UlaznaFaktura where idFakture = ?");
         s.setInt(1,idFakture);
-        ResultSet rezultat = s.executeQuery();
-        if(rezultat.next()){
-            int id = rezultat.getInt(1);
-            int idZaposlenog = rezultat.getInt(2);
-            String brojRacuna = rezultat.getString(3);
-            String vrstaTransakcije = rezultat.getString(4);
-            String jedinicaMjere = rezultat.getString(5);
-            Double kolicina = rezultat.getDouble(6);
-            Double cijena = rezultat.getDouble(7);
-            String kupac = rezultat.getString(8);
-            java.util.Date datum = new java.util.Date(rezultat.getDate(9).getTime());
-            DTOZaposleni zaposleniDTO = (DTOZaposleni) new DBDAOZaposleni().pretraziBazu(konekcijaNaBazu,String.valueOf(idZaposlenog));
-            List<DTOArtikal> artikli = new DBDAOFakturaArtikal().pretraziSveArtikaleZaFakturu(id,konekcijaNaBazu);
-            List<DTOOprema> oprema = new DBDAOFakturaOprema().pretraziSvuOpremuZaFakturu(id,konekcijaNaBazu);
-            List<IOprema> svaOprema = new ArrayList<>();
-            artikli.forEach(x->svaOprema.add(x.getArtikal()));
-            oprema.forEach(x->svaOprema.add(x.getOprema()));
-            povratnaVrijednost = new DTOUlaznaFaktura(new UlaznaFaktura(id,zaposleniDTO.getZaposleni(),brojRacuna,
-                                    vrstaTransakcije,jedinicaMjere,kolicina,cijena,kupac,datum,svaOprema));
+        ResultSet rs = s.executeQuery();
+        DBDAOZaposleni zaposleniDao = new DBDAOZaposleni();
+        if(rs.next()){
+            idFakture = rs.getInt(1);
+            int idZaposlenog = rs.getInt(2);
+            String jedinicaMjere = rs.getString(3);
+            Integer kolicina = rs.getInt(4);
+            Integer identifikator = rs.getInt(5);
+            String nazivRobe = rs.getString(6);
+            Double prodajnaVrijednost = rs.getDouble(7);
+            Double prodajnaCijena = rs.getDouble(8);
+            java.sql.Date datumFakture = rs.getDate("datumFakture");
+            java.util.Date datumFaktureUtil = new java.util.Date(datumFakture.getTime());
+            DTOZaposleni zaposleniDTO =(DTOZaposleni) zaposleniDao.pretraziBazu(konekcijaNaBazu,String.valueOf(idZaposlenog));
+            UlaznaFaktura lokalnaUlaznaFaktura = new UlaznaFaktura(idFakture,zaposleniDTO.getZaposleni(),jedinicaMjere,kolicina,
+                    identifikator,nazivRobe,prodajnaVrijednost,prodajnaCijena, null, rs.getInt("brojfakture"),
+                    datumFaktureUtil, rs.getString("dobavljac"), rs.getString("barKod"));
+            povratnaVrijednost = new DTOUlaznaFaktura(lokalnaUlaznaFaktura);
         }
         return povratnaVrijednost;
     }
@@ -123,4 +131,5 @@ public class DBDAOUlaznaFaktura implements IDBDAO {
         return citajIzBaze(konekcijaNaBazu);
 
     }
+
 }

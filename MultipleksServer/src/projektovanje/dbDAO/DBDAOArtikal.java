@@ -19,13 +19,14 @@ public class DBDAOArtikal implements IDBDAO {
     public Boolean upisiUBazu(IDTO dtoArtikal, Connection konekcijaNaBazu) throws java.sql.SQLException{
         Boolean uspjesno = false;
         DTOArtikal artikal = (DTOArtikal)dtoArtikal;
-        PreparedStatement preparedStatement = konekcijaNaBazu.prepareStatement("insert into Artikal values(default, ?, ?, ?, ?, ?, ?)");
+        PreparedStatement preparedStatement = konekcijaNaBazu.prepareStatement("insert into Artikal values(default, ?, ?, ?, ?, ?, ?, ?)");
         preparedStatement.setString(1, artikal.getArtikal().getNaziv());
         preparedStatement.setInt(2, artikal.getArtikal().getKolicinaNaStanju());
         preparedStatement.setDouble(3, artikal.getArtikal().getJedinicnaCijena());
         preparedStatement.setString(4, artikal.getArtikal().getTip());
         preparedStatement.setString(5, artikal.getArtikal().getBarKod());
         preparedStatement.setInt(6, artikal.getArtikal().getIdZaposlenog());
+        preparedStatement.setInt(7, artikal.getArtikal().getIdentifikator());
         preparedStatement.executeUpdate();
         uspjesno = true;
         return uspjesno;
@@ -43,7 +44,7 @@ public class DBDAOArtikal implements IDBDAO {
             Artikal artikal = new Artikal(resultSet.getInt(1), resultSet.getString(2)
                     , resultSet.getInt(3), resultSet.getDouble(4), resultSet.getString(5)
                     , resultSet.getString(6)
-                    , zaposleni.getZaposleni());
+                    , zaposleni.getZaposleni(), resultSet.getInt(8));
             DTOArtikal dtoArtikal = new DTOArtikal(artikal);
             listaArtikala.add(dtoArtikal);
         }
@@ -63,7 +64,8 @@ public class DBDAOArtikal implements IDBDAO {
                         "   jedinicnaCijena = ?," +
                         "   tip = ?," +
                         "   barKod = ?," +
-                        "   idZaposlenog = ?" +
+                        "   idZaposlenog = ?," +
+                        "   identifikator = ?" +
                         "   where idArtikla = ?");
 
         preparedStatement.setString(1, artikal.getArtikal().getNaziv());
@@ -72,7 +74,8 @@ public class DBDAOArtikal implements IDBDAO {
         preparedStatement.setString(4, artikal.getArtikal().getTip());
         preparedStatement.setString(5, artikal.getArtikal().getBarKod());
         preparedStatement.setInt(6, artikal.getArtikal().getIdZaposlenog());
-        preparedStatement.setInt(7, artikal.getArtikal().getIdArtikla());
+        preparedStatement.setInt(7, artikal.getArtikal().getIdentifikator());
+        preparedStatement.setInt(8, artikal.getArtikal().getIdArtikla());
 
 
         preparedStatement.executeUpdate();
@@ -96,6 +99,7 @@ public class DBDAOArtikal implements IDBDAO {
             artikal.setTip(resultSet.getString(5));
             artikal.setBarKod(resultSet.getString(6));
             int idZaposlenog = resultSet.getInt(7);
+            artikal.setIdentifikator(resultSet.getInt(8));
             DTOZaposleni zaposleni = (DTOZaposleni) new DBDAOZaposleni().pretraziBazu(konekcijaNaBazu,String.valueOf(idZaposlenog));
             artikal.setZaposleni(zaposleni.getZaposleni());
             lokalniArtikal = new DTOArtikal(artikal);
@@ -123,5 +127,22 @@ public class DBDAOArtikal implements IDBDAO {
 
         preparedStatement.executeUpdate();
         return true;
+    }
+
+    public DTOArtikal pretraziArtikalPoIdentifikatoru(Connection konekcijaNaBazu, Integer identifikator) throws SQLException {
+        DTOArtikal dtoArtikal = null;
+        PreparedStatement ps = konekcijaNaBazu.prepareStatement("select * from artikal where identifikator = ?");
+        ps.setInt(1,identifikator);
+        ResultSet rs = ps.executeQuery();
+        if(rs.next())
+        {
+            Integer pomInt = rs.getInt(7);
+            DTOZaposleni dtoZaposleni = (DTOZaposleni)new DBDAOZaposleni().pretraziBazu(konekcijaNaBazu,pomInt.toString());
+            Artikal artikal = new Artikal(rs.getInt(1),rs.getString(2),rs.getInt(3),
+                    rs.getDouble(4), rs.getString(5),rs.getString(6),dtoZaposleni.getZaposleni(),
+                    rs.getInt(8));
+            dtoArtikal = new DTOArtikal(artikal);
+        }
+        return dtoArtikal;
     }
 }
