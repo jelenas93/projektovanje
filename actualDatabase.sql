@@ -334,3 +334,4 @@ alter table ulaznafaktura add column brojFakture int;
 alter table ulaznafaktura add column datumFakture Date;
 alter table ulaznafaktura add column dobavljac varchar(100);
 alter table ulaznafaktura add column barKod varchar(13);
+alter table racun drop column kolicina;
