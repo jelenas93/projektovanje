@@ -91,4 +91,36 @@ public class DBDAOIzdavanje implements IDBDAO {
         ps.executeUpdate();
         return true;
     }
+
+    public List<? extends IDTO> pretraziBazuPoProjekciji(Connection konekcijaNaBazu, String parametarPretrage) throws SQLException, IOException {
+        List<DTOIzdavanje> listaIzdavanja = new ArrayList<>();
+        PreparedStatement ps = konekcijaNaBazu.prepareStatement("select * from Izdavanje where idProjekcije = ?");
+        Integer idProjekcije = Integer.valueOf(parametarPretrage);
+        DTOProjekcija dtoProjekcija = (DTOProjekcija)new  DBDAOProjekcija().pretraziBazu(konekcijaNaBazu,String.valueOf(idProjekcije));
+        ps.setInt(1,idProjekcije);
+        ResultSet resultSet = ps.executeQuery();
+        while(resultSet.next()){
+            int idKarte = resultSet.getInt(1);
+            int idSjedista = resultSet.getInt(2);
+            int idSale = resultSet.getInt(3);
+            int idProjekcijeLok = resultSet.getInt(4);
+            int idFilma = resultSet.getInt(5);
+            int idZaposlenog = resultSet.getInt(6);
+
+            DTOKarta dtoKarta = (DTOKarta) new DBDAOKarta().pretraziBazu(konekcijaNaBazu,String.valueOf(idKarte));
+            Karta karta = dtoKarta.getKarta();
+            DTOSala dtoSala = (DTOSala) new DBDAOSala().pretraziBazu(konekcijaNaBazu,String.valueOf(idSale));
+            Sala sala = dtoSala.getSala();
+            DTOSjediste dtoSjediste =(DTOSjediste) new DBDAOSjediste().dohvatiSjedisteIzSale(konekcijaNaBazu,String.valueOf(idSjedista),sala);
+            Sjediste sjediste = dtoSjediste.getSjediste();
+            Projekcija projekcija = dtoProjekcija.getProjekcija();
+            DTOZaposleni dtoZaposleni = (DTOZaposleni) new DBDAOZaposleni().pretraziBazu(konekcijaNaBazu,String.valueOf(idZaposlenog));
+            Zaposleni zaposleni = dtoZaposleni.getZaposleni();
+
+            Izdavanje izdavanje = new Izdavanje(karta, sjediste, sala, projekcija,zaposleni);
+            DTOIzdavanje dtoIzdavanje = new DTOIzdavanje(izdavanje);
+            listaIzdavanja.add(dtoIzdavanje);
+        }
+        return listaIzdavanja;
+    }
 }

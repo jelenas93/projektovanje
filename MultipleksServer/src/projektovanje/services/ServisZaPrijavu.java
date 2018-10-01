@@ -155,12 +155,10 @@ public class ServisZaPrijavu {
                 logerZaPrijavu.logujDogadjaj(Level.FINEST, new DTOKlijent(), "Klijent prijavljen na sistem.\nKorisnicko ime: "+ msg.trim().split("#")[1]);
                 out.writeObject(new String("OK#KLIJENT#" + dtoKlijent.getKlijent().getIdKlijenta().toString()));
                 prijavljen[Korisnici.KLIJENT.getKlijent()] = true;
-                out.writeObject(dtoKlijent);
             }
         }else{
             logerZaPrijavu.logujDogadjaj(Level.WARNING, new DTOZaposleni(), "Neuspio pokusaj prijave na server. Pogresna sifra ili korisnicko ime.");
             out.writeObject(new String("NOK#KorisnickoIme ili Sifra nisu tacni."));
-            out.writeObject(null);
         }
     }
 }

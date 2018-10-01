@@ -28,23 +28,7 @@ public class ServisZaArtikle {
         out.writeObject(artikli);
     }
 
-    public static void dodajArtikal(String msg, Connection konekcijaNaBazu, ObjectOutputStream out, ObjectInputStream in) throws IOException, ClassNotFoundException, SQLException {
-        out.writeObject(new String("WHICHONE"));
-        DTOUlaznaFaktura dtoUlaznaFaktura = (DTOUlaznaFaktura)in.readObject();
-        new DBDAOUlaznaFaktura().upisiUBazu(dtoUlaznaFaktura,konekcijaNaBazu);
-        int poslednjiIDUlazneFakture = new DBDAOUlaznaFaktura().zadnjiUmetnutiId(konekcijaNaBazu);
-        DBDAOFakturaOprema faktOprDao = new DBDAOFakturaOprema();
-        List<Artikal> listaRobe = (List<Artikal>)dtoUlaznaFaktura.getUlaznaFaktura().getKupljenaRoba();
-        Iterator<Artikal> iterator = listaRobe.iterator();
-        DBDAOArtikal dbdaoArtikal = new DBDAOArtikal();
-        while(iterator.hasNext()){
-            Artikal stavka = iterator.next();
-            dbdaoArtikal.upisiUBazu(new DTOArtikal(stavka),konekcijaNaBazu);
-            int poslednjiIDArtikla = dbdaoArtikal.zadnjiUmetnutiId(konekcijaNaBazu);
-            faktOprDao.upisiUBazu(poslednjiIDUlazneFakture,poslednjiIDArtikla,konekcijaNaBazu);
-        }
-        out.writeObject(new String("OK#Uspjesno dodan artikal."));
-    }
+
 
     public static void azurirajArtikal(Connection konekcijaNaBazu, ObjectOutputStream out, ObjectInputStream in) throws IOException, ClassNotFoundException, SQLException {
         out.writeObject(new String("WHICHONE"));

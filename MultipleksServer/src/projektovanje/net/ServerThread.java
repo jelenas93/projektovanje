@@ -209,14 +209,6 @@ public class ServerThread extends Thread{
                             out.writeObject(new String("NOK#Prijavljeni korisnik nema pravo da izlista plate."));
                         }
                         break;
-                    case ADD_EQUIPMENT:
-                        if(prijavljen[Korisnici.KINOOPERATER.getKinoopreater()]){
-                            ServisZaKinooperatere.dodajOpremu(in,out,konekcijaNaBazu,nalogTrenutnogKorisnika);
-                        }else{
-                            logServerThreada.logujDogadjaj(Level.WARNING, new DTONalog(), "Korisnik koji nema pravo dodavati opremu.\nKorisnik: " + nalogTrenutnogKorisnika.getKorisnickiNalog());
-                            out.writeObject(new String("NOK#Prijavljeni korisnik nema pravo da dodaje opremu."));
-                        }
-                        break;
                     case UPDATE_EQUIPMENT:
                         if(prijavljen[Korisnici.KINOOPERATER.getKinoopreater()]){
                             ServisZaKinooperatere.izmjeniOpremu(in,out,konekcijaNaBazu,nalogTrenutnogKorisnika);
@@ -278,15 +270,6 @@ public class ServerThread extends Thread{
                         } else{
                             out.writeObject(new String("NOK#Trenutni korisnik ne moze azurirati artikle"));
                             logServerThreada.logujDogadjaj(Level.WARNING,new DTONalog(),"Korisnik koji nema pravo pokusao je azurirati artikal\n Korisnik: "+nalogTrenutnogKorisnika.getKorisnickiNalog());
-                        }
-                        break;
-                    case ADD_PRODUCT:
-                        if(prijavljen[Korisnici.SKLADISTAR.getSkladistar()]){
-                            ServisZaArtikle.dodajArtikal(msg,konekcijaNaBazu,out,in);
-                            logServerThreada.logujDogadjaj(Level.FINE,this,"Dodan artikal");
-                        } else{
-                            out.writeObject(new String("NOK#Trenutni korisnik ne moze dodati artikle"));
-                            logServerThreada.logujDogadjaj(Level.WARNING,new DTONalog(),"Korisnik koji nema pravo pokusao je dodati artikal\n Korisnik: "+nalogTrenutnogKorisnika.getKorisnickiNalog());
                         }
                         break;
                     case LIST_PRODUCTS:
@@ -360,6 +343,8 @@ public class ServerThread extends Thread{
                             logServerThreada.logujDogadjaj(Level.WARNING,new DTONalog(),"Kornisnik koji nema pravo da otkaze rezervaciju\n Korisnik: "+ nalogTrenutnogKorisnika.getKorisnickiNalog());
                         }
                         break;
+                    case GET_ISSUES:
+                        ServisZaKinooperatere.dohvatiSvaIzdavanja(msg,konekcijaNaBazu,out,in);
                     default:
                         logServerThreada.logujDogadjaj(Level.SEVERE, this, "Neispravan protokol. Poruka = " + msg);
                         out.writeObject(new String("NOK ProtokolError"));

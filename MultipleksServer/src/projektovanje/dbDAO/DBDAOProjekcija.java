@@ -76,7 +76,7 @@ public class DBDAOProjekcija implements IDBDAO {
         if (rezultat.next()) {
             int id = rezultat.getInt(1);
             int idFilma = rezultat.getInt(2);
-            java.util.Date vrijeme = new java.util.Date(rezultat.getDate(3).getTime());
+            java.util.Date vrijeme = new java.util.Date(rezultat.getTimestamp(3).getTime());
             int idZaposlenog = rezultat.getInt(4);
             int idRepertoara = rezultat.getInt(5);
             int idSale = rezultat.getInt(6);
