@@ -98,7 +98,7 @@ public class DBDAORepertoar implements IDBDAO {
         List<DTORepertoar> sviRepertoari = citajIzBaze(konekcijaNaBazu);
         java.util.Date trenutnoVrijeme = new java.util.Date();
         sviRepertoari.stream().filter(x-> x.getRepertoar().getDatumDo().after(trenutnoVrijeme) && x.getRepertoar().getDatumOd().before(trenutnoVrijeme));
-        DTORepertoar trenutniRepertoar = sviRepertoari.get(1);
+        DTORepertoar trenutniRepertoar = sviRepertoari.get(0);
         return trenutniRepertoar;
     }
 }
