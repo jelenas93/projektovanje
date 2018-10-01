@@ -135,7 +135,7 @@ public class ServerThread extends Thread{
                         }
                         break;
                     case LIST_MOVIE_HALL:
-                        if (prijavljen[Korisnici.MENADZER.getMenadzer()]){
+                        if (prijavljen[Korisnici.MENADZER.getMenadzer()] || prijavljen[Korisnici.KLIJENT.getKlijent()] || prijavljen[Korisnici.PRODAVACKARATA.getProdavacKarata()]){
                             ServisZaSale.prikaziSale(in,out,konekcijaNaBazu,nalogTrenutnogKorisnika);
                             logServerThreada.logujDogadjaj(Level.FINE, this, "Uspjesno izlistane sale na zahtjev korisnika: +" + nalogTrenutnogKorisnika.getKorisnickiNalog());
                         }else{
