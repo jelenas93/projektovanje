@@ -33,7 +33,7 @@ public class ServisZaRacune {
             stavkaDAO.upisiUBazu(new DTOStavka(stavka),konekcijaNaBazu);
             Artikal art = stavka.getArtikal();
             art.setKolicinaNaStanju(art.getKolicinaNaStanju()-stavka.getKolicina());
-            artikalDAO.upisiUBazu(new DTOArtikal(art),konekcijaNaBazu);
+            artikalDAO.azurirajBazu(new DTOArtikal(art),konekcijaNaBazu);
         }
         odgovor = new String("OK");
         out.writeObject(odgovor);
