@@ -20,6 +20,7 @@ import java.util.List;
 public class ServisZaRacune {
     public static void dodajRacun(String msg, Connection konekcijaNaBazu, ObjectInputStream in, ObjectOutputStream out) throws IOException, ClassNotFoundException, SQLException {
         String odgovor = new String("WHICHONE");
+        out.writeObject(odgovor);
         DTORacun racunDto = (DTORacun)in.readObject();
         Racun racun = racunDto.getRacun();
         List<Stavka> stavke = racun.getStavka();
