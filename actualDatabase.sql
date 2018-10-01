@@ -314,7 +314,6 @@ alter table Karta add foreign key (korisnickoIme) references Nalog(korisnickoIme
 #ukloni foreign key kod kreiranja stvarne baze iz karte prema klijentu, ovako ce
 alter table projekcija add column idSale int;
 alter table projekcija add foreign key(idSale) references sala(idSale);
-alter table film drop column posterFilma;
 alter table Film add column posterFilma varchar(150);
 #izmjena ulazne fakture
 alter table ulaznafaktura drop column brojRacuna;
