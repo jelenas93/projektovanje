@@ -311,7 +311,6 @@ alter table projekcija add column idRepertoara int;
 alter table projekcija add foreign key (idRepertoara) references Repertoar(idRepertoara);
 drop table repertoarProjekcija;
 alter table Karta add foreign key (korisnickoIme) references Nalog(korisnickoIme); 
-#ukloni foreign key kod kreiranja stvarne baze iz karte prema klijentu, ovako ce
 alter table projekcija add column idSale int;
 alter table projekcija add foreign key(idSale) references sala(idSale);
 alter table Film add column posterFilma varchar(150);

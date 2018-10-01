@@ -345,6 +345,7 @@ public class ServerThread extends Thread{
                         break;
                     case GET_ISSUES:
                         ServisZaKinooperatere.dohvatiSvaIzdavanja(msg,konekcijaNaBazu,out,in);
+                        break;
                     default:
                         logServerThreada.logujDogadjaj(Level.SEVERE, this, "Neispravan protokol. Poruka = " + msg);
                         out.writeObject(new String("NOK ProtokolError"));
